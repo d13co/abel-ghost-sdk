@@ -9,11 +9,7 @@ const sdk = new AbelGhostSDK({
 })
 
 ;(async () => {
-  const data2 = await sdk.getAssetLabels(31566704)
-
-  console.log(data2)
-
-  const data = await sdk.getAssetsTinyLabels([31566704])
+  const data = await sdk.getAllAssetIDs()
 
   console.log(data)
 })()

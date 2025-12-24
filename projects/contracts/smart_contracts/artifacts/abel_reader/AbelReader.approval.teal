@@ -6,18 +6,13 @@ main:
     intcblock 8 0 1
     // smart_contracts/abel_reader/contract.algo.ts:12
     // export class AbelReader extends Contract {
-    pushbytes 0xd5ab3366 // method "getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])"
-    txna ApplicationArgs 0
-    match main_getAssetsTiny_route@2
-    err
-
-main_getAssetsTiny_route@2:
-    // smart_contracts/abel_reader/contract.algo.ts:13
-    // @abimethod({ readonly: true, onCreate: "allow" })
     txn OnCompletion
     !
     assert // OnCompletion must be NoOp
-    b getAssetsTiny
+    pushbytess 0xd5ab3366 0xc2ed743f // method "getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])", method "get_asset_labels(asset)string[]"
+    txna ApplicationArgs 0
+    match getAssetsTiny getAssetLabels
+    err
 
 
 // smart_contracts/abel_reader/contract.algo.ts::AbelReader.getAssetsTiny[routing]() -> void:
@@ -80,7 +75,7 @@ getAssetsTiny_while_top@2:
     // smart_contracts/abel_reader/contract.algo.ts:18
     // if (!exists) {
     bnz getAssetsTiny_else_body@5
-    // smart_contracts/abel_reader/contract.algo.ts:35-40
+    // smart_contracts/abel_reader/contract.algo.ts:41-46
     // return {
     //   name: "",
     //   unit_name: "",
@@ -230,6 +225,21 @@ getAssetsTiny_after_while@11:
     // smart_contracts/abel_reader/contract.algo.ts:13
     // @abimethod({ readonly: true, onCreate: "allow" })
     pushbytes 0x151f7c750007000900000b000000000000
+    log
+    intc_2 // 1
+    return
+
+
+// smart_contracts/abel_reader/contract.algo.ts::AbelReader.getAssetLabels[routing]() -> void:
+getAssetLabels:
+    // smart_contracts/abel_reader/contract.algo.ts:34
+    // @abimethod({ readonly: true, onCreate: "allow" , name: "get_asset_labels", resourceEncoding: "index" })
+    txna ApplicationArgs 1
+    len
+    intc_2 // 1
+    ==
+    assert // invalid number of bytes for arc4.uint8
+    pushbytes 0x151f7c750000
     log
     intc_2 // 1
     return

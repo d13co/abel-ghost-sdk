@@ -31,6 +31,12 @@ export class AbelReader extends Contract {
     return this.getEmptyAssetTinyLabels();
   }
 
+  @abimethod({ readonly: true, onCreate: "allow" , name: "get_asset_labels", resourceEncoding: "index" })
+  getAssetLabels(assetId: Asset): string[] {
+    // this stub will be used against abel registry contract instead of this
+    return [] as string[]
+  }
+
   private getEmptyAssetTinyLabels(): AssetTinyLabels {
     return {
       name: "",
