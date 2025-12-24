@@ -1,22 +1,15 @@
-# abel-ghost-sdk
+# Abel Ghost SDK
 
-Welcome to your new AlgoKit project!
+Tiny Ghostkit SDK for Abel, allowing algo.surf to batch look up assets on any network, while also supporting the abel label registry on Mainnet.
 
-This is your workspace root. A `workspace` in AlgoKit is an orchestrated collection of standalone projects (backends, smart contracts, frontend apps and etc).
+https://github.com/Algorand-Developer-Retreat/abel
 
-By default, `projects_root_path` parameter is set to `projects`. Which instructs AlgoKit CLI to create a new directory under `projects` directory when new project is instantiated via `algokit init` at the root of the workspace.
+https://github.com/d13co/ghostkit
 
-## Getting Started
+For a more fleshed out project in similar vein, see: https://github.com/d13co/reti-ghost-sdk 
 
-To get started refer to `README.md` files in respective sub-projects in the `projects` directory.
+## Examples
 
-To learn more about algokit, visit [documentation](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/algokit.md).
+See projects/sdk/examples
 
-### GitHub Codespaces
 
-To get started execute:
-
-1. `algokit generate devcontainer` - invoking this command from the root of this repository will create a `devcontainer.json` file with all the configuration needed to run this project in a GitHub codespace. [Run the repository inside a codespace](https://docs.github.com/en/codespaces/getting-started/quickstart) to get started.
-2. `algokit init` - invoke this command inside a github codespace to launch an interactive wizard to guide you through the process of creating a new AlgoKit project
-
-Powered by [Copier templates](https://copier.readthedocs.io/en/stable/).
