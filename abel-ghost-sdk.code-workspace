@@ -5,7 +5,10 @@
       "name": "ROOT"
     },
     {
-      "path": "projects/abel-ghost-sdk"
+      "path": "projects/contracts"
+    },
+    {
+      "path": "projects/sdk"
     }
   ],
   "settings": {

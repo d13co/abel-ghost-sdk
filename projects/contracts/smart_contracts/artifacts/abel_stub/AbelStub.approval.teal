@@ -1,0 +1,59 @@
+#pragma version 11
+#pragma typetrack false
+
+// @algorandfoundation/algorand-typescript/arc4/index.d.ts::Contract.approvalProgram() -> uint64:
+main:
+    // smart_contracts/abel_stub/contract.algo.ts:3
+    // export class AbelStub extends Contract {
+    txn NumAppArgs
+    bz main___algots__.defaultCreate@5
+    pushbytes 0x97f40a8a // method "has_asset_label(uint64,string)uint64"
+    txna ApplicationArgs 0
+    match main_has_asset_label_route@3
+    err
+
+main_has_asset_label_route@3:
+    // smart_contracts/abel_stub/contract.algo.ts:4
+    // has_asset_label(_asset_id: uint64, _label: string): uint64 {
+    txn OnCompletion
+    !
+    txn ApplicationID
+    &&
+    assert // OnCompletion must be NoOp && can only call when not creating
+    b has_asset_label
+
+main___algots__.defaultCreate@5:
+    // smart_contracts/abel_stub/contract.algo.ts:3
+    // export class AbelStub extends Contract {
+    txn OnCompletion
+    !
+    txn ApplicationID
+    !
+    &&
+    assert // OnCompletion must be NoOp && can only call when creating
+    pushint 1 // 1
+    return
+
+
+// smart_contracts/abel_stub/contract.algo.ts::AbelStub.has_asset_label[routing]() -> void:
+has_asset_label:
+    // smart_contracts/abel_stub/contract.algo.ts:4
+    // has_asset_label(_asset_id: uint64, _label: string): uint64 {
+    txna ApplicationArgs 1
+    len
+    pushint 8 // 8
+    ==
+    assert // invalid number of bytes for arc4.uint64
+    txna ApplicationArgs 2
+    dup
+    pushint 0 // 0
+    extract_uint16 // on error: invalid array length header
+    pushint 2 // 2
+    +
+    swap
+    len
+    ==
+    assert // invalid number of bytes for arc4.dynamic_array<arc4.uint8>
+    // smart_contracts/abel_stub/contract.algo.ts:5
+    // err("stub");
+    err // stub
