@@ -1,6 +1,6 @@
-import { abimethod, Application, Asset, Contract, log, op, uint64 } from "@algorandfoundation/algorand-typescript";
+import { TemplateVar, abimethod, Application, assert, Asset, Contract, Global, log, op, Txn, uint64 } from "@algorandfoundation/algorand-typescript";
 import { AbelStub } from "../abel_stub/contract.algo";
-import { compileArc4, encodeArc4, Uint8 } from "@algorandfoundation/algorand-typescript/arc4";
+import { baremethod, compileArc4, encodeArc4, Uint8 } from "@algorandfoundation/algorand-typescript/arc4";
 
 export type AssetTinyLabels = {
   name: string;
@@ -10,15 +10,21 @@ export type AssetTinyLabels = {
 };
 
 export class AbelReader extends Contract {
+  @baremethod({ allowActions: ["UpdateApplication", "DeleteApplication"] })
+  adminOnly(): void {
+    log("1")
+    assert(TemplateVar<uint64>("UPDATABLE") === 1 && Txn.sender === Global.creatorAddress);
+  }
+
   @abimethod({ readonly: true, onCreate: "allow" })
-  getAssetsTiny(assetIds: Asset[], abelAppId: Application): AssetTinyLabels {
+  getAssetsTiny(assetIds: Asset[], abelAppId: uint64): AssetTinyLabels {
     for (let idx: uint64 = 0; idx < assetIds.length; idx++) {
       const asset = assetIds[idx];
       const [_, exists] = op.AssetParams.assetCreator(asset.id);
       if (!exists) {
         log(encodeArc4(this.getEmptyAssetTinyLabels()));
       } else {
-        const pv = compileArc4(AbelStub).call.has_asset_label({ appId: abelAppId, args: [asset.id, "pv"] }).returnValue;
+        const pv: uint64 = abelAppId !== 0 ? compileArc4(AbelStub).call.has_asset_label({ appId: abelAppId, args: [asset.id, "pv"] }).returnValue : 0
         const assetInfo: AssetTinyLabels = {
           name: asset.name.toString(),
           unit_name: asset.unitName.toString(),

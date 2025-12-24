@@ -1,9 +1,12 @@
 import { AlgorandClient } from "@algorandfoundation/algokit-utils"
-import { AbelReaderSDK } from "./generated/AbelReaderSDK.js"
+import { AbelReaderSDK, AssetTinyLabels as AssetTinyLabelsInternal } from "./generated/AbelReaderSDK.js"
 import { chunked } from "./utils/chunked.js"
 import { decodeUint64 } from "algosdk"
-import { get } from "node:http"
 import { BoxName } from "@algorandfoundation/algokit-utils/types/app.js"
+
+export interface AssetTinyLabels extends AssetTinyLabelsInternal {
+  id: bigint
+}
 
 export class AbelGhostSDK {
   static baseSDK = AbelReaderSDK
@@ -34,8 +37,13 @@ export class AbelGhostSDK {
     })
   }
 
+  async getAssetsTinyLabels(assetIds: number[] | bigint[]): Promise<Map<bigint, AssetTinyLabels>> {
+    const data = await this.getAssetsTinyLabelsInternal(assetIds)
+    return new Map(data.map((asset, i) => [BigInt(assetIds[i]), { ...asset, id: BigInt(assetIds[i]) }]))
+  }
+
   @chunked(63)
-  getAssetsTinyLabels(assetIds: number[] | bigint[]) {
+  private async getAssetsTinyLabelsInternal(assetIds: number[] | bigint[]): Promise<AssetTinyLabelsInternal[]> {
     return this.baseSDK.getAssetsTiny({
       methodArgsOrArgsArray: { assetIds, abelAppId: this.registryAppId ?? 0n },
       extraMethodCallArgs: { extraFee: (assetIds.length * 1000).microAlgo() },

@@ -8,8 +8,9 @@ https://github.com/d13co/ghostkit
 
 For a more fleshed out project in similar vein, see: https://github.com/d13co/reti-ghost-sdk 
 
+Mainnet ghost app ID 3381542955
+
 ## Examples
 
 See projects/sdk/examples
-
 
