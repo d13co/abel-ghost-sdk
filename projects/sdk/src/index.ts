@@ -21,18 +21,20 @@ export class AbelGhostSDK {
     registryAppId,
     concurrency = 4,
     ghostAppId,
+    readerAccount,
   }: {
     algorand: AlgorandClient
     concurrency?: number
     registryAppId?: number | bigint
     ghostAppId?: bigint
+    readerAccount?: string
   }) {
     this.algorand = algorand
     this.registryAppId = registryAppId !== undefined ? BigInt(registryAppId) : undefined
     this.concurrency = concurrency
     this.baseSDK = new AbelReaderSDK({
       algorand: this.algorand,
-      readerAccount: "Y76M3MSY6DKBRHBL7C3NNDXGS5IIMQVQVUAB6MP4XEMMGVF2QWNPL226CA",
+      readerAccount: readerAccount ?? "A7NMWS3NT3IUDMLVO26ULGXGIIOUQ3ND2TXSER6EBGRZNOBOUIQXHIBGDE",
       ghostAppId,
     })
   }
