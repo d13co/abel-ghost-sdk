@@ -1,5 +1,5 @@
 import { AlgorandClient } from "@algorandfoundation/algokit-utils"
-import { AbelReaderSDK, AssetTinyLabels as AssetTinyLabelsInternal } from "./generated/AbelReaderSDK.js"
+import { AbelReaderSDK, AssetTinyLabels as AssetTinyLabelsInternal, BalanceInfo } from "./generated/AbelReaderSDK.js"
 import { chunked } from "./utils/chunked.js"
 import { decodeUint64 } from "algosdk"
 import { BoxName } from "@algorandfoundation/algokit-utils/types/app.js"
@@ -37,6 +37,16 @@ export class AbelGhostSDK {
       readerAccount: readerAccount ?? "A7NMWS3NT3IUDMLVO26ULGXGIIOUQ3ND2TXSER6EBGRZNOBOUIQXHIBGDE",
       ghostAppId,
     })
+  }
+
+  async getBalanceInfo(accounts: string[]): Promise<Map<string, BalanceInfo>> {
+    const data = await this.getBalanceInfoInternal(accounts)
+    return new Map(data.map((balance, i) => [accounts[i], balance]))
+  }
+
+  @chunked(63)
+  private async getBalanceInfoInternal(accounts: string[]): Promise<BalanceInfo[]> {
+    return this.baseSDK.getBalanceInfo({ methodArgsOrArgsArray: { accounts } })
   }
 
   async getAssetsTinyLabels(assetIds: number[] | bigint[]): Promise<Map<bigint, AssetTinyLabels>> {

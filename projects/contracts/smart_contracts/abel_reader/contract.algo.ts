@@ -1,6 +1,24 @@
-import { TemplateVar, abimethod, Application, assert, Asset, Contract, Global, log, op, Txn, uint64 } from "@algorandfoundation/algorand-typescript";
+import {
+  TemplateVar,
+  abimethod,
+  Application,
+  assert,
+  Asset,
+  Contract,
+  Global,
+  log,
+  op,
+  Txn,
+  uint64,
+  Account,
+} from "@algorandfoundation/algorand-typescript";
 import { AbelStub } from "../abel_stub/contract.algo";
 import { baremethod, compileArc4, encodeArc4, Uint8 } from "@algorandfoundation/algorand-typescript/arc4";
+
+export type BalanceInfo = {
+  balance: uint64;
+  minBalance: uint64;
+};
 
 export type AssetTinyLabels = {
   name: string;
@@ -12,8 +30,27 @@ export type AssetTinyLabels = {
 export class AbelReader extends Contract {
   @baremethod({ allowActions: ["UpdateApplication", "DeleteApplication"] })
   adminOnly(): void {
-    log("1")
     assert(TemplateVar<uint64>("UPDATABLE") === 1 && Txn.sender === Global.creatorAddress);
+  }
+
+  @abimethod({ readonly: true, onCreate: "allow" })
+  getBalanceInfo(accounts: Account[]): BalanceInfo {
+    for (let idx: uint64 = 0; idx < accounts.length; idx++) {
+      const account = accounts[idx];
+      const balance = op.balance(account);
+      if (balance > 0) {
+        const minBalance = op.minBalance(account);
+        const balanceInfo: BalanceInfo = { balance, minBalance };
+        log(encodeArc4(balanceInfo));
+      } else {
+        log(encodeArc4(this.getEmptyBalanceInfo()));
+      }
+    }
+    return this.getEmptyBalanceInfo();
+  }
+
+  private getEmptyBalanceInfo(): BalanceInfo {
+    return { balance: 0, minBalance: 0 };
   }
 
   @abimethod({ readonly: true, onCreate: "allow" })
@@ -24,12 +61,13 @@ export class AbelReader extends Contract {
       if (!exists) {
         log(encodeArc4(this.getEmptyAssetTinyLabels()));
       } else {
-        const pv: uint64 = abelAppId !== 0 ? compileArc4(AbelStub).call.has_asset_label({ appId: abelAppId, args: [asset.id, "pv"] }).returnValue : 0
+        const pv: uint64 =
+          abelAppId !== 0 ? compileArc4(AbelStub).call.has_asset_label({ appId: abelAppId, args: [asset.id, "pv"] }).returnValue : 0;
         const assetInfo: AssetTinyLabels = {
           name: asset.name.toString(),
           unit_name: asset.unitName.toString(),
           decimals: new Uint8(asset.decimals),
-          labels: pv === 0 ? [] as string[] : ["pv"],
+          labels: pv === 0 ? ([] as string[]) : ["pv"],
         };
         log(encodeArc4(assetInfo));
       }
@@ -37,10 +75,10 @@ export class AbelReader extends Contract {
     return this.getEmptyAssetTinyLabels();
   }
 
-  @abimethod({ readonly: true, onCreate: "allow" , name: "get_asset_labels", resourceEncoding: "index" })
+  @abimethod({ readonly: true, onCreate: "allow", name: "get_asset_labels", resourceEncoding: "index" })
   getAssetLabels(assetId: Asset): string[] {
     // this stub will be used against abel registry contract instead of this
-    return [] as string[]
+    return [] as string[];
   }
 
   private getEmptyAssetTinyLabels(): AssetTinyLabels {

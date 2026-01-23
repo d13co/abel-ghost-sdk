@@ -23,7 +23,7 @@ import { TransactionComposer, AppCallMethodCall, AppMethodCallTransactionArgumen
 import { SendParams, SendSingleTransactionResult, SendAtomicTransactionComposerResults } from '@algorandfoundation/algokit-utils/types/transaction'
 import { Address, encodeAddress, modelsv2, OnApplicationComplete, Transaction, TransactionSigner } from 'algosdk'
 
-export const APP_SPEC: Arc56Contract = {"name":"AbelReader","structs":{"AssetTinyLabels":[{"name":"name","type":"string"},{"name":"unitName","type":"string"},{"name":"decimals","type":"uint8"},{"name":"labels","type":"string[]"}]},"methods":[{"name":"getAssetsTiny","args":[{"type":"uint64[]","name":"assetIds"},{"type":"uint64","name":"abelAppId"}],"returns":{"type":"(string,string,uint8,string[])","struct":"AssetTinyLabels"},"actions":{"create":["NoOp"],"call":["NoOp"]},"readonly":true,"events":[],"recommendations":{}},{"name":"get_asset_labels","args":[{"type":"asset","name":"assetId"}],"returns":{"type":"string[]"},"actions":{"create":["NoOp"],"call":["NoOp"]},"readonly":true,"events":[],"recommendations":{}}],"arcs":[22,28],"networks":{},"state":{"schema":{"global":{"ints":0,"bytes":0},"local":{"ints":0,"bytes":0}},"keys":{"global":{},"local":{},"box":{}},"maps":{"global":{},"local":{},"box":{}}},"bareActions":{"create":[],"call":["DeleteApplication","UpdateApplication"]},"sourceInfo":{"approval":{"sourceInfo":[{"pc":[212],"errorMessage":"Bytes has valid prefix"},{"pc":[8],"errorMessage":"OnCompletion must be NoOp"},{"pc":[41],"errorMessage":"OnCompletion must be one of UpdateApplication, DeleteApplication && can only call when not creating"},{"pc":[227,234,237],"errorMessage":"asset exists"},{"pc":[116],"errorMessage":"index access is out of bounds"},{"pc":[75],"errorMessage":"invalid array length header"},{"pc":[87],"errorMessage":"invalid number of bytes for arc4.dynamic_array<asset>"},{"pc":[95,217],"errorMessage":"invalid number of bytes for arc4.uint64"},{"pc":[365],"errorMessage":"invalid number of bytes for arc4.uint8"},{"pc":[243],"errorMessage":"overflow"}],"pcOffsetMethod":"cblocks"},"clear":{"sourceInfo":[],"pcOffsetMethod":"none"}},"source":{"approval":"I3ByYWdtYSB2ZXJzaW9uIDExCiNwcmFnbWEgdHlwZXRyYWNrIGZhbHNlCgovLyBAYWxnb3JhbmRmb3VuZGF0aW9uL2FsZ29yYW5kLXR5cGVzY3JpcHQvYXJjNC9pbmRleC5kLnRzOjpDb250cmFjdC5hcHByb3ZhbFByb2dyYW0oKSAtPiB1aW50NjQ6Cm1haW46CiAgICBpbnRjYmxvY2sgMSAwIDggVE1QTF9VUERBVEFCTEUKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjEyCiAgICAvLyBleHBvcnQgY2xhc3MgQWJlbFJlYWRlciBleHRlbmRzIENvbnRyYWN0IHsKICAgIHR4biBOdW1BcHBBcmdzCiAgICBieiBtYWluX2FkbWluT25seUA5CiAgICB0eG4gT25Db21wbGV0aW9uCiAgICAhCiAgICBhc3NlcnQgLy8gT25Db21wbGV0aW9uIG11c3QgYmUgTm9PcAogICAgcHVzaGJ5dGVzcyAweGQ1YWIzMzY2IDB4YzJlZDc0M2YgLy8gbWV0aG9kICJnZXRBc3NldHNUaW55KHVpbnQ2NFtdLHVpbnQ2NCkoc3RyaW5nLHN0cmluZyx1aW50OCxzdHJpbmdbXSkiLCBtZXRob2QgImdldF9hc3NldF9sYWJlbHMoYXNzZXQpc3RyaW5nW10iCiAgICB0eG5hIEFwcGxpY2F0aW9uQXJncyAwCiAgICBtYXRjaCBnZXRBc3NldHNUaW55IGdldEFzc2V0TGFiZWxzCiAgICBlcnIKCm1haW5fYWRtaW5Pbmx5QDk6CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czoxMwogICAgLy8gQGJhcmVtZXRob2QoeyBhbGxvd0FjdGlvbnM6IFsiVXBkYXRlQXBwbGljYXRpb24iLCAiRGVsZXRlQXBwbGljYXRpb24iXSB9KQogICAgaW50Y18wIC8vIDEKICAgIHR4biBPbkNvbXBsZXRpb24KICAgIHNobAogICAgcHVzaGludCA0OCAvLyA0OAogICAgJgogICAgdHhuIEFwcGxpY2F0aW9uSUQKICAgICYmCiAgICBhc3NlcnQgLy8gT25Db21wbGV0aW9uIG11c3QgYmUgb25lIG9mIFVwZGF0ZUFwcGxpY2F0aW9uLCBEZWxldGVBcHBsaWNhdGlvbiAmJiBjYW4gb25seSBjYWxsIHdoZW4gbm90IGNyZWF0aW5nCiAgICAvLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czoxNQogICAgLy8gbG9nKCIxIikKICAgIHB1c2hieXRlcyAiMSIKICAgIGxvZwogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6MTYKICAgIC8vIGFzc2VydChUZW1wbGF0ZVZhcjx1aW50NjQ+KCJVUERBVEFCTEUiKSA9PT0gMSAmJiBUeG4uc2VuZGVyID09PSBHbG9iYWwuY3JlYXRvckFkZHJlc3MpOwogICAgaW50Y18zIC8vIFRNUExfVVBEQVRBQkxFCiAgICBpbnRjXzAgLy8gMQogICAgPT0KICAgIGJ6IG1haW5fYm9vbF9mYWxzZUAxMwogICAgdHhuIFNlbmRlcgogICAgZ2xvYmFsIENyZWF0b3JBZGRyZXNzCiAgICA9PQogICAgYnogbWFpbl9ib29sX2ZhbHNlQDEzCiAgICBpbnRjXzAgLy8gMQogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6MTMKICAgIC8vIEBiYXJlbWV0aG9kKHsgYWxsb3dBY3Rpb25zOiBbIlVwZGF0ZUFwcGxpY2F0aW9uIiwgIkRlbGV0ZUFwcGxpY2F0aW9uIl0gfSkKICAgIHJldHVybgoKbWFpbl9ib29sX2ZhbHNlQDEzOgogICAgaW50Y18xIC8vIDAKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjEzCiAgICAvLyBAYmFyZW1ldGhvZCh7IGFsbG93QWN0aW9uczogWyJVcGRhdGVBcHBsaWNhdGlvbiIsICJEZWxldGVBcHBsaWNhdGlvbiJdIH0pCiAgICByZXR1cm4KCgovLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czo6QWJlbFJlYWRlci5nZXRBc3NldHNUaW55W3JvdXRpbmddKCkgLT4gdm9pZDoKZ2V0QXNzZXRzVGlueToKICAgIGludGNfMSAvLyAwCiAgICBkdXBuIDMKICAgIHB1c2hieXRlcyAiIgogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6MTkKICAgIC8vIEBhYmltZXRob2QoeyByZWFkb25seTogdHJ1ZSwgb25DcmVhdGU6ICJhbGxvdyIgfSkKICAgIHR4bmEgQXBwbGljYXRpb25BcmdzIDEKICAgIGR1cG4gMgogICAgaW50Y18xIC8vIDAKICAgIGV4dHJhY3RfdWludDE2IC8vIG9uIGVycm9yOiBpbnZhbGlkIGFycmF5IGxlbmd0aCBoZWFkZXIKICAgIGR1cAogICAgY292ZXIgMgogICAgaW50Y18yIC8vIDgKICAgICoKICAgIHB1c2hpbnQgMiAvLyAyCiAgICArCiAgICBzd2FwCiAgICBsZW4KICAgID09CiAgICBhc3NlcnQgLy8gaW52YWxpZCBudW1iZXIgb2YgYnl0ZXMgZm9yIGFyYzQuZHluYW1pY19hcnJheTxhc3NldD4KICAgIHR4bmEgQXBwbGljYXRpb25BcmdzIDIKICAgIGR1cAogICAgbGVuCiAgICBpbnRjXzIgLy8gOAogICAgPT0KICAgIGFzc2VydCAvLyBpbnZhbGlkIG51bWJlciBvZiBieXRlcyBmb3IgYXJjNC51aW50NjQKICAgIGJ0b2kKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjIxCiAgICAvLyBmb3IgKGxldCBpZHg6IHVpbnQ2NCA9IDA7IGlkeCA8IGFzc2V0SWRzLmxlbmd0aDsgaWR4KyspIHsKICAgIGludGNfMSAvLyAwCgpnZXRBc3NldHNUaW55X3doaWxlX3RvcEAyOgogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6MjEKICAgIC8vIGZvciAobGV0IGlkeDogdWludDY0ID0gMDsgaWR4IDwgYXNzZXRJZHMubGVuZ3RoOyBpZHgrKykgewogICAgZHVwCiAgICBkaWcgMwogICAgPAogICAgYnogZ2V0QXNzZXRzVGlueV9hZnRlcl93aGlsZUAxNAogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6MjIKICAgIC8vIGNvbnN0IGFzc2V0ID0gYXNzZXRJZHNbaWR4XTsKICAgIGRpZyAzCiAgICBleHRyYWN0IDIgMAogICAgZGlnIDEKICAgIGludGNfMiAvLyA4CiAgICAqCiAgICBkdXAyCiAgICBpbnRjXzIgLy8gOAogICAgZXh0cmFjdDMgLy8gb24gZXJyb3I6IGluZGV4IGFjY2VzcyBpcyBvdXQgb2YgYm91bmRzCiAgICBidXJ5IDExCiAgICBleHRyYWN0X3VpbnQ2NAogICAgZHVwCiAgICBidXJ5IDYKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjIzCiAgICAvLyBjb25zdCBbXywgZXhpc3RzXSA9IG9wLkFzc2V0UGFyYW1zLmFzc2V0Q3JlYXRvcihhc3NldC5pZCk7CiAgICBhc3NldF9wYXJhbXNfZ2V0IEFzc2V0Q3JlYXRvcgogICAgYnVyeSAxCiAgICAvLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czoyNAogICAgLy8gaWYgKCFleGlzdHMpIHsKICAgIGJueiBnZXRBc3NldHNUaW55X2Vsc2VfYm9keUA1CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czo0Ny01MgogICAgLy8gcmV0dXJuIHsKICAgIC8vICAgbmFtZTogIiIsCiAgICAvLyAgIHVuaXRfbmFtZTogIiIsCiAgICAvLyAgIGRlY2ltYWxzOiBuZXcgVWludDgoMCksCiAgICAvLyAgIGxhYmVsczogW10sCiAgICAvLyB9OwogICAgcHVzaGJ5dGVzIDB4MDAwNzAwMDkwMDAwMGIwMDAwMDAwMDAwMDAKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjI1CiAgICAvLyBsb2coZW5jb2RlQXJjNCh0aGlzLmdldEVtcHR5QXNzZXRUaW55TGFiZWxzKCkpKTsKICAgIGxvZwoKZ2V0QXNzZXRzVGlueV9hZnRlcl9pZl9lbHNlQDEzOgogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6MjEKICAgIC8vIGZvciAobGV0IGlkeDogdWludDY0ID0gMDsgaWR4IDwgYXNzZXRJZHMubGVuZ3RoOyBpZHgrKykgewogICAgZHVwCiAgICBpbnRjXzAgLy8gMQogICAgKwogICAgYnVyeSAxCiAgICBiIGdldEFzc2V0c1Rpbnlfd2hpbGVfdG9wQDIKCmdldEFzc2V0c1RpbnlfZWxzZV9ib2R5QDU6CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czoyNwogICAgLy8gY29uc3QgcHY6IHVpbnQ2NCA9IGFiZWxBcHBJZCAhPT0gMCA/IGNvbXBpbGVBcmM0KEFiZWxTdHViKS5jYWxsLmhhc19hc3NldF9sYWJlbCh7IGFwcElkOiBhYmVsQXBwSWQsIGFyZ3M6IFthc3NldC5pZCwgInB2Il0gfSkucmV0dXJuVmFsdWUgOiAwCiAgICBkaWcgMQogICAgYnogZ2V0QXNzZXRzVGlueV90ZXJuYXJ5X2ZhbHNlQDgKICAgIGl0eG5fYmVnaW4KICAgIHB1c2hieXRlcyAweDk3ZjQwYThhIC8vIG1ldGhvZCAiaGFzX2Fzc2V0X2xhYmVsKHVpbnQ2NCxzdHJpbmcpdWludDY0IgogICAgaXR4bl9maWVsZCBBcHBsaWNhdGlvbkFyZ3MKICAgIGRpZyA4CiAgICBpdHhuX2ZpZWxkIEFwcGxpY2F0aW9uQXJncwogICAgcHVzaGJ5dGVzIDB4MDAwMjcwNzYKICAgIGl0eG5fZmllbGQgQXBwbGljYXRpb25BcmdzCiAgICBpbnRjXzEgLy8gMAogICAgaXR4bl9maWVsZCBPbkNvbXBsZXRpb24KICAgIGRpZyAxCiAgICBpdHhuX2ZpZWxkIEFwcGxpY2F0aW9uSUQKICAgIHB1c2hpbnQgNiAvLyBhcHBsCiAgICBpdHhuX2ZpZWxkIFR5cGVFbnVtCiAgICBpbnRjXzEgLy8gMAogICAgaXR4bl9maWVsZCBGZWUKICAgIGl0eG5fc3VibWl0CiAgICBpdHhuIExhc3RMb2cKICAgIGR1cAogICAgZXh0cmFjdCA0IDAKICAgIHN3YXAKICAgIGV4dHJhY3QgMCA0CiAgICBwdXNoYnl0ZXMgMHgxNTFmN2M3NQogICAgPT0KICAgIGFzc2VydCAvLyBCeXRlcyBoYXMgdmFsaWQgcHJlZml4CiAgICBkdXAKICAgIGxlbgogICAgaW50Y18yIC8vIDgKICAgID09CiAgICBhc3NlcnQgLy8gaW52YWxpZCBudW1iZXIgb2YgYnl0ZXMgZm9yIGFyYzQudWludDY0CiAgICBidG9pCgpnZXRBc3NldHNUaW55X3Rlcm5hcnlfbWVyZ2VAOToKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjI5CiAgICAvLyBuYW1lOiBhc3NldC5uYW1lLnRvU3RyaW5nKCksCiAgICBkaWcgNQogICAgZHVwCiAgICBhc3NldF9wYXJhbXNfZ2V0IEFzc2V0TmFtZQogICAgc3dhcAogICAgYnVyeSAxMAogICAgYXNzZXJ0IC8vIGFzc2V0IGV4aXN0cwogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6MzAKICAgIC8vIHVuaXRfbmFtZTogYXNzZXQudW5pdE5hbWUudG9TdHJpbmcoKSwKICAgIGR1cAogICAgYXNzZXRfcGFyYW1zX2dldCBBc3NldFVuaXROYW1lCiAgICBzd2FwCiAgICBidXJ5IDkKICAgIGFzc2VydCAvLyBhc3NldCBleGlzdHMKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjMxCiAgICAvLyBkZWNpbWFsczogbmV3IFVpbnQ4KGFzc2V0LmRlY2ltYWxzKSwKICAgIGFzc2V0X3BhcmFtc19nZXQgQXNzZXREZWNpbWFscwogICAgYXNzZXJ0IC8vIGFzc2V0IGV4aXN0cwogICAgaXRvYgogICAgZHVwCiAgICBiaXRsZW4KICAgIGludGNfMiAvLyA4CiAgICA8PQogICAgYXNzZXJ0IC8vIG92ZXJmbG93CiAgICBleHRyYWN0IDcgMQogICAgYnVyeSA5CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czozMgogICAgLy8gbGFiZWxzOiBwdiA9PT0gMCA/IFtdIGFzIHN0cmluZ1tdIDogWyJwdiJdLAogICAgYm56IGdldEFzc2V0c1RpbnlfdGVybmFyeV9mYWxzZUAxMQogICAgcHVzaGJ5dGVzIDB4MDAwMAoKZ2V0QXNzZXRzVGlueV90ZXJuYXJ5X21lcmdlQDEyOgogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6MjgtMzMKICAgIC8vIGNvbnN0IGFzc2V0SW5mbzogQXNzZXRUaW55TGFiZWxzID0gewogICAgLy8gICBuYW1lOiBhc3NldC5uYW1lLnRvU3RyaW5nKCksCiAgICAvLyAgIHVuaXRfbmFtZTogYXNzZXQudW5pdE5hbWUudG9TdHJpbmcoKSwKICAgIC8vICAgZGVjaW1hbHM6IG5ldyBVaW50OChhc3NldC5kZWNpbWFscyksCiAgICAvLyAgIGxhYmVsczogcHYgPT09IDAgPyBbXSBhcyBzdHJpbmdbXSA6IFsicHYiXSwKICAgIC8vIH07CiAgICBkaWcgNwogICAgZHVwCiAgICBsZW4KICAgIGl0b2IKICAgIGV4dHJhY3QgNiAyCiAgICBzd2FwCiAgICBjb25jYXQKICAgIGR1cAogICAgbGVuCiAgICBwdXNoaW50IDcgLy8gNwogICAgKwogICAgZGlnIDgKICAgIGR1cAogICAgbGVuCiAgICBpdG9iCiAgICBleHRyYWN0IDYgMgogICAgc3dhcAogICAgY29uY2F0CiAgICBkaWcgMQogICAgaXRvYgogICAgZXh0cmFjdCA2IDIKICAgIHB1c2hieXRlcyAweDAwMDcKICAgIHN3YXAKICAgIGNvbmNhdAogICAgZGlnIDEKICAgIGxlbgogICAgdW5jb3ZlciAzCiAgICArCiAgICBzd2FwCiAgICBkaWcgMTIKICAgIGNvbmNhdAogICAgc3dhcAogICAgaXRvYgogICAgZXh0cmFjdCA2IDIKICAgIGNvbmNhdAogICAgdW5jb3ZlciAyCiAgICBjb25jYXQKICAgIHN3YXAKICAgIGNvbmNhdAogICAgc3dhcAogICAgY29uY2F0CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czozNAogICAgLy8gbG9nKGVuY29kZUFyYzQoYXNzZXRJbmZvKSk7CiAgICBsb2cKICAgIGIgZ2V0QXNzZXRzVGlueV9hZnRlcl9pZl9lbHNlQDEzCgpnZXRBc3NldHNUaW55X3Rlcm5hcnlfZmFsc2VAMTE6CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czozMgogICAgLy8gbGFiZWxzOiBwdiA9PT0gMCA/IFtdIGFzIHN0cmluZ1tdIDogWyJwdiJdLAogICAgcHVzaGJ5dGVzIDB4MDAwMTAwMDIwMDAyNzA3NgogICAgYiBnZXRBc3NldHNUaW55X3Rlcm5hcnlfbWVyZ2VAMTIKCmdldEFzc2V0c1RpbnlfdGVybmFyeV9mYWxzZUA4OgogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6MjcKICAgIC8vIGNvbnN0IHB2OiB1aW50NjQgPSBhYmVsQXBwSWQgIT09IDAgPyBjb21waWxlQXJjNChBYmVsU3R1YikuY2FsbC5oYXNfYXNzZXRfbGFiZWwoeyBhcHBJZDogYWJlbEFwcElkLCBhcmdzOiBbYXNzZXQuaWQsICJwdiJdIH0pLnJldHVyblZhbHVlIDogMAogICAgaW50Y18xIC8vIDAKICAgIGIgZ2V0QXNzZXRzVGlueV90ZXJuYXJ5X21lcmdlQDkKCmdldEFzc2V0c1RpbnlfYWZ0ZXJfd2hpbGVAMTQ6CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czoxOQogICAgLy8gQGFiaW1ldGhvZCh7IHJlYWRvbmx5OiB0cnVlLCBvbkNyZWF0ZTogImFsbG93IiB9KQogICAgcHVzaGJ5dGVzIDB4MTUxZjdjNzUwMDA3MDAwOTAwMDAwYjAwMDAwMDAwMDAwMAogICAgbG9nCiAgICBpbnRjXzAgLy8gMQogICAgcmV0dXJuCgoKLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6OkFiZWxSZWFkZXIuZ2V0QXNzZXRMYWJlbHNbcm91dGluZ10oKSAtPiB2b2lkOgpnZXRBc3NldExhYmVsczoKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjQwCiAgICAvLyBAYWJpbWV0aG9kKHsgcmVhZG9ubHk6IHRydWUsIG9uQ3JlYXRlOiAiYWxsb3ciICwgbmFtZTogImdldF9hc3NldF9sYWJlbHMiLCByZXNvdXJjZUVuY29kaW5nOiAiaW5kZXgiIH0pCiAgICB0eG5hIEFwcGxpY2F0aW9uQXJncyAxCiAgICBsZW4KICAgIGludGNfMCAvLyAxCiAgICA9PQogICAgYXNzZXJ0IC8vIGludmFsaWQgbnVtYmVyIG9mIGJ5dGVzIGZvciBhcmM0LnVpbnQ4CiAgICBwdXNoYnl0ZXMgMHgxNTFmN2M3NTAwMDAKICAgIGxvZwogICAgaW50Y18wIC8vIDEKICAgIHJldHVybgo=","clear":"I3ByYWdtYSB2ZXJzaW9uIDExCiNwcmFnbWEgdHlwZXRyYWNrIGZhbHNlCgovLyBAYWxnb3JhbmRmb3VuZGF0aW9uL2FsZ29yYW5kLXR5cGVzY3JpcHQvYmFzZS1jb250cmFjdC5kLnRzOjpCYXNlQ29udHJhY3QuY2xlYXJTdGF0ZVByb2dyYW0oKSAtPiB1aW50NjQ6Cm1haW46CiAgICBwdXNoaW50IDEgLy8gMQogICAgcmV0dXJuCg=="},"byteCode":{"approval":"CyAEAQAIADEbQQAaMRkURIICBNWrM2YEwu10PzYaAI4CACIBSQAiMRmQgTAaMRgQRIABMbAlIhJBAAoxADIJEkEAAiJDI0MjRwOAADYaAUcCI1lJTgIkC4ECCEwVEkQ2GgJJFSQSRBcjSUsDDEEA6EsDVwIASwEkC0okWEULW0lFBnELRQFAABiADQAHAAkAAAsAAAAAAACwSSIIRQFC/8hLAUEArrGABJf0CoqyGksIshqABAACcHayGiOyGUsBshiBBrIQI7IBs7Q+SVcEAExXAASABBUffHUSREkVJBJEF0sFSXEETEUKRElxA0xFCURxAUQWSZMkDkRXBwFFCUAARIACAABLB0kVFlcGAkxQSRWBBwhLCEkVFlcGAkxQSwEWVwYCgAIAB0xQSwEVTwMITEsMUEwWVwYCUE8CUExQTFCwQv9SgAgAAQACAAJwdkL/syNC/4qAERUffHUABwAJAAALAAAAAAAAsCJDNhoBFSISRIAGFR98dQAAsCJD","clear":"C4EBQw=="},"events":[],"templateVariables":{"UPDATABLE":{"type":"AVMUint64"}}} as unknown as Arc56Contract
+export const APP_SPEC: Arc56Contract = {"name":"AbelReader","structs":{"AssetTinyLabels":[{"name":"name","type":"string"},{"name":"unitName","type":"string"},{"name":"decimals","type":"uint8"},{"name":"labels","type":"string[]"}],"BalanceInfo":[{"name":"balance","type":"uint64"},{"name":"minBalance","type":"uint64"}]},"methods":[{"name":"getBalanceInfo","args":[{"type":"address[]","name":"accounts"}],"returns":{"type":"(uint64,uint64)","struct":"BalanceInfo"},"actions":{"create":["NoOp"],"call":["NoOp"]},"readonly":true,"events":[],"recommendations":{}},{"name":"getAssetsTiny","args":[{"type":"uint64[]","name":"assetIds"},{"type":"uint64","name":"abelAppId"}],"returns":{"type":"(string,string,uint8,string[])","struct":"AssetTinyLabels"},"actions":{"create":["NoOp"],"call":["NoOp"]},"readonly":true,"events":[],"recommendations":{}},{"name":"get_asset_labels","args":[{"type":"asset","name":"assetId"}],"returns":{"type":"string[]"},"actions":{"create":["NoOp"],"call":["NoOp"]},"readonly":true,"events":[],"recommendations":{}}],"arcs":[22,28],"networks":{},"state":{"schema":{"global":{"ints":0,"bytes":0},"local":{"ints":0,"bytes":0}},"keys":{"global":{},"local":{},"box":{}},"maps":{"global":{},"local":{},"box":{}}},"bareActions":{"create":[],"call":["DeleteApplication","UpdateApplication"]},"sourceInfo":{"approval":{"sourceInfo":[{"pc":[332],"errorMessage":"Bytes has valid prefix"},{"pc":[8],"errorMessage":"OnCompletion must be NoOp"},{"pc":[48],"errorMessage":"OnCompletion must be one of UpdateApplication, DeleteApplication && can only call when not creating"},{"pc":[347,354,357],"errorMessage":"asset exists"},{"pc":[108,236],"errorMessage":"index access is out of bounds"},{"pc":[77,195],"errorMessage":"invalid array length header"},{"pc":[89],"errorMessage":"invalid number of bytes for arc4.dynamic_array<account>"},{"pc":[207],"errorMessage":"invalid number of bytes for arc4.dynamic_array<asset>"},{"pc":[215,337],"errorMessage":"invalid number of bytes for arc4.uint64"},{"pc":[485],"errorMessage":"invalid number of bytes for arc4.uint8"},{"pc":[363],"errorMessage":"overflow"}],"pcOffsetMethod":"cblocks"},"clear":{"sourceInfo":[],"pcOffsetMethod":"none"}},"source":{"approval":"I3ByYWdtYSB2ZXJzaW9uIDExCiNwcmFnbWEgdHlwZXRyYWNrIGZhbHNlCgovLyBAYWxnb3JhbmRmb3VuZGF0aW9uL2FsZ29yYW5kLXR5cGVzY3JpcHQvYXJjNC9pbmRleC5kLnRzOjpDb250cmFjdC5hcHByb3ZhbFByb2dyYW0oKSAtPiB1aW50NjQ6Cm1haW46CiAgICBpbnRjYmxvY2sgMCAxIDggMzIgVE1QTF9VUERBVEFCTEUKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjMwCiAgICAvLyBleHBvcnQgY2xhc3MgQWJlbFJlYWRlciBleHRlbmRzIENvbnRyYWN0IHsKICAgIHR4biBOdW1BcHBBcmdzCiAgICBieiBtYWluX2FkbWluT25seUAxMAogICAgdHhuIE9uQ29tcGxldGlvbgogICAgIQogICAgYXNzZXJ0IC8vIE9uQ29tcGxldGlvbiBtdXN0IGJlIE5vT3AKICAgIHB1c2hieXRlc3MgMHg0ODc3YTk2NyAweGQ1YWIzMzY2IDB4YzJlZDc0M2YgLy8gbWV0aG9kICJnZXRCYWxhbmNlSW5mbyhhZGRyZXNzW10pKHVpbnQ2NCx1aW50NjQpIiwgbWV0aG9kICJnZXRBc3NldHNUaW55KHVpbnQ2NFtdLHVpbnQ2NCkoc3RyaW5nLHN0cmluZyx1aW50OCxzdHJpbmdbXSkiLCBtZXRob2QgImdldF9hc3NldF9sYWJlbHMoYXNzZXQpc3RyaW5nW10iCiAgICB0eG5hIEFwcGxpY2F0aW9uQXJncyAwCiAgICBtYXRjaCBnZXRCYWxhbmNlSW5mbyBnZXRBc3NldHNUaW55IGdldEFzc2V0TGFiZWxzCiAgICBlcnIKCm1haW5fYWRtaW5Pbmx5QDEwOgogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6MzEKICAgIC8vIEBiYXJlbWV0aG9kKHsgYWxsb3dBY3Rpb25zOiBbIlVwZGF0ZUFwcGxpY2F0aW9uIiwgIkRlbGV0ZUFwcGxpY2F0aW9uIl0gfSkKICAgIGludGNfMSAvLyAxCiAgICB0eG4gT25Db21wbGV0aW9uCiAgICBzaGwKICAgIHB1c2hpbnQgNDggLy8gNDgKICAgICYKICAgIHR4biBBcHBsaWNhdGlvbklECiAgICAmJgogICAgYXNzZXJ0IC8vIE9uQ29tcGxldGlvbiBtdXN0IGJlIG9uZSBvZiBVcGRhdGVBcHBsaWNhdGlvbiwgRGVsZXRlQXBwbGljYXRpb24gJiYgY2FuIG9ubHkgY2FsbCB3aGVuIG5vdCBjcmVhdGluZwogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6MzMKICAgIC8vIGFzc2VydChUZW1wbGF0ZVZhcjx1aW50NjQ+KCJVUERBVEFCTEUiKSA9PT0gMSAmJiBUeG4uc2VuZGVyID09PSBHbG9iYWwuY3JlYXRvckFkZHJlc3MpOwogICAgaW50YyA0IC8vIFRNUExfVVBEQVRBQkxFCiAgICBpbnRjXzEgLy8gMQogICAgPT0KICAgIGJ6IG1haW5fYm9vbF9mYWxzZUAxNAogICAgdHhuIFNlbmRlcgogICAgZ2xvYmFsIENyZWF0b3JBZGRyZXNzCiAgICA9PQogICAgYnogbWFpbl9ib29sX2ZhbHNlQDE0CiAgICBpbnRjXzEgLy8gMQogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6MzEKICAgIC8vIEBiYXJlbWV0aG9kKHsgYWxsb3dBY3Rpb25zOiBbIlVwZGF0ZUFwcGxpY2F0aW9uIiwgIkRlbGV0ZUFwcGxpY2F0aW9uIl0gfSkKICAgIHJldHVybgoKbWFpbl9ib29sX2ZhbHNlQDE0OgogICAgaW50Y18wIC8vIDAKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjMxCiAgICAvLyBAYmFyZW1ldGhvZCh7IGFsbG93QWN0aW9uczogWyJVcGRhdGVBcHBsaWNhdGlvbiIsICJEZWxldGVBcHBsaWNhdGlvbiJdIH0pCiAgICByZXR1cm4KCgovLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czo6QWJlbFJlYWRlci5nZXRCYWxhbmNlSW5mb1tyb3V0aW5nXSgpIC0+IHZvaWQ6CmdldEJhbGFuY2VJbmZvOgogICAgaW50Y18wIC8vIDAKICAgIHB1c2hieXRlcyAiIgogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6MzYKICAgIC8vIEBhYmltZXRob2QoeyByZWFkb25seTogdHJ1ZSwgb25DcmVhdGU6ICJhbGxvdyIgfSkKICAgIHR4bmEgQXBwbGljYXRpb25BcmdzIDEKICAgIGR1cG4gMgogICAgaW50Y18wIC8vIDAKICAgIGV4dHJhY3RfdWludDE2IC8vIG9uIGVycm9yOiBpbnZhbGlkIGFycmF5IGxlbmd0aCBoZWFkZXIKICAgIGR1cAogICAgY292ZXIgMgogICAgaW50Y18zIC8vIDMyCiAgICAqCiAgICBwdXNoaW50IDIgLy8gMgogICAgKwogICAgc3dhcAogICAgbGVuCiAgICA9PQogICAgYXNzZXJ0IC8vIGludmFsaWQgbnVtYmVyIG9mIGJ5dGVzIGZvciBhcmM0LmR5bmFtaWNfYXJyYXk8YWNjb3VudD4KICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjM4CiAgICAvLyBmb3IgKGxldCBpZHg6IHVpbnQ2NCA9IDA7IGlkeCA8IGFjY291bnRzLmxlbmd0aDsgaWR4KyspIHsKICAgIGludGNfMCAvLyAwCgpnZXRCYWxhbmNlSW5mb193aGlsZV90b3BAMjoKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjM4CiAgICAvLyBmb3IgKGxldCBpZHg6IHVpbnQ2NCA9IDA7IGlkeCA8IGFjY291bnRzLmxlbmd0aDsgaWR4KyspIHsKICAgIGR1cAogICAgZGlnIDIKICAgIDwKICAgIGJ6IGdldEJhbGFuY2VJbmZvX2FmdGVyX3doaWxlQDcKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjM5CiAgICAvLyBjb25zdCBhY2NvdW50ID0gYWNjb3VudHNbaWR4XTsKICAgIGRpZyAyCiAgICBleHRyYWN0IDIgMAogICAgZGlnIDEKICAgIGludGNfMyAvLyAzMgogICAgKgogICAgaW50Y18zIC8vIDMyCiAgICBleHRyYWN0MyAvLyBvbiBlcnJvcjogaW5kZXggYWNjZXNzIGlzIG91dCBvZiBib3VuZHMKICAgIGR1cAogICAgYnVyeSA2CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czo0MAogICAgLy8gY29uc3QgYmFsYW5jZSA9IG9wLmJhbGFuY2UoYWNjb3VudCk7CiAgICBiYWxhbmNlCiAgICBkdXAKICAgIGJ1cnkgNQogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6NDEKICAgIC8vIGlmIChiYWxhbmNlID4gMCkgewogICAgYnogZ2V0QmFsYW5jZUluZm9fZWxzZV9ib2R5QDUKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjQyCiAgICAvLyBjb25zdCBtaW5CYWxhbmNlID0gb3AubWluQmFsYW5jZShhY2NvdW50KTsKICAgIGRpZyA0CiAgICBtaW5fYmFsYW5jZQogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6NDMKICAgIC8vIGNvbnN0IGJhbGFuY2VJbmZvOiBCYWxhbmNlSW5mbyA9IHsgYmFsYW5jZSwgbWluQmFsYW5jZSB9OwogICAgZGlnIDQKICAgIGl0b2IKICAgIHN3YXAKICAgIGl0b2IKICAgIGNvbmNhdAogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6NDQKICAgIC8vIGxvZyhlbmNvZGVBcmM0KGJhbGFuY2VJbmZvKSk7CiAgICBsb2cKCmdldEJhbGFuY2VJbmZvX2FmdGVyX2lmX2Vsc2VANjoKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjM4CiAgICAvLyBmb3IgKGxldCBpZHg6IHVpbnQ2NCA9IDA7IGlkeCA8IGFjY291bnRzLmxlbmd0aDsgaWR4KyspIHsKICAgIGR1cAogICAgaW50Y18xIC8vIDEKICAgICsKICAgIGJ1cnkgMQogICAgYiBnZXRCYWxhbmNlSW5mb193aGlsZV90b3BAMgoKZ2V0QmFsYW5jZUluZm9fZWxzZV9ib2R5QDU6CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czo1MwogICAgLy8gcmV0dXJuIHsgYmFsYW5jZTogMCwgbWluQmFsYW5jZTogMCB9OwogICAgcHVzaGJ5dGVzIDB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjQ2CiAgICAvLyBsb2coZW5jb2RlQXJjNCh0aGlzLmdldEVtcHR5QmFsYW5jZUluZm8oKSkpOwogICAgbG9nCiAgICBiIGdldEJhbGFuY2VJbmZvX2FmdGVyX2lmX2Vsc2VANgoKZ2V0QmFsYW5jZUluZm9fYWZ0ZXJfd2hpbGVANzoKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjM2CiAgICAvLyBAYWJpbWV0aG9kKHsgcmVhZG9ubHk6IHRydWUsIG9uQ3JlYXRlOiAiYWxsb3ciIH0pCiAgICBwdXNoYnl0ZXMgMHgxNTFmN2M3NTAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwCiAgICBsb2cKICAgIGludGNfMSAvLyAxCiAgICByZXR1cm4KCgovLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czo6QWJlbFJlYWRlci5nZXRBc3NldHNUaW55W3JvdXRpbmddKCkgLT4gdm9pZDoKZ2V0QXNzZXRzVGlueToKICAgIGludGNfMCAvLyAwCiAgICBkdXBuIDMKICAgIHB1c2hieXRlcyAiIgogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6NTYKICAgIC8vIEBhYmltZXRob2QoeyByZWFkb25seTogdHJ1ZSwgb25DcmVhdGU6ICJhbGxvdyIgfSkKICAgIHR4bmEgQXBwbGljYXRpb25BcmdzIDEKICAgIGR1cG4gMgogICAgaW50Y18wIC8vIDAKICAgIGV4dHJhY3RfdWludDE2IC8vIG9uIGVycm9yOiBpbnZhbGlkIGFycmF5IGxlbmd0aCBoZWFkZXIKICAgIGR1cAogICAgY292ZXIgMgogICAgaW50Y18yIC8vIDgKICAgICoKICAgIHB1c2hpbnQgMiAvLyAyCiAgICArCiAgICBzd2FwCiAgICBsZW4KICAgID09CiAgICBhc3NlcnQgLy8gaW52YWxpZCBudW1iZXIgb2YgYnl0ZXMgZm9yIGFyYzQuZHluYW1pY19hcnJheTxhc3NldD4KICAgIHR4bmEgQXBwbGljYXRpb25BcmdzIDIKICAgIGR1cAogICAgbGVuCiAgICBpbnRjXzIgLy8gOAogICAgPT0KICAgIGFzc2VydCAvLyBpbnZhbGlkIG51bWJlciBvZiBieXRlcyBmb3IgYXJjNC51aW50NjQKICAgIGJ0b2kKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjU4CiAgICAvLyBmb3IgKGxldCBpZHg6IHVpbnQ2NCA9IDA7IGlkeCA8IGFzc2V0SWRzLmxlbmd0aDsgaWR4KyspIHsKICAgIGludGNfMCAvLyAwCgpnZXRBc3NldHNUaW55X3doaWxlX3RvcEAyOgogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6NTgKICAgIC8vIGZvciAobGV0IGlkeDogdWludDY0ID0gMDsgaWR4IDwgYXNzZXRJZHMubGVuZ3RoOyBpZHgrKykgewogICAgZHVwCiAgICBkaWcgMwogICAgPAogICAgYnogZ2V0QXNzZXRzVGlueV9hZnRlcl93aGlsZUAxNAogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6NTkKICAgIC8vIGNvbnN0IGFzc2V0ID0gYXNzZXRJZHNbaWR4XTsKICAgIGRpZyAzCiAgICBleHRyYWN0IDIgMAogICAgZGlnIDEKICAgIGludGNfMiAvLyA4CiAgICAqCiAgICBkdXAyCiAgICBpbnRjXzIgLy8gOAogICAgZXh0cmFjdDMgLy8gb24gZXJyb3I6IGluZGV4IGFjY2VzcyBpcyBvdXQgb2YgYm91bmRzCiAgICBidXJ5IDExCiAgICBleHRyYWN0X3VpbnQ2NAogICAgZHVwCiAgICBidXJ5IDYKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjYwCiAgICAvLyBjb25zdCBbXywgZXhpc3RzXSA9IG9wLkFzc2V0UGFyYW1zLmFzc2V0Q3JlYXRvcihhc3NldC5pZCk7CiAgICBhc3NldF9wYXJhbXNfZ2V0IEFzc2V0Q3JlYXRvcgogICAgYnVyeSAxCiAgICAvLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czo2MQogICAgLy8gaWYgKCFleGlzdHMpIHsKICAgIGJueiBnZXRBc3NldHNUaW55X2Vsc2VfYm9keUA1CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czo4NS05MAogICAgLy8gcmV0dXJuIHsKICAgIC8vICAgbmFtZTogIiIsCiAgICAvLyAgIHVuaXRfbmFtZTogIiIsCiAgICAvLyAgIGRlY2ltYWxzOiBuZXcgVWludDgoMCksCiAgICAvLyAgIGxhYmVsczogW10sCiAgICAvLyB9OwogICAgcHVzaGJ5dGVzIDB4MDAwNzAwMDkwMDAwMGIwMDAwMDAwMDAwMDAKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjYyCiAgICAvLyBsb2coZW5jb2RlQXJjNCh0aGlzLmdldEVtcHR5QXNzZXRUaW55TGFiZWxzKCkpKTsKICAgIGxvZwoKZ2V0QXNzZXRzVGlueV9hZnRlcl9pZl9lbHNlQDEzOgogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6NTgKICAgIC8vIGZvciAobGV0IGlkeDogdWludDY0ID0gMDsgaWR4IDwgYXNzZXRJZHMubGVuZ3RoOyBpZHgrKykgewogICAgZHVwCiAgICBpbnRjXzEgLy8gMQogICAgKwogICAgYnVyeSAxCiAgICBiIGdldEFzc2V0c1Rpbnlfd2hpbGVfdG9wQDIKCmdldEFzc2V0c1RpbnlfZWxzZV9ib2R5QDU6CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czo2NQogICAgLy8gYWJlbEFwcElkICE9PSAwID8gY29tcGlsZUFyYzQoQWJlbFN0dWIpLmNhbGwuaGFzX2Fzc2V0X2xhYmVsKHsgYXBwSWQ6IGFiZWxBcHBJZCwgYXJnczogW2Fzc2V0LmlkLCAicHYiXSB9KS5yZXR1cm5WYWx1ZSA6IDA7CiAgICBkaWcgMQogICAgYnogZ2V0QXNzZXRzVGlueV90ZXJuYXJ5X2ZhbHNlQDgKICAgIGl0eG5fYmVnaW4KICAgIHB1c2hieXRlcyAweDk3ZjQwYThhIC8vIG1ldGhvZCAiaGFzX2Fzc2V0X2xhYmVsKHVpbnQ2NCxzdHJpbmcpdWludDY0IgogICAgaXR4bl9maWVsZCBBcHBsaWNhdGlvbkFyZ3MKICAgIGRpZyA4CiAgICBpdHhuX2ZpZWxkIEFwcGxpY2F0aW9uQXJncwogICAgcHVzaGJ5dGVzIDB4MDAwMjcwNzYKICAgIGl0eG5fZmllbGQgQXBwbGljYXRpb25BcmdzCiAgICBpbnRjXzAgLy8gMAogICAgaXR4bl9maWVsZCBPbkNvbXBsZXRpb24KICAgIGRpZyAxCiAgICBpdHhuX2ZpZWxkIEFwcGxpY2F0aW9uSUQKICAgIHB1c2hpbnQgNiAvLyBhcHBsCiAgICBpdHhuX2ZpZWxkIFR5cGVFbnVtCiAgICBpbnRjXzAgLy8gMAogICAgaXR4bl9maWVsZCBGZWUKICAgIGl0eG5fc3VibWl0CiAgICBpdHhuIExhc3RMb2cKICAgIGR1cAogICAgZXh0cmFjdCA0IDAKICAgIHN3YXAKICAgIGV4dHJhY3QgMCA0CiAgICBwdXNoYnl0ZXMgMHgxNTFmN2M3NQogICAgPT0KICAgIGFzc2VydCAvLyBCeXRlcyBoYXMgdmFsaWQgcHJlZml4CiAgICBkdXAKICAgIGxlbgogICAgaW50Y18yIC8vIDgKICAgID09CiAgICBhc3NlcnQgLy8gaW52YWxpZCBudW1iZXIgb2YgYnl0ZXMgZm9yIGFyYzQudWludDY0CiAgICBidG9pCgpnZXRBc3NldHNUaW55X3Rlcm5hcnlfbWVyZ2VAOToKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjY3CiAgICAvLyBuYW1lOiBhc3NldC5uYW1lLnRvU3RyaW5nKCksCiAgICBkaWcgNQogICAgZHVwCiAgICBhc3NldF9wYXJhbXNfZ2V0IEFzc2V0TmFtZQogICAgc3dhcAogICAgYnVyeSAxMAogICAgYXNzZXJ0IC8vIGFzc2V0IGV4aXN0cwogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6NjgKICAgIC8vIHVuaXRfbmFtZTogYXNzZXQudW5pdE5hbWUudG9TdHJpbmcoKSwKICAgIGR1cAogICAgYXNzZXRfcGFyYW1zX2dldCBBc3NldFVuaXROYW1lCiAgICBzd2FwCiAgICBidXJ5IDkKICAgIGFzc2VydCAvLyBhc3NldCBleGlzdHMKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjY5CiAgICAvLyBkZWNpbWFsczogbmV3IFVpbnQ4KGFzc2V0LmRlY2ltYWxzKSwKICAgIGFzc2V0X3BhcmFtc19nZXQgQXNzZXREZWNpbWFscwogICAgYXNzZXJ0IC8vIGFzc2V0IGV4aXN0cwogICAgaXRvYgogICAgZHVwCiAgICBiaXRsZW4KICAgIGludGNfMiAvLyA4CiAgICA8PQogICAgYXNzZXJ0IC8vIG92ZXJmbG93CiAgICBleHRyYWN0IDcgMQogICAgYnVyeSA5CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czo3MAogICAgLy8gbGFiZWxzOiBwdiA9PT0gMCA/IChbXSBhcyBzdHJpbmdbXSkgOiBbInB2Il0sCiAgICBibnogZ2V0QXNzZXRzVGlueV90ZXJuYXJ5X2ZhbHNlQDExCiAgICBwdXNoYnl0ZXMgMHgwMDAwCgpnZXRBc3NldHNUaW55X3Rlcm5hcnlfbWVyZ2VAMTI6CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czo2Ni03MQogICAgLy8gY29uc3QgYXNzZXRJbmZvOiBBc3NldFRpbnlMYWJlbHMgPSB7CiAgICAvLyAgIG5hbWU6IGFzc2V0Lm5hbWUudG9TdHJpbmcoKSwKICAgIC8vICAgdW5pdF9uYW1lOiBhc3NldC51bml0TmFtZS50b1N0cmluZygpLAogICAgLy8gICBkZWNpbWFsczogbmV3IFVpbnQ4KGFzc2V0LmRlY2ltYWxzKSwKICAgIC8vICAgbGFiZWxzOiBwdiA9PT0gMCA/IChbXSBhcyBzdHJpbmdbXSkgOiBbInB2Il0sCiAgICAvLyB9OwogICAgZGlnIDcKICAgIGR1cAogICAgbGVuCiAgICBpdG9iCiAgICBleHRyYWN0IDYgMgogICAgc3dhcAogICAgY29uY2F0CiAgICBkdXAKICAgIGxlbgogICAgcHVzaGludCA3IC8vIDcKICAgICsKICAgIGRpZyA4CiAgICBkdXAKICAgIGxlbgogICAgaXRvYgogICAgZXh0cmFjdCA2IDIKICAgIHN3YXAKICAgIGNvbmNhdAogICAgZGlnIDEKICAgIGl0b2IKICAgIGV4dHJhY3QgNiAyCiAgICBwdXNoYnl0ZXMgMHgwMDA3CiAgICBzd2FwCiAgICBjb25jYXQKICAgIGRpZyAxCiAgICBsZW4KICAgIHVuY292ZXIgMwogICAgKwogICAgc3dhcAogICAgZGlnIDEyCiAgICBjb25jYXQKICAgIHN3YXAKICAgIGl0b2IKICAgIGV4dHJhY3QgNiAyCiAgICBjb25jYXQKICAgIHVuY292ZXIgMgogICAgY29uY2F0CiAgICBzd2FwCiAgICBjb25jYXQKICAgIHN3YXAKICAgIGNvbmNhdAogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6NzIKICAgIC8vIGxvZyhlbmNvZGVBcmM0KGFzc2V0SW5mbykpOwogICAgbG9nCiAgICBiIGdldEFzc2V0c1RpbnlfYWZ0ZXJfaWZfZWxzZUAxMwoKZ2V0QXNzZXRzVGlueV90ZXJuYXJ5X2ZhbHNlQDExOgogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6NzAKICAgIC8vIGxhYmVsczogcHYgPT09IDAgPyAoW10gYXMgc3RyaW5nW10pIDogWyJwdiJdLAogICAgcHVzaGJ5dGVzIDB4MDAwMTAwMDIwMDAyNzA3NgogICAgYiBnZXRBc3NldHNUaW55X3Rlcm5hcnlfbWVyZ2VAMTIKCmdldEFzc2V0c1RpbnlfdGVybmFyeV9mYWxzZUA4OgogICAgLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6NjUKICAgIC8vIGFiZWxBcHBJZCAhPT0gMCA/IGNvbXBpbGVBcmM0KEFiZWxTdHViKS5jYWxsLmhhc19hc3NldF9sYWJlbCh7IGFwcElkOiBhYmVsQXBwSWQsIGFyZ3M6IFthc3NldC5pZCwgInB2Il0gfSkucmV0dXJuVmFsdWUgOiAwOwogICAgaW50Y18wIC8vIDAKICAgIGIgZ2V0QXNzZXRzVGlueV90ZXJuYXJ5X21lcmdlQDkKCmdldEFzc2V0c1RpbnlfYWZ0ZXJfd2hpbGVAMTQ6CiAgICAvLyBzbWFydF9jb250cmFjdHMvYWJlbF9yZWFkZXIvY29udHJhY3QuYWxnby50czo1NgogICAgLy8gQGFiaW1ldGhvZCh7IHJlYWRvbmx5OiB0cnVlLCBvbkNyZWF0ZTogImFsbG93IiB9KQogICAgcHVzaGJ5dGVzIDB4MTUxZjdjNzUwMDA3MDAwOTAwMDAwYjAwMDAwMDAwMDAwMAogICAgbG9nCiAgICBpbnRjXzEgLy8gMQogICAgcmV0dXJuCgoKLy8gc21hcnRfY29udHJhY3RzL2FiZWxfcmVhZGVyL2NvbnRyYWN0LmFsZ28udHM6OkFiZWxSZWFkZXIuZ2V0QXNzZXRMYWJlbHNbcm91dGluZ10oKSAtPiB2b2lkOgpnZXRBc3NldExhYmVsczoKICAgIC8vIHNtYXJ0X2NvbnRyYWN0cy9hYmVsX3JlYWRlci9jb250cmFjdC5hbGdvLnRzOjc4CiAgICAvLyBAYWJpbWV0aG9kKHsgcmVhZG9ubHk6IHRydWUsIG9uQ3JlYXRlOiAiYWxsb3ciLCBuYW1lOiAiZ2V0X2Fzc2V0X2xhYmVscyIsIHJlc291cmNlRW5jb2Rpbmc6ICJpbmRleCIgfSkKICAgIHR4bmEgQXBwbGljYXRpb25BcmdzIDEKICAgIGxlbgogICAgaW50Y18xIC8vIDEKICAgID09CiAgICBhc3NlcnQgLy8gaW52YWxpZCBudW1iZXIgb2YgYnl0ZXMgZm9yIGFyYzQudWludDgKICAgIHB1c2hieXRlcyAweDE1MWY3Yzc1MDAwMAogICAgbG9nCiAgICBpbnRjXzEgLy8gMQogICAgcmV0dXJuCg==","clear":"I3ByYWdtYSB2ZXJzaW9uIDExCiNwcmFnbWEgdHlwZXRyYWNrIGZhbHNlCgovLyBAYWxnb3JhbmRmb3VuZGF0aW9uL2FsZ29yYW5kLXR5cGVzY3JpcHQvYmFzZS1jb250cmFjdC5kLnRzOjpCYXNlQ29udHJhY3QuY2xlYXJTdGF0ZVByb2dyYW0oKSAtPiB1aW50NjQ6Cm1haW46CiAgICBwdXNoaW50IDEgLy8gMQogICAgcmV0dXJuCg=="},"byteCode":{"approval":"CyAFAAEIIAAxG0EAITEZFESCAwRId6lnBNWrM2YEwu10PzYaAI4DAB8AkwG6ACMxGZCBMBoxGBBEIQQjEkEACjEAMgkSQQACI0MiQyKAADYaAUcCIllJTgIlC4ECCEwVEkQiSUsCDEEAPUsCVwIASwElCyVYSUUGYElFBUEAEksEeEsEFkwWULBJIwhFAUL/0oAQAAAAAAAAAAAAAAAAAAAAALBC/+KAFBUffHUAAAAAAAAAAAAAAAAAAAAAsCNDIkcDgAA2GgFHAiJZSU4CJAuBAghMFRJENhoCSRUkEkQXIklLAwxBAOhLA1cCAEsBJAtKJFhFC1tJRQZxC0UBQAAYgA0ABwAJAAALAAAAAAAAsEkjCEUBQv/ISwFBAK6xgASX9AqKshpLCLIagAQAAnB2shoishlLAbIYgQayECKyAbO0PklXBABMVwAEgAQVH3x1EkRJFSQSRBdLBUlxBExFCkRJcQNMRQlEcQFEFkmTJA5EVwcBRQlAAESAAgAASwdJFRZXBgJMUEkVgQcISwhJFRZXBgJMUEsBFlcGAoACAAdMUEsBFU8DCExLDFBMFlcGAlBPAlBMUExQsEL/UoAIAAEAAgACcHZC/7MiQv+KgBEVH3x1AAcACQAACwAAAAAAALAjQzYaARUjEkSABhUffHUAALAjQw==","clear":"C4EBQw=="},"events":[],"templateVariables":{"UPDATABLE":{"type":"AVMUint64"}}} as unknown as Arc56Contract
 
 /**
  * A state record containing binary data
@@ -79,6 +79,19 @@ export function AssetTinyLabelsFromTuple(abiTuple: [string, string, number, stri
   return getABIStructFromABITuple(abiTuple, APP_SPEC.structs.AssetTinyLabels, APP_SPEC.structs) as AssetTinyLabels
 }
 
+export type BalanceInfo = {
+  balance: bigint,
+  minBalance: bigint
+}
+
+
+/**
+ * Converts the ABI tuple representation of a BalanceInfo to the struct representation
+ */
+export function BalanceInfoFromTuple(abiTuple: [bigint, bigint]) {
+  return getABIStructFromABITuple(abiTuple, APP_SPEC.structs.BalanceInfo, APP_SPEC.structs) as BalanceInfo
+}
+
 /**
  * Deploy-time template variables
  */
@@ -94,6 +107,9 @@ export type AbelReaderArgs = {
    * The object representation of the arguments for each method
    */
   obj: {
+    'getBalanceInfo(address[])(uint64,uint64)': {
+      accounts: string[]
+    }
     'getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])': {
       assetIds: bigint[] | number[]
       abelAppId: bigint | number
@@ -106,6 +122,7 @@ export type AbelReaderArgs = {
    * The tuple representation of the arguments for each method
    */
   tuple: {
+    'getBalanceInfo(address[])(uint64,uint64)': [accounts: string[]]
     'getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])': [assetIds: bigint[] | number[], abelAppId: bigint | number]
     'get_asset_labels(asset)string[]': [assetId: bigint]
   }
@@ -115,6 +132,7 @@ export type AbelReaderArgs = {
  * The return type for each method
  */
 export type AbelReaderReturns = {
+  'getBalanceInfo(address[])(uint64,uint64)': BalanceInfo
   'getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])': AssetTinyLabels
   'get_asset_labels(asset)string[]': string[]
 }
@@ -127,6 +145,11 @@ export type AbelReaderTypes = {
    * Maps method signatures / names to their argument and return types.
    */
   methods:
+    & Record<'getBalanceInfo(address[])(uint64,uint64)' | 'getBalanceInfo', {
+      argsObj: AbelReaderArgs['obj']['getBalanceInfo(address[])(uint64,uint64)']
+      argsTuple: AbelReaderArgs['tuple']['getBalanceInfo(address[])(uint64,uint64)']
+      returns: AbelReaderReturns['getBalanceInfo(address[])(uint64,uint64)']
+    }>
     & Record<'getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])' | 'getAssetsTiny', {
       argsObj: AbelReaderArgs['obj']['getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])']
       argsTuple: AbelReaderArgs['tuple']['getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])']
@@ -171,6 +194,8 @@ export type MethodReturn<TSignature extends AbelReaderSignatures> = AbelReaderTy
  * Defines supported create method params for this smart contract
  */
 export type AbelReaderCreateCallParams =
+  | Expand<CallParams<AbelReaderArgs['obj']['getBalanceInfo(address[])(uint64,uint64)'] | AbelReaderArgs['tuple']['getBalanceInfo(address[])(uint64,uint64)']> & {method: 'getBalanceInfo'} & {onComplete?: OnApplicationComplete.NoOpOC} & CreateSchema>
+  | Expand<CallParams<AbelReaderArgs['obj']['getBalanceInfo(address[])(uint64,uint64)'] | AbelReaderArgs['tuple']['getBalanceInfo(address[])(uint64,uint64)']> & {method: 'getBalanceInfo(address[])(uint64,uint64)'} & {onComplete?: OnApplicationComplete.NoOpOC} & CreateSchema>
   | Expand<CallParams<AbelReaderArgs['obj']['getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])'] | AbelReaderArgs['tuple']['getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])']> & {method: 'getAssetsTiny'} & {onComplete?: OnApplicationComplete.NoOpOC} & CreateSchema>
   | Expand<CallParams<AbelReaderArgs['obj']['getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])'] | AbelReaderArgs['tuple']['getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])']> & {method: 'getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])'} & {onComplete?: OnApplicationComplete.NoOpOC} & CreateSchema>
   | Expand<CallParams<AbelReaderArgs['obj']['get_asset_labels(asset)string[]'] | AbelReaderArgs['tuple']['get_asset_labels(asset)string[]']> & {method: 'get_asset_labels'} & {onComplete?: OnApplicationComplete.NoOpOC} & CreateSchema>
@@ -215,6 +240,9 @@ export abstract class AbelReaderParamsFactory {
     return {
       _resolveByMethod<TParams extends AbelReaderCreateCallParams & {method: string}>(params: TParams) {
         switch(params.method) {
+          case 'getBalanceInfo':
+          case 'getBalanceInfo(address[])(uint64,uint64)':
+            return AbelReaderParamsFactory.create.getBalanceInfo(params)
           case 'getAssetsTiny':
           case 'getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])':
             return AbelReaderParamsFactory.create.getAssetsTiny(params)
@@ -225,6 +253,19 @@ export abstract class AbelReaderParamsFactory {
         throw new Error(`Unknown ' + verb + ' method`)
       },
 
+      /**
+       * Constructs create ABI call params for the AbelReader smart contract using the getBalanceInfo(address[])(uint64,uint64) ABI method
+       *
+       * @param params Parameters for the call
+       * @returns An `AppClientMethodCallParams` object for the call
+       */
+      getBalanceInfo(params: CallParams<AbelReaderArgs['obj']['getBalanceInfo(address[])(uint64,uint64)'] | AbelReaderArgs['tuple']['getBalanceInfo(address[])(uint64,uint64)']> & AppClientCompilationParams & {onComplete?: OnApplicationComplete.NoOpOC}): AppClientMethodCallParams & AppClientCompilationParams & {onComplete?: OnApplicationComplete.NoOpOC} {
+        return {
+          ...params,
+          method: 'getBalanceInfo(address[])(uint64,uint64)' as const,
+          args: Array.isArray(params.args) ? params.args : [params.args.accounts],
+        }
+      },
       /**
        * Constructs create ABI call params for the AbelReader smart contract using the getAssetsTiny(uint64[],uint64)(string,string,uint8,string[]) ABI method
        *
@@ -254,6 +295,19 @@ export abstract class AbelReaderParamsFactory {
     }
   }
 
+  /**
+   * Constructs a no op call for the getBalanceInfo(address[])(uint64,uint64) ABI method
+   *
+   * @param params Parameters for the call
+   * @returns An `AppClientMethodCallParams` object for the call
+   */
+  static getBalanceInfo(params: CallParams<AbelReaderArgs['obj']['getBalanceInfo(address[])(uint64,uint64)'] | AbelReaderArgs['tuple']['getBalanceInfo(address[])(uint64,uint64)']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete {
+    return {
+      ...params,
+      method: 'getBalanceInfo(address[])(uint64,uint64)' as const,
+      args: Array.isArray(params.args) ? params.args : [params.args.accounts],
+    }
+  }
   /**
    * Constructs a no op call for the getAssetsTiny(uint64[],uint64)(string,string,uint8,string[]) ABI method
    *
@@ -368,6 +422,15 @@ class AbelReaderFactory {
      */
     create: {
       /**
+       * Creates a new instance of the AbelReader smart contract using the getBalanceInfo(address[])(uint64,uint64) ABI method.
+       *
+       * @param params The params for the smart contract call
+       * @returns The create params
+       */
+      getBalanceInfo: (params: CallParams<AbelReaderArgs['obj']['getBalanceInfo(address[])(uint64,uint64)'] | AbelReaderArgs['tuple']['getBalanceInfo(address[])(uint64,uint64)']> & AppClientCompilationParams & CreateSchema & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+        return this.appFactory.params.create(AbelReaderParamsFactory.create.getBalanceInfo(params))
+      },
+      /**
        * Creates a new instance of the AbelReader smart contract using the getAssetsTiny(uint64[],uint64)(string,string,uint8,string[]) ABI method.
        *
        * @param params The params for the smart contract call
@@ -428,6 +491,15 @@ class AbelReaderFactory {
      */
     create: {
       /**
+       * Creates a new instance of the AbelReader smart contract using the getBalanceInfo(address[])(uint64,uint64) ABI method.
+       *
+       * @param params The params for the smart contract call
+       * @returns The create transaction
+       */
+      getBalanceInfo: (params: CallParams<AbelReaderArgs['obj']['getBalanceInfo(address[])(uint64,uint64)'] | AbelReaderArgs['tuple']['getBalanceInfo(address[])(uint64,uint64)']> & AppClientCompilationParams & CreateSchema & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+        return this.appFactory.createTransaction.create(AbelReaderParamsFactory.create.getBalanceInfo(params))
+      },
+      /**
        * Creates a new instance of the AbelReader smart contract using the getAssetsTiny(uint64[],uint64)(string,string,uint8,string[]) ABI method.
        *
        * @param params The params for the smart contract call
@@ -457,6 +529,16 @@ class AbelReaderFactory {
      * Gets available create methods
      */
     create: {
+      /**
+       * Creates a new instance of the AbelReader smart contract using an ABI method call using the getBalanceInfo(address[])(uint64,uint64) ABI method.
+       *
+       * @param params The params for the smart contract call
+       * @returns The create result
+       */
+      getBalanceInfo: async (params: CallParams<AbelReaderArgs['obj']['getBalanceInfo(address[])(uint64,uint64)'] | AbelReaderArgs['tuple']['getBalanceInfo(address[])(uint64,uint64)']> & AppClientCompilationParams & CreateSchema & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+        const result = await this.appFactory.send.create(AbelReaderParamsFactory.create.getBalanceInfo(params))
+        return { result: { ...result.result, return: result.result.return as unknown as (undefined | AbelReaderReturns['getBalanceInfo(address[])(uint64,uint64)']) }, appClient: new AbelReaderClient(result.appClient) }
+      },
       /**
        * Creates a new instance of the AbelReader smart contract using an ABI method call using the getAssetsTiny(uint64[],uint64)(string,string,uint8,string[]) ABI method.
        *
@@ -610,6 +692,18 @@ class AbelReaderClient {
     },
 
     /**
+     * Makes a call to the AbelReader smart contract using the `getBalanceInfo(address[])(uint64,uint64)` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call params
+     */
+    getBalanceInfo: (params: CallParams<AbelReaderArgs['obj']['getBalanceInfo(address[])(uint64,uint64)'] | AbelReaderArgs['tuple']['getBalanceInfo(address[])(uint64,uint64)']> & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+      return this.appClient.params.call(AbelReaderParamsFactory.getBalanceInfo(params))
+    },
+
+    /**
      * Makes a call to the AbelReader smart contract using the `getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])` ABI method.
      *
      * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
@@ -677,6 +771,18 @@ class AbelReaderClient {
      */
     clearState: (params?: Expand<AppClientBareCallParams>) => {
       return this.appClient.createTransaction.bare.clearState(params)
+    },
+
+    /**
+     * Makes a call to the AbelReader smart contract using the `getBalanceInfo(address[])(uint64,uint64)` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call transaction
+     */
+    getBalanceInfo: (params: CallParams<AbelReaderArgs['obj']['getBalanceInfo(address[])(uint64,uint64)'] | AbelReaderArgs['tuple']['getBalanceInfo(address[])(uint64,uint64)']> & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+      return this.appClient.createTransaction.call(AbelReaderParamsFactory.getBalanceInfo(params))
     },
 
     /**
@@ -750,6 +856,19 @@ class AbelReaderClient {
     },
 
     /**
+     * Makes a call to the AbelReader smart contract using the `getBalanceInfo(address[])(uint64,uint64)` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    getBalanceInfo: async (params: CallParams<AbelReaderArgs['obj']['getBalanceInfo(address[])(uint64,uint64)'] | AbelReaderArgs['tuple']['getBalanceInfo(address[])(uint64,uint64)']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
+      const result = await this.appClient.send.call(AbelReaderParamsFactory.getBalanceInfo(params))
+      return {...result, return: result.return as unknown as (undefined | AbelReaderReturns['getBalanceInfo(address[])(uint64,uint64)'])}
+    },
+
+    /**
      * Makes a call to the AbelReader smart contract using the `getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])` ABI method.
      *
      * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
@@ -785,6 +904,19 @@ class AbelReaderClient {
    */
   public clone(params: CloneAppClientParams) {
     return new AbelReaderClient(this.appClient.clone(params))
+  }
+
+  /**
+   * Makes a readonly (simulated) call to the AbelReader smart contract using the `getBalanceInfo(address[])(uint64,uint64)` ABI method.
+   *
+   * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+   *
+   * @param params The params for the smart contract call
+   * @returns The call result
+   */
+  async getBalanceInfo(params: CallParams<AbelReaderArgs['obj']['getBalanceInfo(address[])(uint64,uint64)'] | AbelReaderArgs['tuple']['getBalanceInfo(address[])(uint64,uint64)']>) {
+    const result = await this.appClient.send.call(AbelReaderParamsFactory.getBalanceInfo(params))
+    return result.return as unknown as AbelReaderReturns['getBalanceInfo(address[])(uint64,uint64)']
   }
 
   /**
@@ -825,6 +957,14 @@ class AbelReaderClient {
     let promiseChain:Promise<unknown> = Promise.resolve()
     const resultMappers: Array<undefined | ((x: ABIReturn | undefined) => any)> = []
     return {
+      /**
+       * Add a getBalanceInfo(address[])(uint64,uint64) method call against the AbelReader contract
+       */
+      getBalanceInfo(params: CallParams<AbelReaderArgs['obj']['getBalanceInfo(address[])(uint64,uint64)'] | AbelReaderArgs['tuple']['getBalanceInfo(address[])(uint64,uint64)']> & {onComplete?: OnApplicationComplete.NoOpOC}) {
+        promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getBalanceInfo(params)))
+        resultMappers.push((v) => client.decodeReturnValue('getBalanceInfo(address[])(uint64,uint64)', v))
+        return this
+      },
       /**
        * Add a getAssetsTiny(uint64[],uint64)(string,string,uint8,string[]) method call against the AbelReader contract
        */
@@ -892,6 +1032,15 @@ class AbelReaderClient {
   }
 }
 export type AbelReaderComposer<TReturns extends [...any[]] = []> = {
+  /**
+   * Calls the getBalanceInfo(address[])(uint64,uint64) ABI method.
+   *
+   * @param args The arguments for the contract call
+   * @param params Any additional parameters for the call
+   * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
+   */
+  getBalanceInfo(params?: CallParams<AbelReaderArgs['obj']['getBalanceInfo(address[])(uint64,uint64)'] | AbelReaderArgs['tuple']['getBalanceInfo(address[])(uint64,uint64)']>): AbelReaderComposer<[...TReturns, AbelReaderReturns['getBalanceInfo(address[])(uint64,uint64)'] | undefined]>
+
   /**
    * Calls the getAssetsTiny(uint64[],uint64)(string,string,uint8,string[]) ABI method.
    *
@@ -1105,6 +1254,27 @@ class GhostBase {
 export class AbelReaderSDK extends GhostBase {
   constructor(args: ConstructorParameters<typeof GhostBase>[0]) {
     super(args)
+  }
+
+  async getBalanceInfo({
+    methodArgsOrArgsArray,
+    extraMethodCallArgs,
+    extraSimulateArgs,
+  }: {
+    methodArgsOrArgsArray: Methods['getBalanceInfo']['argsObj'] | Methods['getBalanceInfo']['argsObj'][]
+    extraMethodCallArgs?: ExtraMethodCallArgs | ExtraMethodCallArgs[]
+    extraSimulateArgs?: RawSimulateOptions
+  }): Promise<Methods['getBalanceInfo']['returns'][]> {
+    return this.execute({
+      signature: 'getBalanceInfo(address[])(uint64,uint64)',
+      txnBuilder: (
+        builder: AbelReaderComposer<any>,
+        args: CallParams<AbelReaderArgs['obj']['getBalanceInfo(address[])(uint64,uint64)']>,
+      ) => builder.getBalanceInfo(args),
+      methodArgsOrArgsArray,
+      extraMethodCallArgs,
+      extraSimulateArgs,
+    })
   }
 
   async getAssetsTiny({
