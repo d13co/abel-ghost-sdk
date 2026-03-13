@@ -1,11 +1,20 @@
 import { AlgorandClient } from "@algorandfoundation/algokit-utils"
-import { AbelReaderSDK, AssetTinyLabels as AssetTinyLabelsInternal, BalanceInfo } from "./generated/AbelReaderSDK.js"
+import {
+  AbelReaderSDK,
+  AssetTinyLabels as AssetTinyLabelsInternal,
+  BalanceInfo,
+  BlockTimeAndTc,
+} from "./generated/AbelReaderSDK.js"
 import { chunked } from "./utils/chunked.js"
 import { decodeUint64 } from "algosdk"
 import { BoxName } from "@algorandfoundation/algokit-utils/types/app.js"
 
 export interface AssetTinyLabels extends AssetTinyLabelsInternal {
   id: bigint
+}
+
+export interface BlockRoundTimeAndTc extends BlockTimeAndTc {
+  rnd: bigint
 }
 
 export class AbelGhostSDK {
@@ -79,5 +88,23 @@ export class AbelGhostSDK {
     if (!this.registryAppId) return []
     const boxNames = await this.algorand.app.getBoxNames(this.registryAppId)
     return boxNames.filter((boxName) => boxName.nameRaw.length === length)
+  }
+
+  async getBlockTimesAndTc(firstRound: number | bigint, lastRound: number | bigint): Promise<BlockRoundTimeAndTc[]> {
+    const firstDataRound = BigInt(firstRound)
+    const lastDataRound = BigInt(lastRound)
+    const simRound = BigInt(lastRound)
+    const firstValid = simRound  + BigInt(1) // simulating with first-valid after simulate round, this is actually valid
+    const lastValid = simRound + BigInt(1)
+    return (
+      await this.baseSDK.getBlockTimesAndTc({
+        methodArgsOrArgsArray: { firstRound: firstDataRound, lastRound: lastDataRound },
+        extraMethodCallArgs: { firstValidRound: firstValid, lastValidRound: lastValid },
+        extraSimulateArgs: { round: simRound },
+      })
+    ).map((data, i) => ({
+      ...data,
+      rnd: BigInt(firstDataRound) + BigInt(i),
+    }))
   }
 }

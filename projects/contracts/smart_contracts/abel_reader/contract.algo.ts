@@ -13,7 +13,7 @@ import {
   Account,
 } from "@algorandfoundation/algorand-typescript";
 import { AbelStub } from "../abel_stub/contract.algo";
-import { baremethod, compileArc4, encodeArc4, Uint8 } from "@algorandfoundation/algorand-typescript/arc4";
+import { baremethod, compileArc4, encodeArc4, Uint32, Uint8 } from "@algorandfoundation/algorand-typescript/arc4";
 
 export type BalanceInfo = {
   balance: uint64;
@@ -25,6 +25,11 @@ export type AssetTinyLabels = {
   unit_name: string;
   decimals: Uint8;
   labels: string[];
+};
+
+export type BlockTimeAndTc = {
+  ts: Uint32;
+  tc: uint64;
 };
 
 export class AbelReader extends Contract {
@@ -88,5 +93,17 @@ export class AbelReader extends Contract {
       decimals: new Uint8(0),
       labels: [],
     };
+  }
+
+  @abimethod({ readonly: true, onCreate: "allow" })
+  public getBlockTimesAndTc(firstRound: uint64, lastRound: uint64): BlockTimeAndTc {
+    for (let round: uint64 = firstRound; round <= lastRound; round++) {
+      const blkData: BlockTimeAndTc = {
+        ts: new Uint32(op.Block.blkTimestamp(round)),
+        tc: op.Block.blkTxnCounter(round),
+      };
+      log(encodeArc4(blkData));
+    }
+    return { ts: new Uint32(0), tc: 0 };
   }
 }
