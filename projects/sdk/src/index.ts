@@ -6,7 +6,7 @@ import {
   BlockTimeAndTc,
 } from "./generated/AbelReaderSDK.js"
 import { chunked } from "./utils/chunked.js"
-import { decodeUint64 } from "algosdk"
+import { decodeUint64, ALGORAND_ZERO_ADDRESS_STRING } from "algosdk"
 import { BoxName } from "@algorandfoundation/algokit-utils/types/app.js"
 
 export interface AssetTinyLabels extends AssetTinyLabelsInternal {
@@ -53,9 +53,23 @@ export class AbelGhostSDK {
     return new Map(data.map((balance, i) => [accounts[i], balance]))
   }
 
+  // chunk 63 is because we sim a single app call, max arg length issue (2KB, 63 * 32 bytes for addresses = 2016 bytes, leaving some buffer for other args and encoding overhead)
+  // TODO optimize to 128 chunk and do 3 app calls in simulate
   @chunked(63)
   private async getBalanceInfoInternal(accounts: string[]): Promise<BalanceInfo[]> {
     return this.baseSDK.getBalanceInfo({ methodArgsOrArgsArray: { accounts } })
+  }
+
+  async getAuthAddrs(accounts: string[]): Promise<Map<string, string | undefined>> {
+    const data = await this.getAuthAddrsInternal(accounts)
+    // contract returns the zero address for accounts that are not rekeyed; surface those as undefined
+    return new Map(data.map((authAddr, i) => [accounts[i], authAddr === ALGORAND_ZERO_ADDRESS_STRING ? undefined : authAddr]))
+  }
+
+  // TODO optimize to 128 chunk and do 3 app calls in simulate
+  @chunked(63)
+  private async getAuthAddrsInternal(accounts: string[]): Promise<string[]> {
+    return this.baseSDK.getAuthAddrs({ methodArgsOrArgsArray: { accounts } })
   }
 
   async getAssetsTinyLabels(assetIds: number[] | bigint[]): Promise<Map<bigint, AssetTinyLabels>> {

@@ -7,16 +7,16 @@ main:
     // smart_contracts/abel_reader/contract.algo.ts:35
     // export class AbelReader extends Contract {
     txn NumAppArgs
-    bz main_adminOnly@11
+    bz main_adminOnly@12
     txn OnCompletion
     !
     assert // OnCompletion must be NoOp
-    pushbytess 0x4877a967 0xd5ab3366 0xc2ed743f 0xa70e62a0 // method "getBalanceInfo(address[])(uint64,uint64)", method "getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])", method "get_asset_labels(asset)string[]", method "getBlockTimesAndTc(uint64,uint64)(uint32,uint64)"
+    pushbytess 0x4877a967 0xd5ab3366 0xc2ed743f 0xa70e62a0 0xc2f8d617 // method "getBalanceInfo(address[])(uint64,uint64)", method "getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])", method "get_asset_labels(asset)string[]", method "getBlockTimesAndTc(uint64,uint64)(uint32,uint64)", method "getAuthAddrs(address[])address"
     txna ApplicationArgs 0
-    match getBalanceInfo getAssetsTiny getAssetLabels getBlockTimesAndTc
+    match getBalanceInfo getAssetsTiny getAssetLabels getBlockTimesAndTc getAuthAddrs
     err
 
-main_adminOnly@11:
+main_adminOnly@12:
     // smart_contracts/abel_reader/contract.algo.ts:36
     // @baremethod({ allowActions: ["UpdateApplication", "DeleteApplication"] })
     intc_0 // 1
@@ -32,17 +32,17 @@ main_adminOnly@11:
     intc 4 // TMPL_UPDATABLE
     intc_0 // 1
     ==
-    bz main_bool_false@15
+    bz main_bool_false@16
     txn Sender
     global CreatorAddress
     ==
-    bz main_bool_false@15
+    bz main_bool_false@16
     intc_0 // 1
     // smart_contracts/abel_reader/contract.algo.ts:36
     // @baremethod({ allowActions: ["UpdateApplication", "DeleteApplication"] })
     return
 
-main_bool_false@15:
+main_bool_false@16:
     intc_1 // 0
     // smart_contracts/abel_reader/contract.algo.ts:36
     // @baremethod({ allowActions: ["UpdateApplication", "DeleteApplication"] })
@@ -444,6 +444,67 @@ getBlockTimesAndTc_after_while@4:
     // smart_contracts/abel_reader/contract.algo.ts:98
     // @abimethod({ readonly: true, onCreate: "allow" })
     pushbytes 0x151f7c75000000000000000000000000
+    log
+    intc_0 // 1
+    return
+
+
+// smart_contracts/abel_reader/contract.algo.ts::AbelReader.getAuthAddrs[routing]() -> void:
+getAuthAddrs:
+    // smart_contracts/abel_reader/contract.algo.ts:110
+    // @abimethod({ readonly: true, onCreate: "allow" })
+    txna ApplicationArgs 1
+    dupn 2
+    intc_1 // 0
+    extract_uint16 // on error: invalid array length header
+    dup
+    cover 2
+    intc_3 // 32
+    *
+    pushint 2 // 2
+    +
+    swap
+    len
+    ==
+    assert // invalid number of bytes for arc4.dynamic_array<account>
+    // smart_contracts/abel_reader/contract.algo.ts:112
+    // for (let idx: uint64 = 0; idx < accounts.length; idx++) {
+    intc_1 // 0
+
+getAuthAddrs_while_top@2:
+    // smart_contracts/abel_reader/contract.algo.ts:112
+    // for (let idx: uint64 = 0; idx < accounts.length; idx++) {
+    dup
+    dig 2
+    <
+    bz getAuthAddrs_after_while@4
+    // smart_contracts/abel_reader/contract.algo.ts:113
+    // const [authAddr, _] = op.AcctParams.acctAuthAddr(accounts[idx]);
+    dig 2
+    extract 2 0
+    dig 1
+    dup
+    cover 2
+    intc_3 // 32
+    *
+    intc_3 // 32
+    extract3 // on error: index access is out of bounds
+    acct_params_get AcctAuthAddr
+    pop
+    // smart_contracts/abel_reader/contract.algo.ts:115
+    // log(authAddr.bytes);
+    log
+    // smart_contracts/abel_reader/contract.algo.ts:112
+    // for (let idx: uint64 = 0; idx < accounts.length; idx++) {
+    intc_0 // 1
+    +
+    bury 1
+    b getAuthAddrs_while_top@2
+
+getAuthAddrs_after_while@4:
+    // smart_contracts/abel_reader/contract.algo.ts:110
+    // @abimethod({ readonly: true, onCreate: "allow" })
+    pushbytes base32(CUPXY5IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA)
     log
     intc_0 // 1
     return

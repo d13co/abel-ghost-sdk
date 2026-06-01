@@ -106,4 +106,14 @@ export class AbelReader extends Contract {
     }
     return { ts: new Uint32(0), tc: 0 };
   }
+
+  @abimethod({ readonly: true, onCreate: "allow" })
+  public getAuthAddrs(accounts: Account[]): Account {
+    for (let idx: uint64 = 0; idx < accounts.length; idx++) {
+      const [authAddr, _] = op.AcctParams.acctAuthAddr(accounts[idx]);
+      // logs the rekeyed-to (auth) address, or the zero address when not rekeyed
+      log(authAddr.bytes);
+    }
+    return Global.zeroAddress;
+  }
 }
