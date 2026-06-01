@@ -6,6 +6,7 @@ const algorand = AlgorandClient.mainNet()
 const sdk = new AbelGhostSDK({
   algorand,
   registryAppId: 2914159523,
+  // ghostAppId: BigInt(3381542955),
 })
 
 const delta = process.argv[2] ? BigInt(process.argv[2]) : BigInt(0)
@@ -20,7 +21,6 @@ const delta = process.argv[2] ? BigInt(process.argv[2]) : BigInt(0)
   console.timeEnd("fetch");
 
   const [first, last] = [data[0], data[data.length - 1]];
-  console.log({ first, last });
 
   const { block: { header: {  timestamp: ts1, txnCounter: tc1 }  }  } = await algorand.client.algod.block(firstRound).headerOnly(true).do();
   const { block: { header: {  timestamp: ts2, txnCounter: tc2 }  }  } = await algorand.client.algod.block(lastRound).headerOnly(true).do();
