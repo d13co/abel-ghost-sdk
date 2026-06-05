@@ -5,13 +5,14 @@ const algorand = AlgorandClient.mainNet()
 
 const sdk = new AbelGhostSDK({
   algorand,
+  debug: true,
 })
 
 // Known mainnet auth address that many accounts are rekeyed to.
-// When no accounts are passed on the command line, we pull up to 100 accounts
+// When no accounts are passed on the command line, we pull up to 1000 accounts
 // rekeyed to this address from the indexer and verify the contract agrees.
 const KNOWN_AUTH_ADDR = "XSKED5VKZZCSYNDWXZJI65JM2HP7HZFJWCOBIMOONKHTK5UVKENBNVDEYM"
-const INDEXER_URL = `https://mainnet-idx.4160.nodely.dev/v2/accounts?auth-addr=${KNOWN_AUTH_ADDR}&limit=100`
+const INDEXER_URL = `https://mainnet-idx.4160.nodely.dev/v2/accounts?auth-addr=${KNOWN_AUTH_ADDR}&limit=1000`
 
 ;(async () => {
   let accounts = process.argv.slice(2)

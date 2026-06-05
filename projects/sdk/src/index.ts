@@ -8,6 +8,7 @@ import {
 import { chunked } from "./utils/chunked.js"
 import { decodeUint64, ALGORAND_ZERO_ADDRESS_STRING } from "algosdk"
 import { BoxName } from "@algorandfoundation/algokit-utils/types/app.js"
+import { chunk } from "./utils/chunk.js"
 
 export interface AssetTinyLabels extends AssetTinyLabelsInternal {
   id: bigint
@@ -24,6 +25,7 @@ export class AbelGhostSDK {
   public registryAppId?: bigint
   public baseSDK: AbelReaderSDK
   public concurrency: number
+  public debug: boolean = false
 
   constructor({
     algorand,
@@ -31,12 +33,14 @@ export class AbelGhostSDK {
     concurrency = 4,
     ghostAppId,
     readerAccount,
+    debug
   }: {
     algorand: AlgorandClient
     concurrency?: number
     registryAppId?: number | bigint
     ghostAppId?: bigint
     readerAccount?: string
+    debug?: boolean
   }) {
     this.algorand = algorand
     this.registryAppId = registryAppId !== undefined ? BigInt(registryAppId) : undefined
@@ -45,6 +49,7 @@ export class AbelGhostSDK {
       algorand: this.algorand,
       readerAccount: readerAccount ?? "A7NMWS3NT3IUDMLVO26ULGXGIIOUQ3ND2TXSER6EBGRZNOBOUIQXHIBGDE",
       ghostAppId,
+      debug,
     })
   }
 
@@ -53,11 +58,11 @@ export class AbelGhostSDK {
     return new Map(data.map((balance, i) => [accounts[i], balance]))
   }
 
-  // chunk 63 is because we sim a single app call, max arg length issue (2KB, 63 * 32 bytes for addresses = 2016 bytes, leaving some buffer for other args and encoding overhead)
-  // TODO optimize to 128 chunk and do 3 app calls in simulate
-  @chunked(63)
+  @chunked(126)
   private async getBalanceInfoInternal(accounts: string[]): Promise<BalanceInfo[]> {
-    return this.baseSDK.getBalanceInfo({ methodArgsOrArgsArray: { accounts } })
+    // optimize to 126 chunk and do 2 app calls in simulate. 128 actual max but not taking a 3rd app call overhead for just a +2
+    const methodArgsOrArgsArray = chunk(accounts, 63).map(accounts => ({ accounts }))
+    return this.baseSDK.getBalanceInfo({ methodArgsOrArgsArray })
   }
 
   async getAuthAddrs(accounts: string[]): Promise<Map<string, string | undefined>> {
@@ -66,10 +71,11 @@ export class AbelGhostSDK {
     return new Map(data.map((authAddr, i) => [accounts[i], authAddr === ALGORAND_ZERO_ADDRESS_STRING ? undefined : authAddr]))
   }
 
-  // TODO optimize to 128 chunk and do 3 app calls in simulate
-  @chunked(63)
+  @chunked(126)
   private async getAuthAddrsInternal(accounts: string[]): Promise<string[]> {
-    return this.baseSDK.getAuthAddrs({ methodArgsOrArgsArray: { accounts } })
+    // optimize to 126 chunk and do 2 app calls in simulate. 128 actual max but not taking a 3rd app call overhead for just a +2
+    const methodArgsOrArgsArray = chunk(accounts, 63).map(accounts => ({ accounts }))
+    return this.baseSDK.getAuthAddrs({ methodArgsOrArgsArray })
   }
 
   async getAssetsTinyLabels(assetIds: number[] | bigint[]): Promise<Map<bigint, AssetTinyLabels>> {

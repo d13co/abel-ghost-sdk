@@ -7,7 +7,7 @@
       "request": "launch",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "deploy"],
-      "cwd": "${workspaceFolder}/smart_contracts",
+      "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**", "node_modules/**"],
       "preLaunchTask": "Build contracts (+ LocalNet)",
@@ -26,7 +26,7 @@
       "request": "launch",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "deploy"],
-      "cwd": "${workspaceFolder}/smart_contracts",
+      "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**", "node_modules/**"],
       "env": {

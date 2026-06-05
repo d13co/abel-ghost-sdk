@@ -40,8 +40,8 @@ importers:
         specifier: ^16.4.7
         version: 16.6.1
       ghostkit:
-        specifier: ^0.0.5
-        version: 0.0.5
+        specifier: ^0.0.8
+        version: 0.0.8
       ts-node-dev:
         specifier: ^2.0.0
         version: 2.0.0(@types/node@25.0.3)(typescript@5.9.3)
@@ -497,8 +497,8 @@ packages:
   get-tsconfig@4.13.0:
     resolution: {integrity: sha512-1VKTZJCwBrvbd+Wn3AOgQP/2Av+TfTCOlE4AcRJE72W1ksZXbAx8PPBR9RzgTeSPzlPMHrbANMH3LbltH73wxQ==}
 
-  ghostkit@0.0.5:
-    resolution: {integrity: sha512-kVAEnlApVTutO/Vb/Dox+XIILhFeqBRVpbZKdEX5MTu641JAyta78vcyQ+oLOBxTxVW08/MtFUGVcxsT/0bxTQ==}
+  ghostkit@0.0.8:
+    resolution: {integrity: sha512-e7dXuJrfV58JXSnDRcfZ7QIxTDvblCr2kmg9oaRaK3z1INvaakn4fV+9LqAgEuGQ/DDYVA68Hx0ueYT25kfffA==}
     hasBin: true
 
   glob-parent@5.1.2:
@@ -1176,7 +1176,7 @@ snapshots:
     dependencies:
       resolve-pkg-maps: 1.0.0
 
-  ghostkit@0.0.5:
+  ghostkit@0.0.8:
     dependencies:
       '@algorandfoundation/algokit-utils': 9.2.0(algosdk@3.5.2)
       algosdk: 3.5.2

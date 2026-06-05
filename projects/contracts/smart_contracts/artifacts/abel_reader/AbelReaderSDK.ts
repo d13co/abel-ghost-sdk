@@ -1410,7 +1410,7 @@ export type AbelReaderComposerResults<TReturns extends [...any[]]> = Expand<Send
 
 import { getABIDecodedValue } from '@algorandfoundation/algokit-utils/types/app-arc56'
 import { CommonAppCallParams } from '@algorandfoundation/algokit-utils/types/composer'
-import { makeEmptyTransactionSigner } from 'algosdk'
+import { ABIMethod, makeEmptyTransactionSigner } from 'algosdk'
 
 const emptySigner = makeEmptyTransactionSigner()
 
@@ -1428,15 +1428,18 @@ class GhostBase {
   public factory: AbelReaderFactory
   protected client: AbelReaderClient
   public cacheParamsTimeout = 75 // ms
+  public debug: boolean = false
 
   constructor({
     algorand,
     readerAccount,
     ghostAppId,
+    debug
   }: {
     algorand: AlgorandClient
     readerAccount?: string
     ghostAppId?: bigint
+    debug?: boolean
   }) {
     this.algorand = algorand
     if (readerAccount) this.readerAccount = readerAccount
@@ -1445,6 +1448,7 @@ class GhostBase {
     })
     this.ghostAppId = ghostAppId
     this.client = this.factory.getAppClientById({ appId: ghostAppId ?? 13n })
+    this.debug = debug ?? false
   }
 
   protected async getAndCacheSuggestedParams() {
@@ -1471,12 +1475,16 @@ class GhostBase {
     await this.getAndCacheSuggestedParams()
     const methodName = signature.slice(0, signature.indexOf('('))
 
+    const debugInfo = this.debug ? { reqId: Math.random().toString(36).substring(2, 10), txns: 0, argCount: [] as any } : undefined
+    const debugCountArgs = (args: Record<string, any>) => debugInfo && debugInfo.argCount.push(Object.entries(args).map(([arg, value]) => ({ [arg]: Array.isArray(value) ? value.length : 1 })))
+
     let builder: AbelReaderComposer<any> = this.client.newGroup()
     if (this.ghostAppId) {
       // deployed variant, we can call directly
       const argsArray = Array.isArray(methodArgsOrArgsArray) ? methodArgsOrArgsArray : [methodArgsOrArgsArray]
       for (let i=0; i < argsArray.length; i++) {
         const args = argsArray[i]
+        if (debugInfo) debugCountArgs(args)
         const extra = Array.isArray(extraMethodCallArgs) ? extraMethodCallArgs[i] : extraMethodCallArgs
         builder = txnBuilder(builder, { args, signer: emptySigner, ...extra })
       }
@@ -1487,6 +1495,7 @@ class GhostBase {
       const argsArray = Array.isArray(methodArgsOrArgsArray) ? methodArgsOrArgsArray : [methodArgsOrArgsArray]
       for (let i=0; i < argsArray.length; i++) {
         const args = argsArray[i]
+        if (debugInfo) debugCountArgs(args)
         const extra = Array.isArray(extraMethodCallArgs) ? extraMethodCallArgs[i] : extraMethodCallArgs
         throwawayBuilder = txnBuilder(throwawayBuilder, { args, signer: emptySigner, ...extra })
       }
@@ -1507,9 +1516,11 @@ class GhostBase {
           extraPages: 3,
         }
         builder = builder.addTransaction(txn, emptySigner)
+        if (debugInfo) debugInfo.txns += 1
       }
     }
-
+    if (debugInfo) console.warn(`[DEBUG] Ghostkit pre id=${debugInfo.reqId} m=${methodName} target=${this.ghostAppId ?? "ghost"} txns=${debugInfo.txns} ${JSON.stringify(debugInfo.argCount)}`)
+    const simStartTime = debugInfo ? performance.now() : undefined
     const { confirmations } = await builder.simulate({
       extraOpcodeBudget: 170_000,
       allowMoreLogging: true,
@@ -1517,20 +1528,29 @@ class GhostBase {
       allowUnnamedResources: true,
       ...extraSimulateArgs,
     })
+    const simEndTime = debugInfo ? performance.now() : undefined
 
     const logs = confirmations.flatMap(({ logs }, i) => {
       if (!logs) throw new Error(`logs were not returned from simulate txn ${i}. this should never happen`)
       return logs.slice(0, -1)
     })
 
-    const specRetObj = this.client.appSpec.methods.find(({ name }) => name === methodName)?.returns
-    if (!specRetObj) throw new Error('Method not found in app spec')
+    const specRetObj = this.client.appSpec.methods.find((m) => new ABIMethod(m).getSignature() === signature)?.returns
+    if (!specRetObj) throw new Error(`Method not found in app spec: ${signature}`)
 
     const retTypeStr = specRetObj.struct ?? specRetObj.type
     const retData: T[] = []
 
     for (let i = 0; i < logs.length; i++) {
       retData.push(getABIDecodedValue(new Uint8Array(logs[i]), retTypeStr, this.factory.appSpec.structs) as T)
+    }
+
+    const procEndTime  = debugInfo ? performance.now() : undefined
+    if (debugInfo) {
+      const simDuration = (simEndTime! - simStartTime!).toFixed(2)
+      const procDuration = (procEndTime! - simEndTime!).toFixed(2)
+      const totalDuration = (procEndTime! - simStartTime!).toFixed(2)
+      console.warn(`[DEBUG] Ghostkit post id=${debugInfo.reqId} m=${methodName} tSim=${simDuration}ms tProc=${procDuration}ms t=${totalDuration}ms`)
     }
 
     return retData
