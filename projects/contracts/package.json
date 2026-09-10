@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@algorandfoundation/algorand-typescript": "^1.0.1",
-    "ghostkit": "^0.0.9"
+    "ghostkit": "^0.0.10"
   },
   "devDependencies": {
     "@algorandfoundation/algokit-client-generator": "^6.0.0",

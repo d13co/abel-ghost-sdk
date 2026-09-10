@@ -49,6 +49,8 @@ const FIXTURES: Record<string, Expected> = {
   31566704: REFUSED, // an ASA id: no such application
   999999999999: REFUSED, // never existed
   0: REFUSED, // app id 0 means "the currently executing app" to the AVM
+  1: REFUSED, // ids below 256 are ambiguous with foreign-array indexes, so simulate will not add them
+  255: REFUSED, // last of those
 }
 
 function describe(info: PactInfo | Expected): string {

@@ -123,13 +123,15 @@ pools.get("4PE4NCV73L26GIUKZPZTIEASAERJQL2E4IFVXPTOPWVQFZ2RHCQW3VU7AM")
 
 Batched 42 escrows per simulate: each escrow can cost 3 of the group's 128 resource references (the account plus its two assets), on top of one reference for the Tinyman app itself.
 
-### `getPactInfo(pactAppIds: (number | bigint)[]): Promise<Map<bigint, PactInfo>>`
+### `getPactInfo(pactAppIds: (number | bigint)[], creators?: PactPoolCreators): Promise<Map<bigint, PactInfo>>`
 
 PACT pool info for many pool app ids, keyed by app id. `PactInfo` is `{ type: PactPoolType | "", asset1Id: bigint, asset1UnitName: string, asset2Id: bigint, asset2UnitName: string, feeBps: bigint }`, where `PactPoolType` is `"CONSTANT_PRODUCT" | "STABLESWAP" | "MANAGED_WEIGHTED"`.
 
 Each app is authenticated from algod alone, no PACT API: its global-state *shape* picks the pool type, and that type's PACT creator — stamped by consensus at app creation, so unforgeable — has to match. Constant-product and stableswap pools carry the pair and fee packed into `CONFIG` (cross-checked against `FEE_BPS`); managed weighted pools carry them in `asset_a` / `asset_b` / `swap_fee_bps`.
 
-`type` is `""` for anything that fails, and nothing in the batch aborts it: app ids that do not exist or have been deleted, apps that are not pools (PACT's own factories and vault), and lookalike pools from an untrusted creator all come back zeroed. **Unlike Tinyman, `asset1Id === 0` is normal** — ALGO is PACT's *primary* asset — so the "is this a pool" test is `type !== ""`. ALGO is reported with the unit name `"ALGO"`, and an asset that has since been destroyed keeps its id but has an empty unit name.
+`creators` are the expected pool creators, one per type: `{ CONSTANT_PRODUCT, STABLESWAP, MANAGED_WEIGHTED }`, each a base32 address. It defaults to `MAINNET_PACT_POOL_CREATORS` when the client is connected to mainnet and **throws otherwise** — there is no safe default for another network, and a wrong one would either refuse every pool or trust an arbitrary deployer. Pass the zero address for a type to disable it. Binding one creator per type matters: the account that deployed the stableswap pools also created the constant product *factory*, so merely being in the set is not enough.
+
+`type` is `""` for anything that fails, and nothing in the batch aborts it: app ids that do not exist or have been deleted, app ids below 256 (which `simulate` refuses to attach as resources, since they are ambiguous with foreign-array indexes), apps that are not pools (PACT's own factories and vault), and lookalike pools from an untrusted creator all come back zeroed. **Unlike Tinyman, `asset1Id === 0` is normal** — ALGO is PACT's *primary* asset — so the "is this a pool" test is `type !== ""`. ALGO is reported with the unit name `"ALGO"`, and an asset that has since been destroyed keeps its id but has an empty unit name.
 
 `asset1` / `asset2` are PACT's primary / secondary assets. Note that the unit names are read from the ASAs, so `asset1UnitName + "/" + asset2UnitName` is not always PACT's own display label, which comes from the LP token name and can carry suffixes such as `"USDC/goUSD [SI]"`.
 
@@ -139,9 +141,13 @@ pools.get(1073547054n)
 // { type: "CONSTANT_PRODUCT", asset1Id: 31566704n, asset1UnitName: "USDC", asset2Id: 386192725n, asset2UnitName: "goBTC", feeBps: 30n }
 pools.get(3661371688n)
 // { type: "MANAGED_WEIGHTED", asset1Id: 0n, asset1UnitName: "ALGO", asset2Id: 2994233666n, asset2UnitName: "POW", feeBps: 36n }
+
+// off mainnet, or to pin the creators yourself:
+import { MAINNET_PACT_POOL_CREATORS } from "abel-ghost-sdk"
+await sdk.getPactInfo([1073547054], { ...MAINNET_PACT_POOL_CREATORS, MANAGED_WEIGHTED: myCreator })
 ```
 
-Batched 42 pools per simulate: each pool can cost 3 of the group's 128 resource references (the app itself plus its two assets).
+Batched 42 pools per simulate: each pool can cost 3 of the group's 128 resource references (the app itself plus its two assets). The creators travel as ARC-4 addresses in the app args, so they cost no references.
 
 ## Running the examples
 

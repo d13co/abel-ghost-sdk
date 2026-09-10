@@ -6,14 +6,20 @@ settings:
 
 importers:
 
+  .:
+    dependencies:
+      ghostkit:
+        specifier: ^0.0.10
+        version: 0.0.10
+
   projects/contracts:
     dependencies:
       '@algorandfoundation/algorand-typescript':
         specifier: ^1.0.1
         version: 1.0.1(tslib@2.8.1)
       ghostkit:
-        specifier: ^0.0.9
-        version: 0.0.9
+        specifier: ^0.0.10
+        version: 0.0.10
     devDependencies:
       '@algorandfoundation/algokit-client-generator':
         specifier: ^6.0.0
@@ -497,8 +503,8 @@ packages:
   get-tsconfig@4.13.0:
     resolution: {integrity: sha512-1VKTZJCwBrvbd+Wn3AOgQP/2Av+TfTCOlE4AcRJE72W1ksZXbAx8PPBR9RzgTeSPzlPMHrbANMH3LbltH73wxQ==}
 
-  ghostkit@0.0.9:
-    resolution: {integrity: sha512-wd2NV4glnJHEfEcY/HdhWm7AM4X6dXeDj1ZlQlh/Piu4WxYjqD1Hd8h4vgRI7T20o2tXRwRmS+YtQfGfd35Kfw==}
+  ghostkit@0.0.10:
+    resolution: {integrity: sha512-uSVHiwfVRFiy2Os06W6Nerd5MGcxBOnCBB7Kq5yNA1zivZb6yLAptK3ZNBNDnIk3nA5YiPNYlkQwDPC1KBTSQw==}
     hasBin: true
 
   glob-parent@5.1.2:
@@ -1176,7 +1182,7 @@ snapshots:
     dependencies:
       resolve-pkg-maps: 1.0.0
 
-  ghostkit@0.0.9:
+  ghostkit@0.0.10:
     dependencies:
       '@algorandfoundation/algokit-utils': 9.2.0(algosdk@3.5.2)
       algosdk: 3.5.2

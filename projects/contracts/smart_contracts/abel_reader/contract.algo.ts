@@ -14,7 +14,7 @@ import {
   Bytes,
 } from "@algorandfoundation/algorand-typescript";
 import { AbelStub } from "../abel_stub/contract.algo";
-import { baremethod, compileArc4, encodeArc4, Uint32, Uint8 } from "@algorandfoundation/algorand-typescript/arc4";
+import { Address, baremethod, compileArc4, encodeArc4, Uint32, Uint8 } from "@algorandfoundation/algorand-typescript/arc4";
 
 export type BalanceInfo = {
   balance: uint64;
@@ -168,10 +168,27 @@ export class AbelReader extends Contract {
     return getEmptyTinymanInfo();
   }
 
+  // the three creators are network specific, so they are arguments rather than constants; the SDK
+  // fills in the mainnet ones. they are arc4 addresses, not Account references, so they cost app
+  // arg bytes instead of eating into the group's resource references
   @abimethod({ readonly: true, onCreate: "allow" })
-  public getPactInfo(pactAppIds: Application[]): PactInfo {
+  public getPactInfo(
+    constantProductCreator: Address,
+    stableswapCreator: Address,
+    managedWeightedCreator: Address,
+    pactAppIds: Application[],
+  ): PactInfo {
     for (const pactAppId of pactAppIds) {
-      log(encodeArc4(getPactPoolInfo(pactAppId)));
+      log(
+        encodeArc4(
+          getPactPoolInfo(
+            pactAppId,
+            constantProductCreator.native,
+            stableswapCreator.native,
+            managedWeightedCreator.native,
+          ),
+        ),
+      );
     }
     return getEmptyPactInfo();
   }
@@ -198,22 +215,34 @@ function getEmptyPactInfo(): PactInfo {
   };
 }
 
-function getPactPoolInfo(app: Application): PactInfo {
+function getPactPoolInfo(
+  app: Application,
+  constantProductCreator: Account,
+  stableswapCreator: Account,
+  managedWeightedCreator: Account,
+): PactInfo {
+  // simulate will not add an app id below 256 as an unnamed resource -- those are ambiguous with
+  // indexes into the foreign apps array -- and touching an unavailable app aborts the whole batch.
+  // id 0 is worse still: to the AVM it means the app currently executing. no creatable on any
+  // network has an id that low, so refuse them before reading anything
+  if (app.id < 256) return getEmptyPactInfo();
+
   // op form: app_params_get flags a missing app instead of asserting the way Application.creator
   // would, so an app id that never existed or has been deleted cannot abort the whole batch
   const [creator, appExists] = op.AppParams.appCreator(app);
   if (!appExists) return getEmptyPactInfo();
 
-  // one creator per pool type; mainnet values. future version could change these to arguments to support other networks
-  const constProductCreator = creator === Account("E5QGPA7LWVAVUADJFSZ6TLKRT6LYINNNQGQFVCPNTBHJM7I2HRYGSJBEMM");
-  const stableswapCreator = creator === Account("PACTFIIFTBWHD52WFMKTSCDZWFVWZK4ZDSWIZHMROZLYD5PZFA4TLCWP7I");
-  const managedWeightedCreator = creator === Account("H2XDAFUDTEPTN24HNUAZI6RCKQ2KDIIO45U767FEHGSGSEGCWWOK4QEIXM");
+  // one expected creator per pool type. passing the zero address for a type disables it, since no
+  // app can have been created by it
+  const isConstProduct = creator === constantProductCreator;
+  const isStableswapCreator = creator === stableswapCreator;
+  const isManagedWeighted = creator === managedWeightedCreator;
   // gate on the creator SET before reading any global state. app_global_get_ex pushes a value with
   // the type it was stored as and nothing casts it, so an app that stores CONFIG as a uint64 would
   // panic `len` and take the whole batch down with it. only PACT can create an app with one of
   // these creators, so past this point the state is PACT's own and known-shaped. this does not
   // widen what is accepted -- the type is still bound to a single creator below
-  if (!constProductCreator && !stableswapCreator && !managedWeightedCreator) return getEmptyPactInfo();
+  if (!isConstProduct && !isStableswapCreator && !isManagedWeighted) return getEmptyPactInfo();
 
   // classify by global state SHAPE before authenticating: the creators do not discriminate on
   // their own, since the stableswap deployer also created the constant product factory, and that
@@ -227,7 +256,7 @@ function getPactPoolInfo(app: Application): PactInfo {
     // the pool's own `factory` key is not cross-checked: the factory's escrow *is* this creator,
     // so it would be a weaker restatement of the check below, at the cost of one app reference.
     // manager_fee_bps and protocol_fee_bps are splits of swap_fee_bps, which is the swap fee
-    if (!managedWeightedCreator) return getEmptyPactInfo();
+    if (!isManagedWeighted) return getEmptyPactInfo();
     return {
       type: new Uint8(PACT_TYPE_MANAGED_WEIGHTED),
       asset1Id: assetA,
@@ -251,7 +280,7 @@ function getPactPoolInfo(app: Application): PactInfo {
 
   // bind the creator to the DETECTED type rather than to the set of three: the stableswap deployer
   // also created the constant product factory, so set membership blurs the two roles
-  if (isStableswap ? !stableswapCreator : !constProductCreator) return getEmptyPactInfo();
+  if (isStableswap ? !isStableswapCreator : !isConstProduct) return getEmptyPactInfo();
 
   // two independent fee sources; disagreement means the CONFIG layout was misread. in practice
   // every authenticated pool carries FEE_BPS -- the shape without it is the legacy pool, which the

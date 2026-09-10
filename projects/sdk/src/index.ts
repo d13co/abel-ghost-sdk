@@ -35,6 +35,21 @@ export interface PactInfo extends Omit<PactInfoInternal, "type"> {
   type: PactPoolType
 }
 
+/**
+ * The account PACT creates each kind of pool from — `getPactInfo`'s root of trust, since the
+ * creator of an app is stamped by consensus and cannot be forged. One per pool type: membership
+ * of the set is not enough, because the same deployer created both stableswap pools and the
+ * constant product *factory*.
+ */
+export type PactPoolCreators = Record<Exclude<PactPoolType, "">, string>
+
+/** PACT's pool creators on mainnet */
+export const MAINNET_PACT_POOL_CREATORS: PactPoolCreators = {
+  CONSTANT_PRODUCT: "E5QGPA7LWVAVUADJFSZ6TLKRT6LYINNNQGQFVCPNTBHJM7I2HRYGSJBEMM",
+  STABLESWAP: "PACTFIIFTBWHD52WFMKTSCDZWFVWZK4ZDSWIZHMROZLYD5PZFA4TLCWP7I",
+  MANAGED_WEIGHTED: "H2XDAFUDTEPTN24HNUAZI6RCKQ2KDIIO45U767FEHGSGSEGCWWOK4QEIXM",
+}
+
 export class AbelGhostSDK {
   static baseSDK = AbelReaderSDK
 
@@ -43,6 +58,8 @@ export class AbelGhostSDK {
   public baseSDK: AbelReaderSDK
   public concurrency: number
   public debug: boolean = false
+  /** memoized `client.isMainNet()` — an algod client's genesis never changes, so ask it once */
+  private isMainNetPromise?: Promise<boolean>
 
   constructor({
     algorand,
@@ -169,9 +186,20 @@ export class AbelGhostSDK {
    *
    * Note that `asset1Id === 0` is normal here: ALGO is PACT's *primary* asset, the opposite of
    * Tinyman. The "is this a pool" test is `type !== ""`.
+   *
+   * `creators` are the expected pool creators, one per type. It defaults to
+   * {@link MAINNET_PACT_POOL_CREATORS} when the client is connected to mainnet, and throws
+   * otherwise — there is no safe default for another network, and getting it wrong would either
+   * refuse every pool or trust an arbitrary one. Pass the zero address for a type to disable it.
    */
-  async getPactInfo(pactAppIds: (number | bigint)[]): Promise<Map<bigint, PactInfo>> {
-    const data = await this.getPactInfoInternal(pactAppIds.map((appId) => BigInt(appId)))
+  async getPactInfo(
+    pactAppIds: (number | bigint)[],
+    creators?: PactPoolCreators,
+  ): Promise<Map<bigint, PactInfo>> {
+    const data = await this.getPactInfoInternal(
+      pactAppIds.map((appId) => BigInt(appId)),
+      await this.resolvePactPoolCreators(creators),
+    )
     return new Map(
       data.map((info, i) => [
         BigInt(pactAppIds[i]),
@@ -180,12 +208,39 @@ export class AbelGhostSDK {
     )
   }
 
+  private isMainNet(): Promise<boolean> {
+    // do not cache a failed lookup: a transient algod error would otherwise poison every later call
+    this.isMainNetPromise ??= this.algorand.client.isMainNet().catch((error: unknown) => {
+      this.isMainNetPromise = undefined
+      throw error
+    })
+    return this.isMainNetPromise
+  }
+
+  private async resolvePactPoolCreators(creators?: PactPoolCreators): Promise<PactPoolCreators> {
+    if (creators) return creators
+    if (!(await this.isMainNet()))
+      throw new Error(
+        "getPactInfo only knows PACT's pool creators on mainnet; pass `creators` explicitly for this network",
+      )
+    return MAINNET_PACT_POOL_CREATORS
+  }
+
   @chunked(42)
-  private async getPactInfoInternal(pactAppIds: bigint[]): Promise<PactInfoInternal[]> {
+  private async getPactInfoInternal(
+    pactAppIds: bigint[],
+    creators: PactPoolCreators,
+  ): Promise<PactInfoInternal[]> {
     // one app call: each pool costs up to 3 of the group's 128 resource refs (the app itself plus
-    // its two assets) => 3 * 42 = 126
+    // its two assets) => 3 * 42 = 126. the creators are arc4 addresses, i.e. plain app arg bytes,
+    // so they cost no references
     return this.baseSDK.getPactInfo({
-      methodArgsOrArgsArray: { pactAppIds },
+      methodArgsOrArgsArray: {
+        constantProductCreator: creators.CONSTANT_PRODUCT,
+        stableswapCreator: creators.STABLESWAP,
+        managedWeightedCreator: creators.MANAGED_WEIGHTED,
+        pactAppIds,
+      },
     })
   }
 
