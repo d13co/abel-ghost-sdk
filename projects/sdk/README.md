@@ -36,6 +36,7 @@ new AbelGhostSDK({
   concurrency = 4,     // how many chunked simulate calls run in parallel
   ghostAppId,          // bigint — optional deployed ghost app id. Omit to use the deployment-free ghost path.
   readerAccount,       // string — sender used for simulation. Defaults to a fee-sink address; override per network if needed.
+  cacheParamsTimeout,  // number — ms to cache algod suggested params across chunked calls. Defaults to 75; 0 disables caching.
 })
 ```
 
@@ -122,6 +123,26 @@ pools.get("4PE4NCV73L26GIUKZPZTIEASAERJQL2E4IFVXPTOPWVQFZ2RHCQW3VU7AM")
 
 Batched 42 escrows per simulate: each escrow can cost 3 of the group's 128 resource references (the account plus its two assets), on top of one reference for the Tinyman app itself.
 
+### `getPactInfo(pactAppIds: (number | bigint)[]): Promise<Map<bigint, PactInfo>>`
+
+PACT pool info for many pool app ids, keyed by app id. `PactInfo` is `{ type: PactPoolType | "", asset1Id: bigint, asset1UnitName: string, asset2Id: bigint, asset2UnitName: string, feeBps: bigint }`, where `PactPoolType` is `"CONSTANT_PRODUCT" | "STABLESWAP" | "MANAGED_WEIGHTED"`.
+
+Each app is authenticated from algod alone, no PACT API: its global-state *shape* picks the pool type, and that type's PACT creator — stamped by consensus at app creation, so unforgeable — has to match. Constant-product and stableswap pools carry the pair and fee packed into `CONFIG` (cross-checked against `FEE_BPS`); managed weighted pools carry them in `asset_a` / `asset_b` / `swap_fee_bps`.
+
+`type` is `""` for anything that fails, and nothing in the batch aborts it: app ids that do not exist or have been deleted, apps that are not pools (PACT's own factories and vault), and lookalike pools from an untrusted creator all come back zeroed. **Unlike Tinyman, `asset1Id === 0` is normal** — ALGO is PACT's *primary* asset — so the "is this a pool" test is `type !== ""`. ALGO is reported with the unit name `"ALGO"`, and an asset that has since been destroyed keeps its id but has an empty unit name.
+
+`asset1` / `asset2` are PACT's primary / secondary assets. Note that the unit names are read from the ASAs, so `asset1UnitName + "/" + asset2UnitName` is not always PACT's own display label, which comes from the LP token name and can carry suffixes such as `"USDC/goUSD [SI]"`.
+
+```ts
+const pools = await sdk.getPactInfo([1073547054, 885102197, 3661371688])
+pools.get(1073547054n)
+// { type: "CONSTANT_PRODUCT", asset1Id: 31566704n, asset1UnitName: "USDC", asset2Id: 386192725n, asset2UnitName: "goBTC", feeBps: 30n }
+pools.get(3661371688n)
+// { type: "MANAGED_WEIGHTED", asset1Id: 0n, asset1UnitName: "ALGO", asset2Id: 2994233666n, asset2UnitName: "POW", feeBps: 36n }
+```
+
+Batched 42 pools per simulate: each pool can cost 3 of the group's 128 resource references (the app itself plus its two assets).
+
 ## Running the examples
 
 The [`examples/`](examples) directory has runnable MainNet scripts. Build first from the repo root (`algokit project run build`), then from `projects/sdk`:
@@ -133,6 +154,7 @@ npx tsx examples/get-all-assets.ts      # all registry asset ids
 npx tsx examples/get-blk-time-tc.ts     # block times & tx counters
 npx tsx examples/get-auth-addrs.ts      # auth/rekey addresses
 npx tsx examples/get-tinyman-info.ts    # tinyman pool escrows
+npx tsx examples/get-pact-info.ts       # pact pool apps
 
 # get-auth-addrs with no args pulls accounts rekeyed to a known address from the
 # indexer and verifies them; or pass addresses explicitly:
@@ -142,4 +164,9 @@ npx tsx examples/get-auth-addrs.ts <ADDR1> <ADDR2> ...
 # account from the indexer and verifies each is a valid pool escrow; or pass
 # escrow addresses explicitly:
 npx tsx examples/get-tinyman-info.ts <ADDR1> <ADDR2> ...
+
+# get-pact-info with no args checks 100 pools from PACT's API (used only as an
+# oracle) plus fixtures for managed weighted pools and for app ids that must be
+# refused; or pass pool app ids explicitly:
+npx tsx examples/get-pact-info.ts <APPID1> <APPID2> ...
 ```

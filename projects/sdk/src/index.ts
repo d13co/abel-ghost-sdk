@@ -5,6 +5,7 @@ import {
   BalanceInfo,
   BlockTimeAndTc,
   TinymanInfo,
+  PactInfo as PactInfoInternal,
 } from "./generated/AbelReaderSDK.js"
 import { chunked } from "./utils/chunked.js"
 import { decodeUint64, ALGORAND_ZERO_ADDRESS_STRING } from "algosdk"
@@ -24,6 +25,16 @@ export type { TinymanInfo }
 /** Tinyman v2 AMM app on mainnet */
 export const MAINNET_TINYMAN_V2_APP_ID = 1002541853n
 
+/** PACT pool types, indexed by the numeric code the contract logs. `""` = not a PACT pool */
+const PACT_POOL_TYPES = ["", "CONSTANT_PRODUCT", "STABLESWAP", "MANAGED_WEIGHTED"] as const
+
+export type PactPoolType = (typeof PACT_POOL_TYPES)[number]
+
+export interface PactInfo extends Omit<PactInfoInternal, "type"> {
+  /** `""` when the app is not an authenticated PACT pool */
+  type: PactPoolType
+}
+
 export class AbelGhostSDK {
   static baseSDK = AbelReaderSDK
 
@@ -39,6 +50,7 @@ export class AbelGhostSDK {
     concurrency = 4,
     ghostAppId,
     readerAccount,
+    cacheParamsTimeout,
     debug
   }: {
     algorand: AlgorandClient
@@ -46,6 +58,8 @@ export class AbelGhostSDK {
     registryAppId?: number | bigint
     ghostAppId?: bigint
     readerAccount?: string
+    /** ms to cache algod suggested params for across chunked calls. Defaults to 75; 0 disables caching. */
+    cacheParamsTimeout?: number
     debug?: boolean
   }) {
     this.algorand = algorand
@@ -55,6 +69,7 @@ export class AbelGhostSDK {
       algorand: this.algorand,
       readerAccount: readerAccount ?? "A7NMWS3NT3IUDMLVO26ULGXGIIOUQ3ND2TXSER6EBGRZNOBOUIQXHIBGDE",
       ghostAppId,
+      cacheParamsTimeout,
       debug,
     })
   }
@@ -141,6 +156,36 @@ export class AbelGhostSDK {
     // plus its two assets), on top of the single ref for the Tinyman app itself => 1 + 3 * 42 = 127
     return this.baseSDK.getTinymanInfo({
       methodArgsOrArgsArray: { tinymanAppId, lpEscrows },
+    })
+  }
+
+  /**
+   * Look up PACT pool info for a batch of pool app ids.
+   *
+   * Each app is authenticated from algod alone: its global state shape picks the pool type, and
+   * that type's PACT creator — stamped by consensus at app creation, so unforgeable — has to match.
+   * `type` is `""` for anything that fails, including app ids that do not exist, have been deleted,
+   * are not pools (factories, vaults), or are lookalike pools from an untrusted creator.
+   *
+   * Note that `asset1Id === 0` is normal here: ALGO is PACT's *primary* asset, the opposite of
+   * Tinyman. The "is this a pool" test is `type !== ""`.
+   */
+  async getPactInfo(pactAppIds: (number | bigint)[]): Promise<Map<bigint, PactInfo>> {
+    const data = await this.getPactInfoInternal(pactAppIds.map((appId) => BigInt(appId)))
+    return new Map(
+      data.map((info, i) => [
+        BigInt(pactAppIds[i]),
+        { ...info, type: PACT_POOL_TYPES[info.type] ?? "" } satisfies PactInfo,
+      ]),
+    )
+  }
+
+  @chunked(42)
+  private async getPactInfoInternal(pactAppIds: bigint[]): Promise<PactInfoInternal[]> {
+    // one app call: each pool costs up to 3 of the group's 128 resource refs (the app itself plus
+    // its two assets) => 3 * 42 = 126
+    return this.baseSDK.getPactInfo({
+      methodArgsOrArgsArray: { pactAppIds },
     })
   }
 
