@@ -104,6 +104,24 @@ const blocks = await sdk.getBlockTimesAndTc(lastRound - 1000n, lastRound)
 console.log(blocks[0]) // { rnd, ts, tc }
 ```
 
+### `getTinymanInfo(lpEscrows: string[], tinymanAppId?: number | bigint): Promise<Map<string, TinymanInfo>>`
+
+Tinyman pool info for many pool (LP) escrow accounts. `TinymanInfo` is `{ validRekey: boolean, asset1Id: bigint, asset1UnitName: string, asset2Id: bigint, asset2UnitName: string }`.
+
+`validRekey` is `true` when the escrow is rekeyed to the Tinyman app account, which is what makes it a genuine pool escrow rather than a lookalike. The asset ids and unit names are read from the escrow's local state on the Tinyman app. `tinymanAppId` defaults to `MAINNET_TINYMAN_V2_APP_ID` (`1002541853`).
+
+Addresses that are not pool escrows — unfunded, not opted into the app, or plain accounts — come back as all-zero rather than failing the batch. A genuine pool always has a non-zero `asset1Id`, since Tinyman orders pairs so ALGO (asset id 0) is always asset 2; ALGO is reported with the unit name `"ALGO"`, and an asset that has since been deleted keeps its id but has an empty unit name.
+
+```ts
+const pools = await sdk.getTinymanInfo([
+  "4PE4NCV73L26GIUKZPZTIEASAERJQL2E4IFVXPTOPWVQFZ2RHCQW3VU7AM",
+])
+pools.get("4PE4NCV73L26GIUKZPZTIEASAERJQL2E4IFVXPTOPWVQFZ2RHCQW3VU7AM")
+// { validRekey: true, asset1Id: 1065092715n, asset1UnitName: "COSG", asset2Id: 0n, asset2UnitName: "ALGO" }
+```
+
+Batched 42 escrows per simulate: each escrow can cost 3 of the group's 128 resource references (the account plus its two assets), on top of one reference for the Tinyman app itself.
+
 ## Running the examples
 
 The [`examples/`](examples) directory has runnable MainNet scripts. Build first from the repo root (`algokit project run build`), then from `projects/sdk`:
@@ -114,8 +132,14 @@ npx tsx examples/get-label.ts           # asset labels + tiny labels
 npx tsx examples/get-all-assets.ts      # all registry asset ids
 npx tsx examples/get-blk-time-tc.ts     # block times & tx counters
 npx tsx examples/get-auth-addrs.ts      # auth/rekey addresses
+npx tsx examples/get-tinyman-info.ts    # tinyman pool escrows
 
 # get-auth-addrs with no args pulls accounts rekeyed to a known address from the
 # indexer and verifies them; or pass addresses explicitly:
 npx tsx examples/get-auth-addrs.ts <ADDR1> <ADDR2> ...
+
+# get-tinyman-info with no args pulls 420 accounts rekeyed to the Tinyman v2 app
+# account from the indexer and verifies each is a valid pool escrow; or pass
+# escrow addresses explicitly:
+npx tsx examples/get-tinyman-info.ts <ADDR1> <ADDR2> ...
 ```

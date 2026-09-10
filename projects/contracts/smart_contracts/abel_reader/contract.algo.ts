@@ -11,6 +11,7 @@ import {
   Txn,
   uint64,
   Account,
+  Bytes,
 } from "@algorandfoundation/algorand-typescript";
 import { AbelStub } from "../abel_stub/contract.algo";
 import { baremethod, compileArc4, encodeArc4, Uint32, Uint8 } from "@algorandfoundation/algorand-typescript/arc4";
@@ -30,6 +31,14 @@ export type AssetTinyLabels = {
 export type BlockTimeAndTc = {
   ts: Uint32;
   tc: uint64;
+};
+
+export type TinymanInfo = {
+  validRekey: boolean;
+  asset1Id: uint64;
+  asset1UnitName: string;
+  asset2Id: uint64;
+  asset2UnitName: string;
 };
 
 export class AbelReader extends Contract {
@@ -116,4 +125,49 @@ export class AbelReader extends Contract {
     }
     return Global.zeroAddress;
   }
+
+  @abimethod({ readonly: true, onCreate: "allow" })
+  public getTinymanInfo(tinymanAppId: Application, lpEscrows: Account[]): TinymanInfo {
+    const tinymanEscrow = tinymanAppId.address;
+    for (const lpEscrow of lpEscrows) {
+      // op forms instead of puya native access, which assert existence
+      const [authAddr, _] = op.AcctParams.acctAuthAddr(lpEscrow);
+      const validRekey = authAddr === tinymanEscrow;
+      // app_local_get_ex errors outright on an account that is not opted in, which would abort
+      // the whole batch, so anything that is not a pool escrow has to be skipped here
+      if (op.appOptedIn(lpEscrow, tinymanAppId)) {
+        const [asset1Id, asset1Exists] = op.AppLocal.getExUint64(lpEscrow, tinymanAppId, Bytes`asset_1_id`);
+        const [asset2Id, asset2Exists] = op.AppLocal.getExUint64(lpEscrow, tinymanAppId, Bytes`asset_2_id`);
+        log(
+          encodeArc4({
+            validRekey,
+            asset1Id,
+            asset1UnitName: asset1Exists ? getAssetUnitName(asset1Id) : "",
+            asset2Id,
+            asset2UnitName: asset2Exists ? getAssetUnitName(asset2Id) : "",
+          } as TinymanInfo),
+        );
+      } else log(encodeArc4(getEmptyTinymanInfo()));
+    }
+    return getEmptyTinymanInfo();
+  }
+}
+
+function getEmptyTinymanInfo(): TinymanInfo {
+  return {
+    validRekey: false,
+    asset1Id: 0,
+    asset1UnitName: "",
+    asset2Id: 0,
+    asset2UnitName: "",
+  };
+}
+
+function getAssetUnitName(assetId: uint64): string {
+  // tinyman uses asset id 0 for ALGO, which has no asset params to read
+  if (assetId === 0) return "ALGO";
+  // asset_params_get pushes a uint64 0 (not bytes) when the asset is gone, so the exists
+  // flag has to be honoured -- otherwise a deleted asset fails the encode below on `len`
+  const [unitName, exists] = op.AssetParams.assetUnitName(assetId);
+  return exists ? unitName.toString() : "";
 }

@@ -3,8 +3,8 @@
   "sources": [
     "../../abel_reader/contract.algo.ts"
   ],
-  "mappings": "AAkCA;;AAAA;;;AAAA;;AAAA;AAAA;AAAA;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;;;AAAA;;;;;;;;;;;;AAAA;AACG;AAAA;;AAAA;AAAA;;AAAA;AAAA;;AAAA;AAAA;AAEQ;;AAAqC;AAArC;AAAA;;;AAA0C;;AAAe;;AAAf;AAA1C;;;;AAFR;;AAAA;;;;AAKA;;;AAAA;;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAEwB;AAAG;AAAA;;AAAA;AAA1B;;;AACkB;;AAAA;;;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;AACA;AAAA;AAAA;;AAChB;;;AACqB;;AAAA;AACc;;AAAA;AAAA;AAAA;AAAA;AACjC;AAN6C;AAAA;AAAA;AAAA;;;;;AAe1C;;;;;;;;;;;;;;;;;;AAPH;;;;AAVL;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;;;;;;AAoBA;;;AAAA;;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAEwB;AAAG;AAAA;;AAAA;AAA1B;;;AACgB;;AAAA;;;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;;AACM;;AAAA;;AAChB;;;AAwBC;;;;;;;;;;;;;;;AAvBH;AAJ6C;AAAA;AAAA;AAAA;;;;;AAO3C;;AAAA;;;AAAkB;AAAA;;;;;;;;;;;;AAAgF;;;;;;;;AAAhF;;;;;;;AAAA;;;;AAAA;;;AAAA;AAAA;;AAAA;AAAA;;;AAAA;AAAA;;;AAAA;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAEZ;;AAAA;AAAA;;AAAA;AAAA;;AAAA;AACK;AAAA;;AAAA;AAAA;;AAAA;AACS;;AAAA;AAAV;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AAAA;;AACF;;;AAAY;;;;AAJa;;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;;AAAA;AAAA;;;AAAA;;;;AAAA;AAAA;AAAA;;AAAA;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAMnC;;;;AAFwC;;;;;;;;;;;;;AALmF;;;;AAThI;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAsBA;;;AAAA;AAAA;AAAA;AAAA;AAAA;;;;;;;;AAAA;AAAA;AAAA;AAeA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAEsC;AAAA;;AAAA;AAArC;;;AAEmB;;AAAA;;AAAX;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AACA;;AAAA;;AAF0B;AAAA;AAIhC;AALuD;AAAA;AAAA;;;;;AAF1D;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAYA;;;AAAA;;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAEwB;AAAG;AAAA;;AAAA;AAA1B;;;AACmD;;AAAA;;;AAAA;;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAA3B;;AAAA;AAEtB;AAH+C;AAAA;AAAA;;;;;AAFlD;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA",
-  "op_pc_offset": 1,
+  "mappings": "AA2CA;;AAAA;;;AAAA;;AAAA;AAAA;AAAA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;;;AAAA;;;;;;;;;;;;;;AAAA;AACG;AAAA;;AAAA;AAAA;;AAAA;AAAA;;AAAA;AAAA;AAEQ;;AAAqC;AAArC;AAAA;;;AAA0C;;AAAe;;AAAf;AAA1C;;;;AAFR;;AAAA;AAyHH;;;;AAEE;;AAAA;;;AAA0B;;;;;;AAAP;AAAA;AAGQ;;AAAA;;AAAA;AAAA;;AACpB;;;;;AAAP;AAAA;AAAsC;;;;;;AA1HrC;;;AAAA;;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAEwB;AAAG;AAAA;;AAAA;AAA1B;;;AACkB;;AAAA;;;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;AACA;AAAA;AAAA;;AAChB;;;AACqB;;AAAA;AACc;;AAAA;AAAA;AAAA;AAAA;AACjC;AAN6C;AAAA;AAAA;AAAA;;;;;AAe1C;;;;;;;;;;;;;;;;;;AAPH;;;;AAVL;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;;;;;AAoBA;;;AAAA;;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAEwB;AAAG;AAAA;;AAAA;AAA1B;;;AACgB;;AAAA;;;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;;AACM;;AAAA;;AAChB;;;AAwBC;;;;;;;;;;;;;;;AAvBH;AAJ6C;AAAA;AAAA;AAAA;;;;;AAO3C;;AAAA;;;AAAkB;AAAA;;;;;;;;;;;;AAAgF;;;;;;;;AAAhF;;;;;;;AAAA;;;;AAAA;;;AAAA;AAAA;;AAAA;AAAA;;;AAAA;AAAA;;;AAAA;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAEZ;;AAAA;AAAA;;AAAA;AAAA;;AAAA;AACK;AAAA;;AAAA;AAAA;;AAAA;AACS;;AAAA;AAAV;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AAAA;;AACF;;;AAAY;;;;AAJa;;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;;AAAA;AAAA;;;AAAA;;;;AAAA;AAAA;AAAA;;AAAA;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAMnC;;;;AAFwC;;;;;;;;;;;;;AALmF;;;;AAThI;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAsBA;;;AAAA;AAAA;AAAA;AAAA;AAAA;;;;;;;;AAAA;AAAA;AAAA;AAeA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAEsC;AAAA;;AAAA;AAArC;;;AAEmB;;AAAA;;AAAX;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AACA;;AAAA;;AAF0B;AAAA;AAIhC;AALuD;AAAA;AAAA;;;;;AAF1D;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAYA;;;AAAA;;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAEwB;AAAG;AAAA;;AAAA;AAA1B;;;AACmD;;AAAA;;;AAAA;;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAA3B;;AAAA;AAEtB;AAH+C;AAAA;AAAA;;;;;AAFlD;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;;;;;;AAUA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAEuB;;AAAA;;AACtB;AAAA;;AAAA;AAAA;;;AAAA;;AAAA;;;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;AAEwB;AAAA;;AAAA;AACH;;AAAA;AAAA;;AAGf;;AAAA;AAAJ;;;AACmC;;AAAA;AAAA;;AAAA;AAAA;;AAAgD;;;;;;;;;;;;AAAhD;AAAA;;AAAA;;AACA;AAAgD;;;;;;;;;;;;AAAhD;AAAA;;AAAA;;AAKb;;;AAAe;;AAAA;;;AAAA;;AAEf;;AAAA;;;AAAe;;AAAA;;;AALtB;;;AAAA;AAAA;;AAAA;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;AAAA;;;;AAAA;AAAA;;AAAA;AAAA;;AAAA;AAAA;;AAAA;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;;AAAA;AAAA;;;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AADb;;;;;;;;;AAMgE;;;;AAFA;AAAA;;;;;AAY/D;;;;;;;;;;;;;;;;;;;;;;;;;;;AAPI;;;;AArBV;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA",
+  "op_pc_offset": 2,
   "pc_events": {
     "0": {
       "op": "txn NumAppArgs",
@@ -16,7 +16,7 @@
       ]
     },
     "2": {
-      "op": "bz main_adminOnly@12",
+      "op": "bz main_adminOnly@13",
       "stack_out": []
     },
     "5": {
@@ -43,12 +43,13 @@
       "stack_out": []
     },
     "9": {
-      "op": "pushbytess 0x4877a967 0xd5ab3366 0xc2ed743f 0xa70e62a0 0xc2f8d617 // method \"getBalanceInfo(address[])(uint64,uint64)\", method \"getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])\", method \"get_asset_labels(asset)string[]\", method \"getBlockTimesAndTc(uint64,uint64)(uint32,uint64)\", method \"getAuthAddrs(address[])address\"",
+      "op": "pushbytess 0x4877a967 0xd5ab3366 0xc2ed743f 0xa70e62a0 0xc2f8d617 0x742b0bba // method \"getBalanceInfo(address[])(uint64,uint64)\", method \"getAssetsTiny(uint64[],uint64)(string,string,uint8,string[])\", method \"get_asset_labels(asset)string[]\", method \"getBlockTimesAndTc(uint64,uint64)(uint32,uint64)\", method \"getAuthAddrs(address[])address\", method \"getTinymanInfo(uint64,address[])(bool,uint64,string,uint64,string)\"",
       "defined_out": [
         "Method(getAssetsTiny(uint64[],uint64)(string,string,uint8,string[]))",
         "Method(getAuthAddrs(address[])address)",
         "Method(getBalanceInfo(address[])(uint64,uint64))",
         "Method(getBlockTimesAndTc(uint64,uint64)(uint32,uint64))",
+        "Method(getTinymanInfo(uint64,address[])(bool,uint64,string,uint64,string))",
         "Method(get_asset_labels(asset)string[])"
       ],
       "stack_out": [
@@ -56,16 +57,18 @@
         "Method(getAssetsTiny(uint64[],uint64)(string,string,uint8,string[]))",
         "Method(get_asset_labels(asset)string[])",
         "Method(getBlockTimesAndTc(uint64,uint64)(uint32,uint64))",
-        "Method(getAuthAddrs(address[])address)"
+        "Method(getAuthAddrs(address[])address)",
+        "Method(getTinymanInfo(uint64,address[])(bool,uint64,string,uint64,string))"
       ]
     },
-    "36": {
+    "41": {
       "op": "txna ApplicationArgs 0",
       "defined_out": [
         "Method(getAssetsTiny(uint64[],uint64)(string,string,uint8,string[]))",
         "Method(getAuthAddrs(address[])address)",
         "Method(getBalanceInfo(address[])(uint64,uint64))",
         "Method(getBlockTimesAndTc(uint64,uint64)(uint32,uint64))",
+        "Method(getTinymanInfo(uint64,address[])(bool,uint64,string,uint64,string))",
         "Method(get_asset_labels(asset)string[])",
         "tmp%4#0"
       ],
@@ -75,20 +78,21 @@
         "Method(get_asset_labels(asset)string[])",
         "Method(getBlockTimesAndTc(uint64,uint64)(uint32,uint64))",
         "Method(getAuthAddrs(address[])address)",
+        "Method(getTinymanInfo(uint64,address[])(bool,uint64,string,uint64,string))",
         "tmp%4#0"
       ]
     },
-    "39": {
-      "op": "match getBalanceInfo getAssetsTiny getAssetLabels getBlockTimesAndTc getAuthAddrs",
+    "44": {
+      "op": "match getBalanceInfo getAssetsTiny getAssetLabels getBlockTimesAndTc getAuthAddrs getTinymanInfo",
       "stack_out": []
     },
-    "51": {
+    "58": {
       "op": "err"
     },
-    "52": {
-      "block": "main_adminOnly@12",
+    "59": {
+      "block": "main_adminOnly@13",
       "stack_in": [],
-      "op": "intc_0 // 1",
+      "op": "intc_1 // 1",
       "defined_out": [
         "1"
       ],
@@ -96,7 +100,7 @@
         "1"
       ]
     },
-    "53": {
+    "60": {
       "op": "txn OnCompletion",
       "defined_out": [
         "1",
@@ -107,7 +111,7 @@
         "tmp%7#0"
       ]
     },
-    "55": {
+    "62": {
       "op": "shl",
       "defined_out": [
         "tmp%8#0"
@@ -116,7 +120,7 @@
         "tmp%8#0"
       ]
     },
-    "56": {
+    "63": {
       "op": "pushint 48 // 48",
       "defined_out": [
         "48",
@@ -127,7 +131,7 @@
         "48"
       ]
     },
-    "58": {
+    "65": {
       "op": "&",
       "defined_out": [
         "tmp%9#0"
@@ -136,7 +140,7 @@
         "tmp%9#0"
       ]
     },
-    "59": {
+    "66": {
       "op": "txn ApplicationID",
       "defined_out": [
         "tmp%10#0",
@@ -147,7 +151,7 @@
         "tmp%10#0"
       ]
     },
-    "61": {
+    "68": {
       "op": "&&",
       "defined_out": [
         "tmp%12#0"
@@ -156,12 +160,12 @@
         "tmp%12#0"
       ]
     },
-    "62": {
+    "69": {
       "error": "OnCompletion must be one of UpdateApplication, DeleteApplication && can only call when not creating",
       "op": "assert // OnCompletion must be one of UpdateApplication, DeleteApplication && can only call when not creating",
       "stack_out": []
     },
-    "63": {
+    "70": {
       "op": "intc 4 // TMPL_UPDATABLE",
       "defined_out": [
         "TMPL_UPDATABLE"
@@ -170,14 +174,14 @@
         "TMPL_UPDATABLE"
       ]
     },
-    "65": {
-      "op": "intc_0 // 1",
+    "72": {
+      "op": "intc_1 // 1",
       "stack_out": [
         "TMPL_UPDATABLE",
         "1"
       ]
     },
-    "66": {
+    "73": {
       "op": "==",
       "defined_out": [
         "tmp%0#2"
@@ -186,11 +190,11 @@
         "tmp%0#2"
       ]
     },
-    "67": {
-      "op": "bz main_bool_false@16",
+    "74": {
+      "op": "bz main_bool_false@17",
       "stack_out": []
     },
-    "70": {
+    "77": {
       "op": "txn Sender",
       "defined_out": [
         "tmp%1#1"
@@ -199,7 +203,7 @@
         "tmp%1#1"
       ]
     },
-    "72": {
+    "79": {
       "op": "global CreatorAddress",
       "defined_out": [
         "tmp%1#1",
@@ -210,7 +214,7 @@
         "tmp%2#1"
       ]
     },
-    "74": {
+    "81": {
       "op": "==",
       "defined_out": [
         "tmp%3#0"
@@ -219,12 +223,12 @@
         "tmp%3#0"
       ]
     },
-    "75": {
-      "op": "bz main_bool_false@16",
+    "82": {
+      "op": "bz main_bool_false@17",
       "stack_out": []
     },
-    "78": {
-      "op": "intc_0 // 1",
+    "85": {
+      "op": "intc_1 // 1",
       "defined_out": [
         "and_result%0#0"
       ],
@@ -232,14 +236,14 @@
         "and_result%0#0"
       ]
     },
-    "79": {
+    "86": {
       "op": "return",
       "stack_out": []
     },
-    "80": {
-      "block": "main_bool_false@16",
+    "87": {
+      "block": "main_bool_false@17",
       "stack_in": [],
-      "op": "intc_1 // 0",
+      "op": "intc_0 // 0",
       "defined_out": [
         "and_result%0#0"
       ],
@@ -247,32 +251,174 @@
         "and_result%0#0"
       ]
     },
-    "81": {
+    "88": {
       "op": "return",
       "defined_out": [],
       "stack_out": []
     },
-    "82": {
+    "89": {
+      "subroutine": "smart_contracts/abel_reader/contract.algo.ts::getAssetUnitName",
+      "params": {
+        "assetId#0": "uint64"
+      },
+      "block": "getAssetUnitName",
+      "stack_in": [],
+      "op": "proto 1 1"
+    },
+    "92": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "unitName#0"
+      ]
+    },
+    "93": {
+      "op": "frame_dig -1",
+      "defined_out": [
+        "assetId#0 (copy)"
+      ],
+      "stack_out": [
+        "unitName#0",
+        "assetId#0 (copy)"
+      ]
+    },
+    "95": {
+      "op": "bnz getAssetUnitName_after_if_else@2",
+      "stack_out": [
+        "unitName#0"
+      ]
+    },
+    "98": {
+      "op": "pushbytes \"ALGO\"",
+      "defined_out": [
+        "\"ALGO\""
+      ],
+      "stack_out": [
+        "unitName#0",
+        "\"ALGO\""
+      ]
+    },
+    "104": {
+      "op": "swap"
+    },
+    "105": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "106": {
+      "block": "getAssetUnitName_after_if_else@2",
+      "stack_in": [
+        "unitName#0"
+      ],
+      "op": "frame_dig -1",
+      "defined_out": [
+        "assetId#0 (copy)"
+      ],
+      "stack_out": [
+        "unitName#0",
+        "assetId#0 (copy)"
+      ]
+    },
+    "108": {
+      "op": "asset_params_get AssetUnitName",
+      "defined_out": [
+        "exists#0",
+        "unitName#0"
+      ],
+      "stack_out": [
+        "unitName#0",
+        "unitName#0",
+        "exists#0"
+      ]
+    },
+    "110": {
+      "op": "swap",
+      "stack_out": [
+        "unitName#0",
+        "exists#0",
+        "unitName#0"
+      ]
+    },
+    "111": {
+      "op": "frame_bury 0",
+      "defined_out": [
+        "exists#0",
+        "unitName#0"
+      ],
+      "stack_out": [
+        "unitName#0",
+        "exists#0"
+      ]
+    },
+    "113": {
+      "op": "bz getAssetUnitName_ternary_false@4",
+      "stack_out": [
+        "unitName#0"
+      ]
+    },
+    "116": {
+      "op": "frame_dig 0",
+      "defined_out": [
+        "ternary_result%0#1",
+        "unitName#0"
+      ],
+      "stack_out": [
+        "unitName#0",
+        "ternary_result%0#1"
+      ]
+    },
+    "118": {
+      "block": "getAssetUnitName_ternary_merge@5",
+      "stack_in": [
+        "unitName#0",
+        "ternary_result%0#1"
+      ],
+      "op": "swap",
+      "defined_out": [
+        "ternary_result%0#1"
+      ]
+    },
+    "119": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "120": {
+      "block": "getAssetUnitName_ternary_false@4",
+      "stack_in": [
+        "unitName#0"
+      ],
+      "op": "bytec_0 // \"\"",
+      "defined_out": [
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "unitName#0",
+        "ternary_result%0#1"
+      ]
+    },
+    "121": {
+      "op": "b getAssetUnitName_ternary_merge@5"
+    },
+    "124": {
       "subroutine": "smart_contracts/abel_reader/contract.algo.ts::AbelReader.getBalanceInfo[routing]",
       "params": {},
       "block": "getBalanceInfo",
       "stack_in": [],
-      "op": "intc_1 // 0",
+      "op": "intc_0 // 0",
       "stack_out": [
         "account#0"
       ]
     },
-    "83": {
-      "op": "pushbytes \"\"",
+    "125": {
+      "op": "bytec_0 // \"\"",
       "stack_out": [
         "account#0",
         "balance#0"
       ]
     },
-    "85": {
+    "126": {
       "op": "txna ApplicationArgs 1"
     },
-    "88": {
+    "129": {
       "op": "dupn 2",
       "defined_out": [
         "accounts#0",
@@ -286,8 +432,8 @@
         "accounts#0 (copy)"
       ]
     },
-    "90": {
-      "op": "intc_1 // 0",
+    "131": {
+      "op": "intc_0 // 0",
       "stack_out": [
         "account#0",
         "balance#0",
@@ -297,7 +443,7 @@
         "0"
       ]
     },
-    "91": {
+    "132": {
       "error": "invalid array length header",
       "op": "extract_uint16 // on error: invalid array length header",
       "defined_out": [
@@ -312,7 +458,7 @@
         "aggregate%array_length%0#0"
       ]
     },
-    "92": {
+    "133": {
       "op": "dup",
       "stack_out": [
         "account#0",
@@ -323,7 +469,7 @@
         "aggregate%array_length%0#0"
       ]
     },
-    "93": {
+    "134": {
       "op": "cover 2",
       "defined_out": [
         "accounts#0",
@@ -338,8 +484,8 @@
         "aggregate%array_length%0#0"
       ]
     },
-    "95": {
-      "op": "intc_3 // 32",
+    "136": {
+      "op": "intc_2 // 32",
       "defined_out": [
         "32",
         "accounts#0",
@@ -355,7 +501,7 @@
         "32"
       ]
     },
-    "96": {
+    "137": {
       "op": "*",
       "defined_out": [
         "accounts#0",
@@ -371,7 +517,7 @@
         "mul%0#0"
       ]
     },
-    "97": {
+    "138": {
       "op": "pushint 2 // 2",
       "defined_out": [
         "2",
@@ -389,7 +535,7 @@
         "2"
       ]
     },
-    "99": {
+    "140": {
       "op": "+",
       "defined_out": [
         "accounts#0",
@@ -405,7 +551,7 @@
         "add%0#0"
       ]
     },
-    "100": {
+    "141": {
       "op": "swap",
       "stack_out": [
         "account#0",
@@ -416,7 +562,7 @@
         "accounts#0"
       ]
     },
-    "101": {
+    "142": {
       "op": "len",
       "defined_out": [
         "accounts#0",
@@ -433,7 +579,7 @@
         "len%0#0"
       ]
     },
-    "102": {
+    "143": {
       "op": "==",
       "defined_out": [
         "accounts#0",
@@ -448,7 +594,7 @@
         "eq%0#0"
       ]
     },
-    "103": {
+    "144": {
       "error": "invalid number of bytes for arc4.dynamic_array<account>",
       "op": "assert // invalid number of bytes for arc4.dynamic_array<account>",
       "stack_out": [
@@ -458,8 +604,8 @@
         "aggregate%array_length%0#0"
       ]
     },
-    "104": {
-      "op": "intc_1 // 0",
+    "145": {
+      "op": "intc_0 // 0",
       "defined_out": [
         "accounts#0",
         "aggregate%array_length%0#0",
@@ -473,7 +619,7 @@
         "idx#0"
       ]
     },
-    "105": {
+    "146": {
       "block": "getBalanceInfo_while_top@2",
       "stack_in": [
         "account#0",
@@ -495,7 +641,7 @@
         "idx#0"
       ]
     },
-    "106": {
+    "147": {
       "op": "dig 2",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -511,7 +657,7 @@
         "aggregate%array_length%0#0"
       ]
     },
-    "108": {
+    "149": {
       "op": "<",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -527,7 +673,7 @@
         "tmp%1#1"
       ]
     },
-    "109": {
+    "150": {
       "op": "bz getBalanceInfo_after_while@7",
       "stack_out": [
         "account#0",
@@ -537,7 +683,7 @@
         "idx#0"
       ]
     },
-    "112": {
+    "153": {
       "op": "dig 2",
       "defined_out": [
         "accounts#0",
@@ -553,7 +699,7 @@
         "accounts#0"
       ]
     },
-    "114": {
+    "155": {
       "op": "extract 2 0",
       "defined_out": [
         "accounts#0",
@@ -570,7 +716,7 @@
         "aggregate%array_trimmed%0#0"
       ]
     },
-    "117": {
+    "158": {
       "op": "dig 1",
       "stack_out": [
         "account#0",
@@ -582,8 +728,8 @@
         "idx#0"
       ]
     },
-    "119": {
-      "op": "intc_3 // 32",
+    "160": {
+      "op": "intc_2 // 32",
       "defined_out": [
         "32",
         "accounts#0",
@@ -602,7 +748,7 @@
         "32"
       ]
     },
-    "120": {
+    "161": {
       "op": "*",
       "defined_out": [
         "accounts#0",
@@ -621,8 +767,8 @@
         "aggregate%bytes_offset%0#0"
       ]
     },
-    "121": {
-      "op": "intc_3 // 32",
+    "162": {
+      "op": "intc_2 // 32",
       "stack_out": [
         "account#0",
         "balance#0",
@@ -634,7 +780,7 @@
         "32"
       ]
     },
-    "122": {
+    "163": {
       "error": "index access is out of bounds",
       "op": "extract3 // on error: index access is out of bounds",
       "defined_out": [
@@ -652,7 +798,7 @@
         "account#0"
       ]
     },
-    "123": {
+    "164": {
       "op": "dup",
       "stack_out": [
         "account#0",
@@ -664,7 +810,7 @@
         "account#0"
       ]
     },
-    "124": {
+    "165": {
       "op": "bury 6",
       "defined_out": [
         "account#0",
@@ -681,7 +827,7 @@
         "account#0"
       ]
     },
-    "126": {
+    "167": {
       "op": "balance",
       "defined_out": [
         "account#0",
@@ -699,7 +845,7 @@
         "balance#0"
       ]
     },
-    "127": {
+    "168": {
       "op": "dup",
       "stack_out": [
         "account#0",
@@ -711,7 +857,7 @@
         "balance#0"
       ]
     },
-    "128": {
+    "169": {
       "op": "bury 5",
       "defined_out": [
         "account#0",
@@ -729,7 +875,7 @@
         "balance#0"
       ]
     },
-    "130": {
+    "171": {
       "op": "bz getBalanceInfo_else_body@5",
       "stack_out": [
         "account#0",
@@ -739,7 +885,7 @@
         "idx#0"
       ]
     },
-    "133": {
+    "174": {
       "op": "dig 4",
       "stack_out": [
         "account#0",
@@ -750,7 +896,7 @@
         "account#0"
       ]
     },
-    "135": {
+    "176": {
       "op": "min_balance",
       "defined_out": [
         "account#0",
@@ -769,7 +915,7 @@
         "minBalance#0"
       ]
     },
-    "136": {
+    "177": {
       "op": "dig 4",
       "stack_out": [
         "account#0",
@@ -781,7 +927,7 @@
         "balance#0"
       ]
     },
-    "138": {
+    "179": {
       "op": "itob",
       "defined_out": [
         "account#0",
@@ -802,7 +948,7 @@
         "aggregate%val_as_bytes%0#0"
       ]
     },
-    "139": {
+    "180": {
       "op": "swap",
       "stack_out": [
         "account#0",
@@ -814,7 +960,7 @@
         "minBalance#0"
       ]
     },
-    "140": {
+    "181": {
       "op": "itob",
       "defined_out": [
         "account#0",
@@ -835,7 +981,7 @@
         "aggregate%val_as_bytes%1#0"
       ]
     },
-    "141": {
+    "182": {
       "op": "concat",
       "defined_out": [
         "account#0",
@@ -854,7 +1000,7 @@
         "balanceInfo#0"
       ]
     },
-    "142": {
+    "183": {
       "op": "log",
       "stack_out": [
         "account#0",
@@ -864,7 +1010,7 @@
         "idx#0"
       ]
     },
-    "143": {
+    "184": {
       "block": "getBalanceInfo_after_if_else@6",
       "stack_in": [
         "account#0",
@@ -886,8 +1032,8 @@
         "idx#0"
       ]
     },
-    "144": {
-      "op": "intc_0 // 1",
+    "185": {
+      "op": "intc_1 // 1",
       "defined_out": [
         "1",
         "idx#0"
@@ -902,7 +1048,7 @@
         "1"
       ]
     },
-    "145": {
+    "186": {
       "op": "+",
       "stack_out": [
         "account#0",
@@ -913,7 +1059,7 @@
         "idx#0"
       ]
     },
-    "146": {
+    "187": {
       "op": "bury 1",
       "defined_out": [
         "idx#0"
@@ -926,10 +1072,10 @@
         "idx#0"
       ]
     },
-    "148": {
+    "189": {
       "op": "b getBalanceInfo_while_top@2"
     },
-    "151": {
+    "192": {
       "block": "getBalanceInfo_else_body@5",
       "stack_in": [
         "account#0",
@@ -951,7 +1097,7 @@
         "0x00000000000000000000000000000000"
       ]
     },
-    "169": {
+    "210": {
       "op": "log",
       "stack_out": [
         "account#0",
@@ -961,10 +1107,10 @@
         "idx#0"
       ]
     },
-    "170": {
+    "211": {
       "op": "b getBalanceInfo_after_if_else@6"
     },
-    "173": {
+    "214": {
       "block": "getBalanceInfo_after_while@7",
       "stack_in": [
         "account#0",
@@ -986,7 +1132,7 @@
         "0x151f7c7500000000000000000000000000000000"
       ]
     },
-    "195": {
+    "236": {
       "op": "log",
       "stack_out": [
         "account#0",
@@ -996,8 +1142,8 @@
         "idx#0"
       ]
     },
-    "196": {
-      "op": "intc_0 // 1",
+    "237": {
+      "op": "intc_1 // 1",
       "defined_out": [
         "1"
       ],
@@ -1010,7 +1156,7 @@
         "1"
       ]
     },
-    "197": {
+    "238": {
       "op": "return",
       "stack_out": [
         "account#0",
@@ -1020,17 +1166,17 @@
         "idx#0"
       ]
     },
-    "198": {
+    "239": {
       "subroutine": "smart_contracts/abel_reader/contract.algo.ts::AbelReader.getAssetsTiny[routing]",
       "params": {},
       "block": "getAssetsTiny",
       "stack_in": [],
-      "op": "intc_1 // 0",
+      "op": "intc_0 // 0",
       "stack_out": [
         "aggregate%encoded_element%0#0"
       ]
     },
-    "199": {
+    "240": {
       "op": "dupn 3",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -1039,8 +1185,8 @@
         "value%1#0"
       ]
     },
-    "201": {
-      "op": "pushbytes \"\"",
+    "242": {
+      "op": "bytec_0 // \"\"",
       "stack_out": [
         "aggregate%encoded_element%0#0",
         "aggregate%uint8%0#0",
@@ -1049,10 +1195,10 @@
         "asset#0"
       ]
     },
-    "203": {
+    "243": {
       "op": "txna ApplicationArgs 1"
     },
-    "206": {
+    "246": {
       "op": "dupn 2",
       "defined_out": [
         "assetIds#0",
@@ -1069,8 +1215,8 @@
         "assetIds#0 (copy)"
       ]
     },
-    "208": {
-      "op": "intc_1 // 0",
+    "248": {
+      "op": "intc_0 // 0",
       "stack_out": [
         "aggregate%encoded_element%0#0",
         "aggregate%uint8%0#0",
@@ -1083,7 +1229,7 @@
         "0"
       ]
     },
-    "209": {
+    "249": {
       "error": "invalid array length header",
       "op": "extract_uint16 // on error: invalid array length header",
       "defined_out": [
@@ -1101,7 +1247,7 @@
         "aggregate%array_length%0#0"
       ]
     },
-    "210": {
+    "250": {
       "op": "dup",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -1115,7 +1261,7 @@
         "aggregate%array_length%0#0"
       ]
     },
-    "211": {
+    "251": {
       "op": "cover 2",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -1133,8 +1279,8 @@
         "aggregate%array_length%0#0"
       ]
     },
-    "213": {
-      "op": "intc_2 // 8",
+    "253": {
+      "op": "intc_3 // 8",
       "defined_out": [
         "8",
         "aggregate%array_length%0#0",
@@ -1153,7 +1299,7 @@
         "8"
       ]
     },
-    "214": {
+    "254": {
       "op": "*",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -1172,7 +1318,7 @@
         "mul%0#0"
       ]
     },
-    "215": {
+    "255": {
       "op": "pushint 2 // 2",
       "defined_out": [
         "2",
@@ -1193,7 +1339,7 @@
         "2"
       ]
     },
-    "217": {
+    "257": {
       "op": "+",
       "defined_out": [
         "add%0#0",
@@ -1212,7 +1358,7 @@
         "add%0#0"
       ]
     },
-    "218": {
+    "258": {
       "op": "swap",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -1226,7 +1372,7 @@
         "assetIds#0"
       ]
     },
-    "219": {
+    "259": {
       "op": "len",
       "defined_out": [
         "add%0#0",
@@ -1246,7 +1392,7 @@
         "len%0#0"
       ]
     },
-    "220": {
+    "260": {
       "op": "==",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -1264,7 +1410,7 @@
         "eq%0#0"
       ]
     },
-    "221": {
+    "261": {
       "error": "invalid number of bytes for arc4.dynamic_array<asset>",
       "op": "assert // invalid number of bytes for arc4.dynamic_array<asset>",
       "stack_out": [
@@ -1277,7 +1423,7 @@
         "aggregate%array_length%0#0"
       ]
     },
-    "222": {
+    "262": {
       "op": "txna ApplicationArgs 2",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -1295,7 +1441,7 @@
         "tmp%1#0"
       ]
     },
-    "225": {
+    "265": {
       "op": "dup",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -1315,7 +1461,7 @@
         "tmp%1#0 (copy)"
       ]
     },
-    "226": {
+    "266": {
       "op": "len",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -1335,8 +1481,8 @@
         "len%1#0"
       ]
     },
-    "227": {
-      "op": "intc_2 // 8",
+    "267": {
+      "op": "intc_3 // 8",
       "stack_out": [
         "aggregate%encoded_element%0#0",
         "aggregate%uint8%0#0",
@@ -1350,7 +1496,7 @@
         "8"
       ]
     },
-    "228": {
+    "268": {
       "op": "==",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -1370,7 +1516,7 @@
         "eq%1#0"
       ]
     },
-    "229": {
+    "269": {
       "error": "invalid number of bytes for arc4.uint64",
       "op": "assert // invalid number of bytes for arc4.uint64",
       "stack_out": [
@@ -1384,7 +1530,7 @@
         "tmp%1#0"
       ]
     },
-    "230": {
+    "270": {
       "op": "btoi",
       "defined_out": [
         "abelAppId#0",
@@ -1402,8 +1548,8 @@
         "abelAppId#0"
       ]
     },
-    "231": {
-      "op": "intc_1 // 0",
+    "271": {
+      "op": "intc_0 // 0",
       "defined_out": [
         "abelAppId#0",
         "aggregate%array_length%0#0",
@@ -1422,7 +1568,7 @@
         "idx#0"
       ]
     },
-    "232": {
+    "272": {
       "block": "getAssetsTiny_while_top@2",
       "stack_in": [
         "aggregate%encoded_element%0#0",
@@ -1452,7 +1598,7 @@
         "idx#0"
       ]
     },
-    "233": {
+    "273": {
       "op": "dig 3",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -1472,7 +1618,7 @@
         "aggregate%array_length%0#0"
       ]
     },
-    "235": {
+    "275": {
       "op": "<",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -1492,7 +1638,7 @@
         "tmp%1#1"
       ]
     },
-    "236": {
+    "276": {
       "op": "bz getAssetsTiny_after_while@14",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -1506,7 +1652,7 @@
         "idx#0"
       ]
     },
-    "239": {
+    "279": {
       "op": "dig 3",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -1526,7 +1672,7 @@
         "assetIds#0"
       ]
     },
-    "241": {
+    "281": {
       "op": "extract 2 0",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -1547,7 +1693,7 @@
         "aggregate%array_trimmed%0#0"
       ]
     },
-    "244": {
+    "284": {
       "op": "dig 1",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -1563,8 +1709,8 @@
         "idx#0"
       ]
     },
-    "246": {
-      "op": "intc_2 // 8",
+    "286": {
+      "op": "intc_3 // 8",
       "defined_out": [
         "8",
         "aggregate%array_length%0#0",
@@ -1587,7 +1733,7 @@
         "8"
       ]
     },
-    "247": {
+    "287": {
       "op": "*",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -1610,7 +1756,7 @@
         "aggregate%bytes_offset%0#0"
       ]
     },
-    "248": {
+    "288": {
       "op": "dup2",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -1637,8 +1783,8 @@
         "aggregate%bytes_offset%0#0 (copy)"
       ]
     },
-    "249": {
-      "op": "intc_2 // 8",
+    "289": {
+      "op": "intc_3 // 8",
       "stack_out": [
         "aggregate%encoded_element%0#0",
         "aggregate%uint8%0#0",
@@ -1656,7 +1802,7 @@
         "8"
       ]
     },
-    "250": {
+    "290": {
       "error": "index access is out of bounds",
       "op": "extract3 // on error: index access is out of bounds",
       "defined_out": [
@@ -1682,7 +1828,7 @@
         "aggregate%encoded_element%0#0"
       ]
     },
-    "251": {
+    "291": {
       "op": "bury 11",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -1706,7 +1852,7 @@
         "aggregate%bytes_offset%0#0"
       ]
     },
-    "253": {
+    "293": {
       "op": "extract_uint64",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -1728,7 +1874,7 @@
         "asset#0"
       ]
     },
-    "254": {
+    "294": {
       "op": "dup",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -1744,7 +1890,7 @@
         "asset#0"
       ]
     },
-    "255": {
+    "295": {
       "op": "bury 6",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -1766,7 +1912,7 @@
         "asset#0"
       ]
     },
-    "257": {
+    "297": {
       "op": "asset_params_get AssetCreator",
       "defined_out": [
         "_#0",
@@ -1791,7 +1937,7 @@
         "exists#0"
       ]
     },
-    "259": {
+    "299": {
       "op": "bury 1",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -1806,7 +1952,7 @@
         "exists#0"
       ]
     },
-    "261": {
+    "301": {
       "op": "bnz getAssetsTiny_else_body@5",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -1820,7 +1966,7 @@
         "idx#0"
       ]
     },
-    "264": {
+    "304": {
       "op": "pushbytes 0x0007000900000b000000000000",
       "defined_out": [
         "0x0007000900000b000000000000",
@@ -1843,7 +1989,7 @@
         "0x0007000900000b000000000000"
       ]
     },
-    "279": {
+    "319": {
       "op": "log",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -1857,7 +2003,7 @@
         "idx#0"
       ]
     },
-    "280": {
+    "320": {
       "block": "getAssetsTiny_after_if_else@13",
       "stack_in": [
         "aggregate%encoded_element%0#0",
@@ -1887,8 +2033,8 @@
         "idx#0"
       ]
     },
-    "281": {
-      "op": "intc_0 // 1",
+    "321": {
+      "op": "intc_1 // 1",
       "defined_out": [
         "1",
         "idx#0"
@@ -1907,7 +2053,7 @@
         "1"
       ]
     },
-    "282": {
+    "322": {
       "op": "+",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -1922,7 +2068,7 @@
         "idx#0"
       ]
     },
-    "283": {
+    "323": {
       "op": "bury 1",
       "defined_out": [
         "idx#0"
@@ -1939,10 +2085,10 @@
         "idx#0"
       ]
     },
-    "285": {
+    "325": {
       "op": "b getAssetsTiny_while_top@2"
     },
-    "288": {
+    "328": {
       "block": "getAssetsTiny_else_body@5",
       "stack_in": [
         "aggregate%encoded_element%0#0",
@@ -1972,7 +2118,7 @@
         "abelAppId#0"
       ]
     },
-    "290": {
+    "330": {
       "op": "bz getAssetsTiny_ternary_false@8",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -1986,10 +2132,10 @@
         "idx#0"
       ]
     },
-    "293": {
+    "333": {
       "op": "itxn_begin"
     },
-    "294": {
+    "334": {
       "op": "pushbytes 0x97f40a8a // method \"has_asset_label(uint64,string)uint64\"",
       "defined_out": [
         "Method(has_asset_label(uint64,string)uint64)",
@@ -2008,7 +2154,7 @@
         "Method(has_asset_label(uint64,string)uint64)"
       ]
     },
-    "300": {
+    "340": {
       "op": "itxn_field ApplicationArgs",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -2022,7 +2168,7 @@
         "idx#0"
       ]
     },
-    "302": {
+    "342": {
       "op": "dig 8",
       "defined_out": [
         "abelAppId#0",
@@ -2041,7 +2187,7 @@
         "aggregate%encoded_element%0#0"
       ]
     },
-    "304": {
+    "344": {
       "op": "itxn_field ApplicationArgs",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -2055,7 +2201,7 @@
         "idx#0"
       ]
     },
-    "306": {
+    "346": {
       "op": "pushbytes 0x00027076",
       "defined_out": [
         "0x00027076",
@@ -2075,7 +2221,7 @@
         "0x00027076"
       ]
     },
-    "312": {
+    "352": {
       "op": "itxn_field ApplicationArgs",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -2089,8 +2235,8 @@
         "idx#0"
       ]
     },
-    "314": {
-      "op": "intc_1 // 0",
+    "354": {
+      "op": "intc_0 // 0",
       "defined_out": [
         "0",
         "abelAppId#0",
@@ -2109,7 +2255,7 @@
         "0"
       ]
     },
-    "315": {
+    "355": {
       "op": "itxn_field OnCompletion",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -2123,7 +2269,7 @@
         "idx#0"
       ]
     },
-    "317": {
+    "357": {
       "op": "dig 1",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -2138,7 +2284,7 @@
         "abelAppId#0"
       ]
     },
-    "319": {
+    "359": {
       "op": "itxn_field ApplicationID",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -2152,7 +2298,7 @@
         "idx#0"
       ]
     },
-    "321": {
+    "361": {
       "op": "pushint 6 // appl",
       "defined_out": [
         "abelAppId#0",
@@ -2172,7 +2318,7 @@
         "appl"
       ]
     },
-    "323": {
+    "363": {
       "op": "itxn_field TypeEnum",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -2186,8 +2332,8 @@
         "idx#0"
       ]
     },
-    "325": {
-      "op": "intc_1 // 0",
+    "365": {
+      "op": "intc_0 // 0",
       "stack_out": [
         "aggregate%encoded_element%0#0",
         "aggregate%uint8%0#0",
@@ -2201,7 +2347,7 @@
         "0"
       ]
     },
-    "326": {
+    "366": {
       "op": "itxn_field Fee",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -2215,10 +2361,10 @@
         "idx#0"
       ]
     },
-    "328": {
+    "368": {
       "op": "itxn_submit"
     },
-    "329": {
+    "369": {
       "op": "itxn LastLog",
       "defined_out": [
         "abelAppId#0",
@@ -2238,7 +2384,7 @@
         "awst_tmp%2#0"
       ]
     },
-    "331": {
+    "371": {
       "op": "dup",
       "defined_out": [
         "abelAppId#0",
@@ -2260,7 +2406,7 @@
         "awst_tmp%2#0 (copy)"
       ]
     },
-    "332": {
+    "372": {
       "op": "extract 4 0",
       "defined_out": [
         "abelAppId#0",
@@ -2282,7 +2428,7 @@
         "tmp%6#0"
       ]
     },
-    "335": {
+    "375": {
       "op": "swap",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -2298,7 +2444,7 @@
         "awst_tmp%2#0"
       ]
     },
-    "336": {
+    "376": {
       "op": "extract 0 4",
       "defined_out": [
         "abelAppId#0",
@@ -2320,7 +2466,7 @@
         "tmp%7#0"
       ]
     },
-    "339": {
+    "379": {
       "op": "pushbytes 0x151f7c75",
       "defined_out": [
         "0x151f7c75",
@@ -2344,7 +2490,7 @@
         "0x151f7c75"
       ]
     },
-    "345": {
+    "385": {
       "op": "==",
       "defined_out": [
         "abelAppId#0",
@@ -2366,7 +2512,7 @@
         "tmp%8#0"
       ]
     },
-    "346": {
+    "386": {
       "error": "Bytes has valid prefix",
       "op": "assert // Bytes has valid prefix",
       "stack_out": [
@@ -2382,7 +2528,7 @@
         "tmp%6#0"
       ]
     },
-    "347": {
+    "387": {
       "op": "dup",
       "defined_out": [
         "abelAppId#0",
@@ -2404,7 +2550,7 @@
         "tmp%6#0 (copy)"
       ]
     },
-    "348": {
+    "388": {
       "op": "len",
       "defined_out": [
         "abelAppId#0",
@@ -2426,8 +2572,8 @@
         "len%0#0"
       ]
     },
-    "349": {
-      "op": "intc_2 // 8",
+    "389": {
+      "op": "intc_3 // 8",
       "defined_out": [
         "8",
         "abelAppId#0",
@@ -2450,7 +2596,7 @@
         "8"
       ]
     },
-    "350": {
+    "390": {
       "op": "==",
       "defined_out": [
         "abelAppId#0",
@@ -2472,7 +2618,7 @@
         "eq%0#0"
       ]
     },
-    "351": {
+    "391": {
       "error": "invalid number of bytes for arc4.uint64",
       "op": "assert // invalid number of bytes for arc4.uint64",
       "stack_out": [
@@ -2488,7 +2634,7 @@
         "tmp%6#0"
       ]
     },
-    "352": {
+    "392": {
       "op": "btoi",
       "defined_out": [
         "abelAppId#0",
@@ -2508,7 +2654,7 @@
         "pv#0"
       ]
     },
-    "353": {
+    "393": {
       "block": "getAssetsTiny_ternary_merge@9",
       "stack_in": [
         "aggregate%encoded_element%0#0",
@@ -2540,7 +2686,7 @@
         "asset#0"
       ]
     },
-    "355": {
+    "395": {
       "op": "dup",
       "defined_out": [
         "asset#0",
@@ -2561,7 +2707,7 @@
         "asset#0 (copy)"
       ]
     },
-    "356": {
+    "396": {
       "op": "asset_params_get AssetName",
       "defined_out": [
         "asset#0",
@@ -2584,7 +2730,7 @@
         "check%0#0"
       ]
     },
-    "358": {
+    "398": {
       "op": "swap",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -2602,7 +2748,7 @@
         "value%0#0"
       ]
     },
-    "359": {
+    "399": {
       "op": "bury 10",
       "defined_out": [
         "asset#0",
@@ -2624,7 +2770,7 @@
         "check%0#0"
       ]
     },
-    "361": {
+    "401": {
       "error": "asset exists",
       "op": "assert // asset exists",
       "stack_out": [
@@ -2641,7 +2787,7 @@
         "asset#0"
       ]
     },
-    "362": {
+    "402": {
       "op": "dup",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -2658,7 +2804,7 @@
         "asset#0 (copy)"
       ]
     },
-    "363": {
+    "403": {
       "op": "asset_params_get AssetUnitName",
       "defined_out": [
         "asset#0",
@@ -2682,7 +2828,7 @@
         "check%1#0"
       ]
     },
-    "365": {
+    "405": {
       "op": "swap",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -2700,7 +2846,7 @@
         "value%1#0"
       ]
     },
-    "366": {
+    "406": {
       "op": "bury 9",
       "defined_out": [
         "asset#0",
@@ -2723,7 +2869,7 @@
         "check%1#0"
       ]
     },
-    "368": {
+    "408": {
       "error": "asset exists",
       "op": "assert // asset exists",
       "stack_out": [
@@ -2740,7 +2886,7 @@
         "asset#0"
       ]
     },
-    "369": {
+    "409": {
       "op": "asset_params_get AssetDecimals",
       "defined_out": [
         "asset#0",
@@ -2764,7 +2910,7 @@
         "check%2#0"
       ]
     },
-    "371": {
+    "411": {
       "error": "asset exists",
       "op": "assert // asset exists",
       "stack_out": [
@@ -2781,7 +2927,7 @@
         "value%2#0"
       ]
     },
-    "372": {
+    "412": {
       "op": "itob",
       "defined_out": [
         "aggregate%val_as_bytes%0#0",
@@ -2803,7 +2949,7 @@
         "aggregate%val_as_bytes%0#0"
       ]
     },
-    "373": {
+    "413": {
       "op": "dup",
       "defined_out": [
         "aggregate%val_as_bytes%0#0",
@@ -2827,7 +2973,7 @@
         "aggregate%val_as_bytes%0#0 (copy)"
       ]
     },
-    "374": {
+    "414": {
       "op": "bitlen",
       "defined_out": [
         "aggregate%bitlen%0#0",
@@ -2851,8 +2997,8 @@
         "aggregate%bitlen%0#0"
       ]
     },
-    "375": {
-      "op": "intc_2 // 8",
+    "415": {
+      "op": "intc_3 // 8",
       "defined_out": [
         "8",
         "aggregate%bitlen%0#0",
@@ -2877,7 +3023,7 @@
         "8"
       ]
     },
-    "376": {
+    "416": {
       "op": "<=",
       "defined_out": [
         "aggregate%no_overflow%0#0",
@@ -2901,7 +3047,7 @@
         "aggregate%no_overflow%0#0"
       ]
     },
-    "377": {
+    "417": {
       "error": "overflow",
       "op": "assert // overflow",
       "stack_out": [
@@ -2918,7 +3064,7 @@
         "aggregate%val_as_bytes%0#0"
       ]
     },
-    "378": {
+    "418": {
       "op": "extract 7 1",
       "defined_out": [
         "aggregate%uint8%0#0",
@@ -2940,7 +3086,7 @@
         "aggregate%uint8%0#0"
       ]
     },
-    "381": {
+    "421": {
       "op": "bury 9",
       "defined_out": [
         "aggregate%uint8%0#0",
@@ -2962,7 +3108,7 @@
         "pv#0"
       ]
     },
-    "383": {
+    "423": {
       "op": "bnz getAssetsTiny_ternary_false@11",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -2976,7 +3122,7 @@
         "idx#0"
       ]
     },
-    "386": {
+    "426": {
       "op": "pushbytes 0x0000",
       "defined_out": [
         "aggregate%uint8%0#0",
@@ -2998,7 +3144,7 @@
         "ternary_result%1#2"
       ]
     },
-    "390": {
+    "430": {
       "block": "getAssetsTiny_ternary_merge@12",
       "stack_in": [
         "aggregate%encoded_element%0#0",
@@ -3030,7 +3176,7 @@
         "value%0#0"
       ]
     },
-    "392": {
+    "432": {
       "op": "dup",
       "defined_out": [
         "value%0#0",
@@ -3051,7 +3197,7 @@
         "value%0#0 (copy)"
       ]
     },
-    "393": {
+    "433": {
       "op": "len",
       "defined_out": [
         "aggregate%length%2#0",
@@ -3072,7 +3218,7 @@
         "aggregate%length%2#0"
       ]
     },
-    "394": {
+    "434": {
       "op": "itob",
       "defined_out": [
         "aggregate%as_bytes%5#0",
@@ -3093,7 +3239,7 @@
         "aggregate%as_bytes%5#0"
       ]
     },
-    "395": {
+    "435": {
       "op": "extract 6 2",
       "defined_out": [
         "aggregate%length_uint16%2#0",
@@ -3114,7 +3260,7 @@
         "aggregate%length_uint16%2#0"
       ]
     },
-    "398": {
+    "438": {
       "op": "swap",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -3131,7 +3277,7 @@
         "value%0#0"
       ]
     },
-    "399": {
+    "439": {
       "op": "concat",
       "defined_out": [
         "aggregate%encoded_value%2#0",
@@ -3151,7 +3297,7 @@
         "aggregate%encoded_value%2#0"
       ]
     },
-    "400": {
+    "440": {
       "op": "dup",
       "defined_out": [
         "aggregate%encoded_value%2#0",
@@ -3173,7 +3319,7 @@
         "aggregate%encoded_value%2#0 (copy)"
       ]
     },
-    "401": {
+    "441": {
       "op": "len",
       "defined_out": [
         "aggregate%data_length%1#0",
@@ -3195,7 +3341,7 @@
         "aggregate%data_length%1#0"
       ]
     },
-    "402": {
+    "442": {
       "op": "pushint 7 // 7",
       "defined_out": [
         "7",
@@ -3219,7 +3365,7 @@
         "7"
       ]
     },
-    "404": {
+    "444": {
       "op": "+",
       "defined_out": [
         "aggregate%current_tail_offset%1#0",
@@ -3241,7 +3387,7 @@
         "aggregate%current_tail_offset%1#0"
       ]
     },
-    "405": {
+    "445": {
       "op": "dig 8",
       "defined_out": [
         "aggregate%current_tail_offset%1#0",
@@ -3265,7 +3411,7 @@
         "value%1#0"
       ]
     },
-    "407": {
+    "447": {
       "op": "dup",
       "defined_out": [
         "aggregate%current_tail_offset%1#0",
@@ -3291,7 +3437,7 @@
         "value%1#0 (copy)"
       ]
     },
-    "408": {
+    "448": {
       "op": "len",
       "defined_out": [
         "aggregate%current_tail_offset%1#0",
@@ -3317,7 +3463,7 @@
         "aggregate%length%3#0"
       ]
     },
-    "409": {
+    "449": {
       "op": "itob",
       "defined_out": [
         "aggregate%as_bytes%7#0",
@@ -3343,7 +3489,7 @@
         "aggregate%as_bytes%7#0"
       ]
     },
-    "410": {
+    "450": {
       "op": "extract 6 2",
       "defined_out": [
         "aggregate%current_tail_offset%1#0",
@@ -3369,7 +3515,7 @@
         "aggregate%length_uint16%3#0"
       ]
     },
-    "413": {
+    "453": {
       "op": "swap",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -3388,7 +3534,7 @@
         "value%1#0"
       ]
     },
-    "414": {
+    "454": {
       "op": "concat",
       "defined_out": [
         "aggregate%current_tail_offset%1#0",
@@ -3413,7 +3559,7 @@
         "aggregate%encoded_value%3#0"
       ]
     },
-    "415": {
+    "455": {
       "op": "dig 1",
       "defined_out": [
         "aggregate%current_tail_offset%1#0",
@@ -3440,7 +3586,7 @@
         "aggregate%current_tail_offset%1#0 (copy)"
       ]
     },
-    "417": {
+    "457": {
       "op": "itob",
       "defined_out": [
         "aggregate%as_bytes%8#0",
@@ -3467,7 +3613,7 @@
         "aggregate%as_bytes%8#0"
       ]
     },
-    "418": {
+    "458": {
       "op": "extract 6 2",
       "defined_out": [
         "aggregate%current_tail_offset%1#0",
@@ -3494,7 +3640,7 @@
         "aggregate%offset_as_uint16%2#0"
       ]
     },
-    "421": {
+    "461": {
       "op": "pushbytes 0x0007",
       "defined_out": [
         "0x0007",
@@ -3523,7 +3669,7 @@
         "0x0007"
       ]
     },
-    "425": {
+    "465": {
       "op": "swap",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -3543,7 +3689,7 @@
         "aggregate%offset_as_uint16%2#0"
       ]
     },
-    "426": {
+    "466": {
       "op": "concat",
       "defined_out": [
         "aggregate%current_tail_offset%1#0",
@@ -3570,7 +3716,7 @@
         "aggregate%head%2#0"
       ]
     },
-    "427": {
+    "467": {
       "op": "dig 1",
       "defined_out": [
         "aggregate%current_tail_offset%1#0",
@@ -3599,7 +3745,7 @@
         "aggregate%encoded_value%3#0 (copy)"
       ]
     },
-    "429": {
+    "469": {
       "op": "len",
       "defined_out": [
         "aggregate%current_tail_offset%1#0",
@@ -3628,7 +3774,7 @@
         "aggregate%data_length%2#0"
       ]
     },
-    "430": {
+    "470": {
       "op": "uncover 3",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -3648,7 +3794,7 @@
         "aggregate%current_tail_offset%1#0"
       ]
     },
-    "432": {
+    "472": {
       "op": "+",
       "defined_out": [
         "aggregate%current_tail_offset%2#0",
@@ -3675,7 +3821,7 @@
         "aggregate%current_tail_offset%2#0"
       ]
     },
-    "433": {
+    "473": {
       "op": "swap",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -3694,7 +3840,7 @@
         "aggregate%head%2#0"
       ]
     },
-    "434": {
+    "474": {
       "op": "dig 12",
       "defined_out": [
         "aggregate%current_tail_offset%2#0",
@@ -3723,7 +3869,7 @@
         "aggregate%uint8%0#0"
       ]
     },
-    "436": {
+    "476": {
       "op": "concat",
       "defined_out": [
         "aggregate%current_tail_offset%2#0",
@@ -3751,7 +3897,7 @@
         "aggregate%head%3#0"
       ]
     },
-    "437": {
+    "477": {
       "op": "swap",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -3770,7 +3916,7 @@
         "aggregate%current_tail_offset%2#0"
       ]
     },
-    "438": {
+    "478": {
       "op": "itob",
       "defined_out": [
         "aggregate%as_bytes%9#0",
@@ -3798,7 +3944,7 @@
         "aggregate%as_bytes%9#0"
       ]
     },
-    "439": {
+    "479": {
       "op": "extract 6 2",
       "defined_out": [
         "aggregate%encoded_value%2#0",
@@ -3826,7 +3972,7 @@
         "aggregate%offset_as_uint16%3#0"
       ]
     },
-    "442": {
+    "482": {
       "op": "concat",
       "defined_out": [
         "aggregate%encoded_value%2#0",
@@ -3852,7 +3998,7 @@
         "aggregate%head%4#0"
       ]
     },
-    "443": {
+    "483": {
       "op": "uncover 2",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -3870,7 +4016,7 @@
         "aggregate%encoded_value%2#0"
       ]
     },
-    "445": {
+    "485": {
       "op": "concat",
       "defined_out": [
         "aggregate%concat%1#0",
@@ -3894,7 +4040,7 @@
         "aggregate%concat%1#0"
       ]
     },
-    "446": {
+    "486": {
       "op": "swap",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -3911,7 +4057,7 @@
         "aggregate%encoded_value%3#0"
       ]
     },
-    "447": {
+    "487": {
       "op": "concat",
       "defined_out": [
         "aggregate%concat%2#0",
@@ -3933,7 +4079,7 @@
         "aggregate%concat%2#0"
       ]
     },
-    "448": {
+    "488": {
       "op": "swap",
       "defined_out": [
         "aggregate%concat%2#0",
@@ -3956,7 +4102,7 @@
         "ternary_result%1#2"
       ]
     },
-    "449": {
+    "489": {
       "op": "concat",
       "defined_out": [
         "aggregate%uint8%0#0",
@@ -3977,7 +4123,7 @@
         "assetInfo#0"
       ]
     },
-    "450": {
+    "490": {
       "op": "log",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -3991,10 +4137,10 @@
         "idx#0"
       ]
     },
-    "451": {
+    "491": {
       "op": "b getAssetsTiny_after_if_else@13"
     },
-    "454": {
+    "494": {
       "block": "getAssetsTiny_ternary_false@11",
       "stack_in": [
         "aggregate%encoded_element%0#0",
@@ -4024,10 +4170,10 @@
         "ternary_result%1#2"
       ]
     },
-    "464": {
+    "504": {
       "op": "b getAssetsTiny_ternary_merge@12"
     },
-    "467": {
+    "507": {
       "block": "getAssetsTiny_ternary_false@8",
       "stack_in": [
         "aggregate%encoded_element%0#0",
@@ -4040,7 +4186,7 @@
         "abelAppId#0",
         "idx#0"
       ],
-      "op": "intc_1 // 0",
+      "op": "intc_0 // 0",
       "defined_out": [
         "pv#0"
       ],
@@ -4057,10 +4203,10 @@
         "pv#0"
       ]
     },
-    "468": {
+    "508": {
       "op": "b getAssetsTiny_ternary_merge@9"
     },
-    "471": {
+    "511": {
       "block": "getAssetsTiny_after_while@14",
       "stack_in": [
         "aggregate%encoded_element%0#0",
@@ -4090,7 +4236,7 @@
         "0x151f7c750007000900000b000000000000"
       ]
     },
-    "490": {
+    "530": {
       "op": "log",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -4104,8 +4250,8 @@
         "idx#0"
       ]
     },
-    "491": {
-      "op": "intc_0 // 1",
+    "531": {
+      "op": "intc_1 // 1",
       "defined_out": [
         "1"
       ],
@@ -4122,7 +4268,7 @@
         "1"
       ]
     },
-    "492": {
+    "532": {
       "op": "return",
       "stack_out": [
         "aggregate%encoded_element%0#0",
@@ -4136,7 +4282,7 @@
         "idx#0"
       ]
     },
-    "493": {
+    "533": {
       "subroutine": "smart_contracts/abel_reader/contract.algo.ts::AbelReader.getAssetLabels[routing]",
       "params": {},
       "block": "getAssetLabels",
@@ -4149,7 +4295,7 @@
         "tmp%0#0"
       ]
     },
-    "496": {
+    "536": {
       "op": "len",
       "defined_out": [
         "len%0#0"
@@ -4158,8 +4304,8 @@
         "len%0#0"
       ]
     },
-    "497": {
-      "op": "intc_0 // 1",
+    "537": {
+      "op": "intc_1 // 1",
       "defined_out": [
         "1",
         "len%0#0"
@@ -4169,7 +4315,7 @@
         "1"
       ]
     },
-    "498": {
+    "538": {
       "op": "==",
       "defined_out": [
         "eq%0#0"
@@ -4178,12 +4324,12 @@
         "eq%0#0"
       ]
     },
-    "499": {
+    "539": {
       "error": "invalid number of bytes for arc4.uint8",
       "op": "assert // invalid number of bytes for arc4.uint8",
       "stack_out": []
     },
-    "500": {
+    "540": {
       "op": "pushbytes 0x151f7c750000",
       "defined_out": [
         "0x151f7c750000"
@@ -4192,21 +4338,21 @@
         "0x151f7c750000"
       ]
     },
-    "508": {
+    "548": {
       "op": "log",
       "stack_out": []
     },
-    "509": {
-      "op": "intc_0 // 1",
+    "549": {
+      "op": "intc_1 // 1",
       "stack_out": [
         "1"
       ]
     },
-    "510": {
+    "550": {
       "op": "return",
       "stack_out": []
     },
-    "511": {
+    "551": {
       "subroutine": "smart_contracts/abel_reader/contract.algo.ts::AbelReader.getBlockTimesAndTc[routing]",
       "params": {},
       "block": "getBlockTimesAndTc",
@@ -4219,7 +4365,7 @@
         "tmp%0#0"
       ]
     },
-    "514": {
+    "554": {
       "op": "dup",
       "defined_out": [
         "tmp%0#0",
@@ -4230,7 +4376,7 @@
         "tmp%0#0 (copy)"
       ]
     },
-    "515": {
+    "555": {
       "op": "len",
       "defined_out": [
         "len%0#0",
@@ -4241,8 +4387,8 @@
         "len%0#0"
       ]
     },
-    "516": {
-      "op": "intc_2 // 8",
+    "556": {
+      "op": "intc_3 // 8",
       "defined_out": [
         "8",
         "len%0#0",
@@ -4254,7 +4400,7 @@
         "8"
       ]
     },
-    "517": {
+    "557": {
       "op": "==",
       "defined_out": [
         "eq%0#0",
@@ -4265,14 +4411,14 @@
         "eq%0#0"
       ]
     },
-    "518": {
+    "558": {
       "error": "invalid number of bytes for arc4.uint64",
       "op": "assert // invalid number of bytes for arc4.uint64",
       "stack_out": [
         "tmp%0#0"
       ]
     },
-    "519": {
+    "559": {
       "op": "btoi",
       "defined_out": [
         "firstRound#0"
@@ -4281,7 +4427,7 @@
         "firstRound#0"
       ]
     },
-    "520": {
+    "560": {
       "op": "txna ApplicationArgs 2",
       "defined_out": [
         "firstRound#0",
@@ -4292,7 +4438,7 @@
         "tmp%2#0"
       ]
     },
-    "523": {
+    "563": {
       "op": "dup",
       "defined_out": [
         "firstRound#0",
@@ -4305,7 +4451,7 @@
         "tmp%2#0 (copy)"
       ]
     },
-    "524": {
+    "564": {
       "op": "len",
       "defined_out": [
         "firstRound#0",
@@ -4318,8 +4464,8 @@
         "len%1#0"
       ]
     },
-    "525": {
-      "op": "intc_2 // 8",
+    "565": {
+      "op": "intc_3 // 8",
       "stack_out": [
         "firstRound#0",
         "tmp%2#0",
@@ -4327,7 +4473,7 @@
         "8"
       ]
     },
-    "526": {
+    "566": {
       "op": "==",
       "defined_out": [
         "eq%1#0",
@@ -4340,7 +4486,7 @@
         "eq%1#0"
       ]
     },
-    "527": {
+    "567": {
       "error": "invalid number of bytes for arc4.uint64",
       "op": "assert // invalid number of bytes for arc4.uint64",
       "stack_out": [
@@ -4348,7 +4494,7 @@
         "tmp%2#0"
       ]
     },
-    "528": {
+    "568": {
       "op": "btoi",
       "defined_out": [
         "firstRound#0",
@@ -4359,7 +4505,7 @@
         "lastRound#0"
       ]
     },
-    "529": {
+    "569": {
       "op": "swap",
       "defined_out": [
         "lastRound#0",
@@ -4370,7 +4516,7 @@
         "round#1"
       ]
     },
-    "530": {
+    "570": {
       "block": "getBlockTimesAndTc_while_top@2",
       "stack_in": [
         "lastRound#0",
@@ -4386,7 +4532,7 @@
         "round#1"
       ]
     },
-    "531": {
+    "571": {
       "op": "dig 2",
       "defined_out": [
         "lastRound#0",
@@ -4399,7 +4545,7 @@
         "lastRound#0"
       ]
     },
-    "533": {
+    "573": {
       "op": "<=",
       "defined_out": [
         "lastRound#0",
@@ -4412,14 +4558,14 @@
         "tmp%0#1"
       ]
     },
-    "534": {
+    "574": {
       "op": "bz getBlockTimesAndTc_after_while@4",
       "stack_out": [
         "lastRound#0",
         "round#1"
       ]
     },
-    "537": {
+    "577": {
       "op": "dupn 2",
       "defined_out": [
         "lastRound#0",
@@ -4433,7 +4579,7 @@
         "round#1 (copy)"
       ]
     },
-    "539": {
+    "579": {
       "op": "block BlkTimestamp",
       "defined_out": [
         "lastRound#0",
@@ -4447,7 +4593,7 @@
         "tmp%1#1"
       ]
     },
-    "541": {
+    "581": {
       "op": "itob",
       "defined_out": [
         "aggregate%val_as_bytes%0#0",
@@ -4461,7 +4607,7 @@
         "aggregate%val_as_bytes%0#0"
       ]
     },
-    "542": {
+    "582": {
       "op": "dup",
       "defined_out": [
         "aggregate%val_as_bytes%0#0",
@@ -4477,7 +4623,7 @@
         "aggregate%val_as_bytes%0#0 (copy)"
       ]
     },
-    "543": {
+    "583": {
       "op": "bitlen",
       "defined_out": [
         "aggregate%bitlen%0#0",
@@ -4493,8 +4639,8 @@
         "aggregate%bitlen%0#0"
       ]
     },
-    "544": {
-      "op": "intc_3 // 32",
+    "584": {
+      "op": "intc_2 // 32",
       "defined_out": [
         "32",
         "aggregate%bitlen%0#0",
@@ -4511,7 +4657,7 @@
         "32"
       ]
     },
-    "545": {
+    "585": {
       "op": "<=",
       "defined_out": [
         "aggregate%no_overflow%0#0",
@@ -4527,7 +4673,7 @@
         "aggregate%no_overflow%0#0"
       ]
     },
-    "546": {
+    "586": {
       "error": "overflow",
       "op": "assert // overflow",
       "stack_out": [
@@ -4537,7 +4683,7 @@
         "aggregate%val_as_bytes%0#0"
       ]
     },
-    "547": {
+    "587": {
       "op": "extract 4 4",
       "defined_out": [
         "aggregate%uint32%0#0",
@@ -4551,7 +4697,7 @@
         "aggregate%uint32%0#0"
       ]
     },
-    "550": {
+    "590": {
       "op": "dig 1",
       "stack_out": [
         "lastRound#0",
@@ -4561,7 +4707,7 @@
         "round#1 (copy)"
       ]
     },
-    "552": {
+    "592": {
       "op": "block BlkTxnCounter",
       "defined_out": [
         "aggregate%uint32%0#0",
@@ -4577,7 +4723,7 @@
         "tmp%3#1"
       ]
     },
-    "554": {
+    "594": {
       "op": "itob",
       "defined_out": [
         "aggregate%uint32%0#0",
@@ -4593,7 +4739,7 @@
         "aggregate%val_as_bytes%1#0"
       ]
     },
-    "555": {
+    "595": {
       "op": "concat",
       "defined_out": [
         "blkData#0",
@@ -4607,7 +4753,7 @@
         "blkData#0"
       ]
     },
-    "556": {
+    "596": {
       "op": "log",
       "stack_out": [
         "lastRound#0",
@@ -4615,8 +4761,8 @@
         "round#1"
       ]
     },
-    "557": {
-      "op": "intc_0 // 1",
+    "597": {
+      "op": "intc_1 // 1",
       "defined_out": [
         "1",
         "lastRound#0",
@@ -4629,7 +4775,7 @@
         "1"
       ]
     },
-    "558": {
+    "598": {
       "op": "+",
       "stack_out": [
         "lastRound#0",
@@ -4637,7 +4783,7 @@
         "round#1"
       ]
     },
-    "559": {
+    "599": {
       "op": "bury 1",
       "defined_out": [
         "lastRound#0",
@@ -4648,10 +4794,10 @@
         "round#1"
       ]
     },
-    "561": {
+    "601": {
       "op": "b getBlockTimesAndTc_while_top@2"
     },
-    "564": {
+    "604": {
       "block": "getBlockTimesAndTc_after_while@4",
       "stack_in": [
         "lastRound#0",
@@ -4667,15 +4813,15 @@
         "0x151f7c75000000000000000000000000"
       ]
     },
-    "582": {
+    "622": {
       "op": "log",
       "stack_out": [
         "lastRound#0",
         "round#1"
       ]
     },
-    "583": {
-      "op": "intc_0 // 1",
+    "623": {
+      "op": "intc_1 // 1",
       "defined_out": [
         "1"
       ],
@@ -4685,21 +4831,21 @@
         "1"
       ]
     },
-    "584": {
+    "624": {
       "op": "return",
       "stack_out": [
         "lastRound#0",
         "round#1"
       ]
     },
-    "585": {
+    "625": {
       "subroutine": "smart_contracts/abel_reader/contract.algo.ts::AbelReader.getAuthAddrs[routing]",
       "params": {},
       "block": "getAuthAddrs",
       "stack_in": [],
       "op": "txna ApplicationArgs 1"
     },
-    "588": {
+    "628": {
       "op": "dupn 2",
       "defined_out": [
         "accounts#0",
@@ -4711,8 +4857,8 @@
         "accounts#0 (copy)"
       ]
     },
-    "590": {
-      "op": "intc_1 // 0",
+    "630": {
+      "op": "intc_0 // 0",
       "stack_out": [
         "accounts#0",
         "accounts#0",
@@ -4720,7 +4866,7 @@
         "0"
       ]
     },
-    "591": {
+    "631": {
       "error": "invalid array length header",
       "op": "extract_uint16 // on error: invalid array length header",
       "defined_out": [
@@ -4733,7 +4879,7 @@
         "aggregate%array_length%0#0"
       ]
     },
-    "592": {
+    "632": {
       "op": "dup",
       "stack_out": [
         "accounts#0",
@@ -4742,7 +4888,7 @@
         "aggregate%array_length%0#0"
       ]
     },
-    "593": {
+    "633": {
       "op": "cover 2",
       "defined_out": [
         "accounts#0",
@@ -4755,8 +4901,8 @@
         "aggregate%array_length%0#0"
       ]
     },
-    "595": {
-      "op": "intc_3 // 32",
+    "635": {
+      "op": "intc_2 // 32",
       "defined_out": [
         "32",
         "accounts#0",
@@ -4770,7 +4916,7 @@
         "32"
       ]
     },
-    "596": {
+    "636": {
       "op": "*",
       "defined_out": [
         "accounts#0",
@@ -4784,7 +4930,7 @@
         "mul%0#0"
       ]
     },
-    "597": {
+    "637": {
       "op": "pushint 2 // 2",
       "defined_out": [
         "2",
@@ -4800,7 +4946,7 @@
         "2"
       ]
     },
-    "599": {
+    "639": {
       "op": "+",
       "defined_out": [
         "accounts#0",
@@ -4814,7 +4960,7 @@
         "add%0#0"
       ]
     },
-    "600": {
+    "640": {
       "op": "swap",
       "stack_out": [
         "accounts#0",
@@ -4823,7 +4969,7 @@
         "accounts#0"
       ]
     },
-    "601": {
+    "641": {
       "op": "len",
       "defined_out": [
         "accounts#0",
@@ -4838,7 +4984,7 @@
         "len%0#0"
       ]
     },
-    "602": {
+    "642": {
       "op": "==",
       "defined_out": [
         "accounts#0",
@@ -4851,7 +4997,7 @@
         "eq%0#0"
       ]
     },
-    "603": {
+    "643": {
       "error": "invalid number of bytes for arc4.dynamic_array<account>",
       "op": "assert // invalid number of bytes for arc4.dynamic_array<account>",
       "stack_out": [
@@ -4859,8 +5005,8 @@
         "aggregate%array_length%0#0"
       ]
     },
-    "604": {
-      "op": "intc_1 // 0",
+    "644": {
+      "op": "intc_0 // 0",
       "defined_out": [
         "accounts#0",
         "aggregate%array_length%0#0",
@@ -4872,7 +5018,7 @@
         "idx#0"
       ]
     },
-    "605": {
+    "645": {
       "block": "getAuthAddrs_while_top@2",
       "stack_in": [
         "accounts#0",
@@ -4890,7 +5036,7 @@
         "idx#0"
       ]
     },
-    "606": {
+    "646": {
       "op": "dig 2",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -4904,7 +5050,7 @@
         "aggregate%array_length%0#0"
       ]
     },
-    "608": {
+    "648": {
       "op": "<",
       "defined_out": [
         "aggregate%array_length%0#0",
@@ -4918,7 +5064,7 @@
         "tmp%1#1"
       ]
     },
-    "609": {
+    "649": {
       "op": "bz getAuthAddrs_after_while@4",
       "stack_out": [
         "accounts#0",
@@ -4926,7 +5072,7 @@
         "idx#0"
       ]
     },
-    "612": {
+    "652": {
       "op": "dig 2",
       "defined_out": [
         "accounts#0",
@@ -4940,7 +5086,7 @@
         "accounts#0"
       ]
     },
-    "614": {
+    "654": {
       "op": "extract 2 0",
       "defined_out": [
         "accounts#0",
@@ -4955,7 +5101,7 @@
         "aggregate%array_trimmed%0#0"
       ]
     },
-    "617": {
+    "657": {
       "op": "dig 1",
       "stack_out": [
         "accounts#0",
@@ -4965,7 +5111,7 @@
         "idx#0"
       ]
     },
-    "619": {
+    "659": {
       "op": "dup",
       "defined_out": [
         "accounts#0",
@@ -4983,7 +5129,7 @@
         "idx#0 (copy)"
       ]
     },
-    "620": {
+    "660": {
       "op": "cover 2",
       "stack_out": [
         "accounts#0",
@@ -4994,8 +5140,8 @@
         "idx#0 (copy)"
       ]
     },
-    "622": {
-      "op": "intc_3 // 32",
+    "662": {
+      "op": "intc_2 // 32",
       "defined_out": [
         "32",
         "accounts#0",
@@ -5014,7 +5160,7 @@
         "32"
       ]
     },
-    "623": {
+    "663": {
       "op": "*",
       "defined_out": [
         "accounts#0",
@@ -5032,8 +5178,8 @@
         "aggregate%bytes_offset%0#0"
       ]
     },
-    "624": {
-      "op": "intc_3 // 32",
+    "664": {
+      "op": "intc_2 // 32",
       "stack_out": [
         "accounts#0",
         "aggregate%array_length%0#0",
@@ -5044,7 +5190,7 @@
         "32"
       ]
     },
-    "625": {
+    "665": {
       "error": "index access is out of bounds",
       "op": "extract3 // on error: index access is out of bounds",
       "defined_out": [
@@ -5061,7 +5207,7 @@
         "aggregate%encoded_element%0#0"
       ]
     },
-    "626": {
+    "666": {
       "op": "acct_params_get AcctAuthAddr",
       "defined_out": [
         "_#0",
@@ -5079,7 +5225,7 @@
         "_#0"
       ]
     },
-    "628": {
+    "668": {
       "op": "pop",
       "stack_out": [
         "accounts#0",
@@ -5089,7 +5235,7 @@
         "authAddr#0"
       ]
     },
-    "629": {
+    "669": {
       "op": "log",
       "stack_out": [
         "accounts#0",
@@ -5098,8 +5244,8 @@
         "idx#0"
       ]
     },
-    "630": {
-      "op": "intc_0 // 1",
+    "670": {
+      "op": "intc_1 // 1",
       "defined_out": [
         "1",
         "accounts#0",
@@ -5114,7 +5260,7 @@
         "1"
       ]
     },
-    "631": {
+    "671": {
       "op": "+",
       "stack_out": [
         "accounts#0",
@@ -5123,7 +5269,7 @@
         "idx#0"
       ]
     },
-    "632": {
+    "672": {
       "op": "bury 1",
       "defined_out": [
         "accounts#0",
@@ -5136,10 +5282,10 @@
         "idx#0"
       ]
     },
-    "634": {
+    "674": {
       "op": "b getAuthAddrs_while_top@2"
     },
-    "637": {
+    "677": {
       "block": "getAuthAddrs_after_while@4",
       "stack_in": [
         "accounts#0",
@@ -5157,7 +5303,7 @@
         "CUPXY5IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
       ]
     },
-    "675": {
+    "715": {
       "op": "log",
       "stack_out": [
         "accounts#0",
@@ -5165,8 +5311,8 @@
         "idx#0"
       ]
     },
-    "676": {
-      "op": "intc_0 // 1",
+    "716": {
+      "op": "intc_1 // 1",
       "defined_out": [
         "1"
       ],
@@ -5177,12 +5323,3063 @@
         "1"
       ]
     },
-    "677": {
+    "717": {
       "op": "return",
       "stack_out": [
         "accounts#0",
         "aggregate%array_length%0#0",
         "idx#0"
+      ]
+    },
+    "718": {
+      "subroutine": "smart_contracts/abel_reader/contract.algo.ts::AbelReader.getTinymanInfo[routing]",
+      "params": {},
+      "block": "getTinymanInfo",
+      "stack_in": [],
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "temp#0"
+      ]
+    },
+    "719": {
+      "op": "dup",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0"
+      ]
+    },
+    "720": {
+      "op": "bytec_0 // \"\"",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0"
+      ]
+    },
+    "721": {
+      "op": "dupn 3",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0"
+      ]
+    },
+    "723": {
+      "op": "txna ApplicationArgs 1",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tmp%0#0"
+      ]
+    },
+    "726": {
+      "op": "dup",
+      "defined_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ]
+    },
+    "727": {
+      "op": "len",
+      "defined_out": [
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tmp%0#0",
+        "len%0#0"
+      ]
+    },
+    "728": {
+      "op": "intc_3 // 8",
+      "defined_out": [
+        "8",
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tmp%0#0",
+        "len%0#0",
+        "8"
+      ]
+    },
+    "729": {
+      "op": "==",
+      "defined_out": [
+        "eq%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tmp%0#0",
+        "eq%0#0"
+      ]
+    },
+    "730": {
+      "error": "invalid number of bytes for arc4.uint64",
+      "op": "assert // invalid number of bytes for arc4.uint64",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tmp%0#0"
+      ]
+    },
+    "731": {
+      "op": "btoi",
+      "defined_out": [
+        "tinymanAppId#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0"
+      ]
+    },
+    "732": {
+      "op": "dup",
+      "defined_out": [
+        "tinymanAppId#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "tinymanAppId#0"
+      ]
+    },
+    "733": {
+      "op": "txna ApplicationArgs 2"
+    },
+    "736": {
+      "op": "dup",
+      "defined_out": [
+        "lpEscrows#0",
+        "tinymanAppId#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "lpEscrows#0"
+      ]
+    },
+    "737": {
+      "op": "cover 2",
+      "defined_out": [
+        "lpEscrows#0",
+        "tinymanAppId#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "tinymanAppId#0",
+        "lpEscrows#0"
+      ]
+    },
+    "739": {
+      "op": "dup",
+      "defined_out": [
+        "lpEscrows#0",
+        "lpEscrows#0 (copy)",
+        "tinymanAppId#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "lpEscrows#0 (copy)"
+      ]
+    },
+    "740": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "lpEscrows#0 (copy)",
+        "0"
+      ]
+    },
+    "741": {
+      "error": "invalid array length header",
+      "op": "extract_uint16 // on error: invalid array length header",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "lpEscrows#0",
+        "tinymanAppId#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0"
+      ]
+    },
+    "742": {
+      "op": "dup",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "aggregate%array_length%0#0"
+      ]
+    },
+    "743": {
+      "op": "cover 3",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "lpEscrows#0",
+        "tinymanAppId#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0"
+      ]
+    },
+    "745": {
+      "op": "intc_2 // 32",
+      "defined_out": [
+        "32",
+        "aggregate%array_length%0#0",
+        "lpEscrows#0",
+        "tinymanAppId#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "32"
+      ]
+    },
+    "746": {
+      "op": "*",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "lpEscrows#0",
+        "mul%0#0",
+        "tinymanAppId#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "mul%0#0"
+      ]
+    },
+    "747": {
+      "op": "pushint 2 // 2",
+      "defined_out": [
+        "2",
+        "aggregate%array_length%0#0",
+        "lpEscrows#0",
+        "mul%0#0",
+        "tinymanAppId#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "mul%0#0",
+        "2"
+      ]
+    },
+    "749": {
+      "op": "+",
+      "defined_out": [
+        "add%0#0",
+        "aggregate%array_length%0#0",
+        "lpEscrows#0",
+        "tinymanAppId#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "add%0#0"
+      ]
+    },
+    "750": {
+      "op": "swap",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanAppId#0",
+        "add%0#0",
+        "lpEscrows#0"
+      ]
+    },
+    "751": {
+      "op": "len",
+      "defined_out": [
+        "add%0#0",
+        "aggregate%array_length%0#0",
+        "len%1#0",
+        "lpEscrows#0",
+        "tinymanAppId#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanAppId#0",
+        "add%0#0",
+        "len%1#0"
+      ]
+    },
+    "752": {
+      "op": "==",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "eq%1#0",
+        "lpEscrows#0",
+        "tinymanAppId#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanAppId#0",
+        "eq%1#0"
+      ]
+    },
+    "753": {
+      "error": "invalid number of bytes for arc4.dynamic_array<account>",
+      "op": "assert // invalid number of bytes for arc4.dynamic_array<account>",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanAppId#0"
+      ]
+    },
+    "754": {
+      "op": "app_params_get AppAddress",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "check%0#0",
+        "lpEscrows#0",
+        "tinymanAppId#0",
+        "tinymanEscrow#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "check%0#0"
+      ]
+    },
+    "756": {
+      "error": "application exists",
+      "op": "assert // application exists",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0"
+      ]
+    },
+    "757": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "tinymanAppId#0",
+        "tinymanEscrow#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "758": {
+      "block": "getTinymanInfo_for_header@2",
+      "stack_in": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
+      ],
+      "op": "dup",
+      "defined_out": [
+        "item_index_internal%0#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "759": {
+      "op": "dig 3",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "item_index_internal%0#0",
+        "aggregate%array_length%0#0"
+      ]
+    },
+    "761": {
+      "op": "<",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "continue_looping%0#0",
+        "item_index_internal%0#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "continue_looping%0#0"
+      ]
+    },
+    "762": {
+      "op": "bz getTinymanInfo_after_for@14",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "765": {
+      "op": "dig 3",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0"
+      ]
+    },
+    "767": {
+      "op": "extract 2 0",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "aggregate%array_trimmed%0#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%array_trimmed%0#0"
+      ]
+    },
+    "770": {
+      "op": "dig 1",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%array_trimmed%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "772": {
+      "op": "intc_2 // 32",
+      "defined_out": [
+        "32",
+        "aggregate%array_length%0#0",
+        "aggregate%array_trimmed%0#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%array_trimmed%0#0",
+        "item_index_internal%0#0",
+        "32"
+      ]
+    },
+    "773": {
+      "op": "*",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "aggregate%array_trimmed%0#0",
+        "aggregate%bytes_offset%0#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%array_trimmed%0#0",
+        "aggregate%bytes_offset%0#0"
+      ]
+    },
+    "774": {
+      "op": "intc_2 // 32",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%array_trimmed%0#0",
+        "aggregate%bytes_offset%0#0",
+        "32"
+      ]
+    },
+    "775": {
+      "error": "index access is out of bounds",
+      "op": "extract3 // on error: index access is out of bounds",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "temp#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "temp#0"
+      ]
+    },
+    "776": {
+      "op": "dup",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "temp#0"
+      ]
+    },
+    "777": {
+      "op": "bury 12",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "temp#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "temp#0"
+      ]
+    },
+    "779": {
+      "op": "dup",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "temp#0",
+        "temp#0 (copy)"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "temp#0 (copy)"
+      ]
+    },
+    "780": {
+      "op": "acct_params_get AcctAuthAddr",
+      "defined_out": [
+        "_#0",
+        "aggregate%array_length%0#0",
+        "authAddr#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "temp#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "authAddr#0",
+        "_#0"
+      ]
+    },
+    "782": {
+      "op": "pop",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "authAddr#0"
+      ]
+    },
+    "783": {
+      "op": "dig 3",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "authAddr#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "temp#0",
+        "tinymanEscrow#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "authAddr#0",
+        "tinymanEscrow#0"
+      ]
+    },
+    "785": {
+      "op": "==",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "temp#0",
+        "tinymanEscrow#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "validRekey#0"
+      ]
+    },
+    "786": {
+      "op": "bury 7",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "temp#0",
+        "tinymanEscrow#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "temp#0"
+      ]
+    },
+    "788": {
+      "op": "dig 5",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "temp#0",
+        "tinymanAppId#0",
+        "tinymanEscrow#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "tinymanAppId#0"
+      ]
+    },
+    "790": {
+      "op": "app_opted_in",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "temp#0",
+        "tinymanAppId#0",
+        "tinymanEscrow#0",
+        "tmp%1#1",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "tmp%1#1"
+      ]
+    },
+    "791": {
+      "op": "bz getTinymanInfo_else_body@11",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "794": {
+      "op": "dig 10",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "temp#0"
+      ]
+    },
+    "796": {
+      "op": "dup",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "temp#0 (copy)"
+      ]
+    },
+    "797": {
+      "op": "dig 6",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "temp#0 (copy)",
+        "tinymanAppId#0"
+      ]
+    },
+    "799": {
+      "op": "dup",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "temp#0",
+        "temp#0 (copy)",
+        "tinymanAppId#0",
+        "tinymanAppId#0 (copy)",
+        "tinymanEscrow#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "temp#0 (copy)",
+        "tinymanAppId#0 (copy)",
+        "tinymanAppId#0 (copy)"
+      ]
+    },
+    "800": {
+      "op": "cover 3",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "tinymanAppId#0",
+        "temp#0",
+        "temp#0 (copy)",
+        "tinymanAppId#0 (copy)"
+      ]
+    },
+    "802": {
+      "op": "pushbytes \"asset_1_id\"",
+      "defined_out": [
+        "\"asset_1_id\"",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "temp#0",
+        "temp#0 (copy)",
+        "tinymanAppId#0",
+        "tinymanAppId#0 (copy)",
+        "tinymanEscrow#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "tinymanAppId#0",
+        "temp#0",
+        "temp#0 (copy)",
+        "tinymanAppId#0 (copy)",
+        "\"asset_1_id\""
+      ]
+    },
+    "814": {
+      "op": "app_local_get_ex",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "asset1Exists#0",
+        "asset1Id#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "temp#0",
+        "tinymanAppId#0",
+        "tinymanEscrow#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "tinymanAppId#0",
+        "temp#0",
+        "asset1Id#0",
+        "asset1Exists#0"
+      ]
+    },
+    "815": {
+      "op": "cover 3",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "asset1Exists#0",
+        "tinymanAppId#0",
+        "temp#0",
+        "asset1Id#0"
+      ]
+    },
+    "817": {
+      "op": "bury 12",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "asset1Exists#0",
+        "asset1Id#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "temp#0",
+        "tinymanAppId#0",
+        "tinymanEscrow#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "asset1Exists#0",
+        "tinymanAppId#0",
+        "temp#0"
+      ]
+    },
+    "819": {
+      "op": "swap",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "asset1Exists#0",
+        "temp#0",
+        "tinymanAppId#0"
+      ]
+    },
+    "820": {
+      "op": "pushbytes \"asset_2_id\"",
+      "defined_out": [
+        "\"asset_2_id\"",
+        "aggregate%array_length%0#0",
+        "asset1Exists#0",
+        "asset1Id#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "temp#0",
+        "tinymanAppId#0",
+        "tinymanEscrow#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "asset1Exists#0",
+        "temp#0",
+        "tinymanAppId#0",
+        "\"asset_2_id\""
+      ]
+    },
+    "832": {
+      "op": "app_local_get_ex",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "asset1Exists#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "temp#0",
+        "tinymanAppId#0",
+        "tinymanEscrow#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "asset1Exists#0",
+        "asset2Id#0",
+        "asset2Exists#0"
+      ]
+    },
+    "833": {
+      "op": "bury 10",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "asset1Exists#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "temp#0",
+        "tinymanAppId#0",
+        "tinymanEscrow#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "asset1Exists#0",
+        "asset2Id#0"
+      ]
+    },
+    "835": {
+      "op": "bury 8",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "asset1Exists#0"
+      ]
+    },
+    "837": {
+      "op": "bz getTinymanInfo_ternary_false@6",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "840": {
+      "op": "dig 8",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "asset1Id#0"
+      ]
+    },
+    "842": {
+      "callsub": "smart_contracts/abel_reader/contract.algo.ts::getAssetUnitName",
+      "op": "callsub getAssetUnitName",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "temp#0",
+        "ternary_result%0#0",
+        "tinymanAppId#0",
+        "tinymanEscrow#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%0#0"
+      ]
+    },
+    "845": {
+      "op": "bury 10",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "item_index_internal%0#0",
+        "lpEscrows#0",
+        "temp#0",
+        "ternary_result%0#0",
+        "tinymanAppId#0",
+        "tinymanEscrow#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "847": {
+      "block": "getTinymanInfo_ternary_merge@7",
+      "stack_in": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
+      ],
+      "op": "dig 7",
+      "defined_out": [
+        "asset2Exists#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "asset2Exists#0"
+      ]
+    },
+    "849": {
+      "op": "bz getTinymanInfo_ternary_false@9",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "852": {
+      "op": "dig 6",
+      "defined_out": [
+        "asset2Exists#0",
+        "asset2Id#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "asset2Id#0"
+      ]
+    },
+    "854": {
+      "callsub": "smart_contracts/abel_reader/contract.algo.ts::getAssetUnitName",
+      "op": "callsub getAssetUnitName",
+      "defined_out": [
+        "asset2Exists#0",
+        "asset2Id#0",
+        "ternary_result%1#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0"
+      ]
+    },
+    "857": {
+      "block": "getTinymanInfo_ternary_merge@10",
+      "stack_in": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0"
+      ],
+      "op": "pushbytes 0x00",
+      "defined_out": [
+        "0x00"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "0x00"
+      ]
+    },
+    "860": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0",
+        "0x00"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "0x00",
+        "0"
+      ]
+    },
+    "861": {
+      "op": "dig 8",
+      "defined_out": [
+        "0",
+        "0x00",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "0x00",
+        "0",
+        "validRekey#0"
+      ]
+    },
+    "863": {
+      "op": "setbit",
+      "defined_out": [
+        "aggregate%encoded_bool%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%encoded_bool%0#0"
+      ]
+    },
+    "864": {
+      "op": "dig 10",
+      "defined_out": [
+        "aggregate%encoded_bool%0#0",
+        "asset1Id#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%encoded_bool%0#0",
+        "asset1Id#0"
+      ]
+    },
+    "866": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%encoded_bool%0#0",
+        "aggregate%val_as_bytes%0#0",
+        "asset1Id#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%encoded_bool%0#0",
+        "aggregate%val_as_bytes%0#0"
+      ]
+    },
+    "867": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "asset1Id#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%head%1#0"
+      ]
+    },
+    "868": {
+      "op": "dig 11",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "asset1Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%head%1#0",
+        "ternary_result%0#0"
+      ]
+    },
+    "870": {
+      "op": "dup",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "asset1Id#0",
+        "ternary_result%0#0",
+        "ternary_result%0#0 (copy)",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%head%1#0",
+        "ternary_result%0#0",
+        "ternary_result%0#0 (copy)"
+      ]
+    },
+    "871": {
+      "op": "len",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "aggregate%length%0#0",
+        "asset1Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%head%1#0",
+        "ternary_result%0#0",
+        "aggregate%length%0#0"
+      ]
+    },
+    "872": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%as_bytes%0#0",
+        "aggregate%head%1#0",
+        "asset1Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%head%1#0",
+        "ternary_result%0#0",
+        "aggregate%as_bytes%0#0"
+      ]
+    },
+    "873": {
+      "op": "extract 6 2",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "aggregate%length_uint16%0#0",
+        "asset1Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%head%1#0",
+        "ternary_result%0#0",
+        "aggregate%length_uint16%0#0"
+      ]
+    },
+    "876": {
+      "op": "swap",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%head%1#0",
+        "aggregate%length_uint16%0#0",
+        "ternary_result%0#0"
+      ]
+    },
+    "877": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%1#0",
+        "asset1Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%head%1#0",
+        "aggregate%encoded_value%0#0"
+      ]
+    },
+    "878": {
+      "op": "swap",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%1#0"
+      ]
+    },
+    "879": {
+      "op": "pushbytes 0x0015",
+      "defined_out": [
+        "0x0015",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%1#0",
+        "asset1Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%1#0",
+        "0x0015"
+      ]
+    },
+    "883": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%2#0",
+        "asset1Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%2#0"
+      ]
+    },
+    "884": {
+      "op": "dig 1",
+      "defined_out": [
+        "aggregate%encoded_value%0#0",
+        "aggregate%encoded_value%0#0 (copy)",
+        "aggregate%head%2#0",
+        "asset1Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%2#0",
+        "aggregate%encoded_value%0#0 (copy)"
+      ]
+    },
+    "886": {
+      "op": "len",
+      "defined_out": [
+        "aggregate%data_length%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%2#0",
+        "asset1Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%2#0",
+        "aggregate%data_length%0#0"
+      ]
+    },
+    "887": {
+      "op": "pushint 21 // 21",
+      "defined_out": [
+        "21",
+        "aggregate%data_length%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%2#0",
+        "asset1Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%2#0",
+        "aggregate%data_length%0#0",
+        "21"
+      ]
+    },
+    "889": {
+      "op": "+",
+      "defined_out": [
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%2#0",
+        "asset1Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%2#0",
+        "aggregate%current_tail_offset%0#0"
+      ]
+    },
+    "890": {
+      "op": "dig 10",
+      "defined_out": [
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%2#0",
+        "asset1Id#0",
+        "asset2Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%2#0",
+        "aggregate%current_tail_offset%0#0",
+        "asset2Id#0"
+      ]
+    },
+    "892": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%2#0",
+        "aggregate%val_as_bytes%1#0",
+        "asset1Id#0",
+        "asset2Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%2#0",
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%val_as_bytes%1#0"
+      ]
+    },
+    "893": {
+      "op": "uncover 2",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%val_as_bytes%1#0",
+        "aggregate%head%2#0"
+      ]
+    },
+    "895": {
+      "op": "swap",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%head%2#0",
+        "aggregate%val_as_bytes%1#0"
+      ]
+    },
+    "896": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "asset1Id#0",
+        "asset2Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%head%3#0"
+      ]
+    },
+    "897": {
+      "op": "uncover 3",
+      "defined_out": [
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "asset1Id#0",
+        "asset2Id#0",
+        "ternary_result%0#0",
+        "ternary_result%1#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%head%3#0",
+        "ternary_result%1#0"
+      ]
+    },
+    "899": {
+      "op": "dup",
+      "defined_out": [
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "asset1Id#0",
+        "asset2Id#0",
+        "ternary_result%0#0",
+        "ternary_result%1#0",
+        "ternary_result%1#0 (copy)",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%head%3#0",
+        "ternary_result%1#0",
+        "ternary_result%1#0 (copy)"
+      ]
+    },
+    "900": {
+      "op": "len",
+      "defined_out": [
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "aggregate%length%1#0",
+        "asset1Id#0",
+        "asset2Id#0",
+        "ternary_result%0#0",
+        "ternary_result%1#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%head%3#0",
+        "ternary_result%1#0",
+        "aggregate%length%1#0"
+      ]
+    },
+    "901": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%as_bytes%2#0",
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "asset1Id#0",
+        "asset2Id#0",
+        "ternary_result%0#0",
+        "ternary_result%1#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%head%3#0",
+        "ternary_result%1#0",
+        "aggregate%as_bytes%2#0"
+      ]
+    },
+    "902": {
+      "op": "extract 6 2",
+      "defined_out": [
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "aggregate%length_uint16%1#0",
+        "asset1Id#0",
+        "asset2Id#0",
+        "ternary_result%0#0",
+        "ternary_result%1#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%head%3#0",
+        "ternary_result%1#0",
+        "aggregate%length_uint16%1#0"
+      ]
+    },
+    "905": {
+      "op": "swap",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%head%3#0",
+        "aggregate%length_uint16%1#0",
+        "ternary_result%1#0"
+      ]
+    },
+    "906": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%encoded_value%1#0",
+        "aggregate%head%3#0",
+        "asset1Id#0",
+        "asset2Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%current_tail_offset%0#0",
+        "aggregate%head%3#0",
+        "aggregate%encoded_value%1#0"
+      ]
+    },
+    "907": {
+      "op": "uncover 2",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "aggregate%encoded_value%1#0",
+        "aggregate%current_tail_offset%0#0"
+      ]
+    },
+    "909": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%as_bytes%3#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%encoded_value%1#0",
+        "aggregate%head%3#0",
+        "asset1Id#0",
+        "asset2Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "aggregate%encoded_value%1#0",
+        "aggregate%as_bytes%3#0"
+      ]
+    },
+    "910": {
+      "op": "extract 6 2",
+      "defined_out": [
+        "aggregate%encoded_value%0#0",
+        "aggregate%encoded_value%1#0",
+        "aggregate%head%3#0",
+        "aggregate%offset_as_uint16%1#0",
+        "asset1Id#0",
+        "asset2Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "aggregate%encoded_value%1#0",
+        "aggregate%offset_as_uint16%1#0"
+      ]
+    },
+    "913": {
+      "op": "uncover 2",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%encoded_value%1#0",
+        "aggregate%offset_as_uint16%1#0",
+        "aggregate%head%3#0"
+      ]
+    },
+    "915": {
+      "op": "swap",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%encoded_value%1#0",
+        "aggregate%head%3#0",
+        "aggregate%offset_as_uint16%1#0"
+      ]
+    },
+    "916": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%encoded_value%0#0",
+        "aggregate%encoded_value%1#0",
+        "aggregate%head%4#0",
+        "asset1Id#0",
+        "asset2Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%encoded_value%1#0",
+        "aggregate%head%4#0"
+      ]
+    },
+    "917": {
+      "op": "uncover 2",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%encoded_value%1#0",
+        "aggregate%head%4#0",
+        "aggregate%encoded_value%0#0"
+      ]
+    },
+    "919": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%concat%0#0",
+        "aggregate%encoded_value%1#0",
+        "asset1Id#0",
+        "asset2Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%encoded_value%1#0",
+        "aggregate%concat%0#0"
+      ]
+    },
+    "920": {
+      "op": "swap",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%concat%0#0",
+        "aggregate%encoded_value%1#0"
+      ]
+    },
+    "921": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%concat%1#0",
+        "asset1Id#0",
+        "asset2Id#0",
+        "ternary_result%0#0",
+        "validRekey#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "aggregate%concat%1#0"
+      ]
+    },
+    "922": {
+      "op": "log",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "923": {
+      "block": "getTinymanInfo_after_if_else@12",
+      "stack_in": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
+      ],
+      "op": "dup",
+      "defined_out": [
+        "item_index_internal%0#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "924": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1",
+        "item_index_internal%0#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "item_index_internal%0#0",
+        "1"
+      ]
+    },
+    "925": {
+      "op": "+",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "926": {
+      "op": "bury 1",
+      "defined_out": [
+        "item_index_internal%0#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "928": {
+      "op": "b getTinymanInfo_for_header@2"
+    },
+    "931": {
+      "block": "getTinymanInfo_ternary_false@9",
+      "stack_in": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
+      ],
+      "op": "bytec_0 // \"\"",
+      "defined_out": [
+        "ternary_result%1#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#0"
+      ]
+    },
+    "932": {
+      "op": "b getTinymanInfo_ternary_merge@10"
+    },
+    "935": {
+      "block": "getTinymanInfo_ternary_false@6",
+      "stack_in": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
+      ],
+      "op": "bytec_0 // \"\"",
+      "defined_out": [
+        "ternary_result%0#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "ternary_result%0#0"
+      ]
+    },
+    "936": {
+      "op": "bury 10",
+      "defined_out": [
+        "ternary_result%0#0"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "938": {
+      "op": "b getTinymanInfo_ternary_merge@7"
+    },
+    "941": {
+      "block": "getTinymanInfo_else_body@11",
+      "stack_in": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
+      ],
+      "op": "pushbytes 0x00000000000000000000150000000000000000001700000000",
+      "defined_out": [
+        "0x00000000000000000000150000000000000000001700000000"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "0x00000000000000000000150000000000000000001700000000"
+      ]
+    },
+    "968": {
+      "op": "log",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "969": {
+      "op": "b getTinymanInfo_after_if_else@12"
+    },
+    "972": {
+      "block": "getTinymanInfo_after_for@14",
+      "stack_in": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
+      ],
+      "op": "pushbytes 0x151f7c7500000000000000000000150000000000000000001700000000",
+      "defined_out": [
+        "0x151f7c7500000000000000000000150000000000000000001700000000"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "0x151f7c7500000000000000000000150000000000000000001700000000"
+      ]
+    },
+    "1003": {
+      "op": "log",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "1004": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1"
+      ],
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0",
+        "1"
+      ]
+    },
+    "1005": {
+      "op": "return",
+      "stack_out": [
+        "temp#0",
+        "ternary_result%0#0",
+        "asset1Id#0",
+        "asset2Exists#0",
+        "asset2Id#0",
+        "validRekey#0",
+        "tinymanAppId#0",
+        "lpEscrows#0",
+        "aggregate%array_length%0#0",
+        "tinymanEscrow#0",
+        "item_index_internal%0#0"
       ]
     }
   }
