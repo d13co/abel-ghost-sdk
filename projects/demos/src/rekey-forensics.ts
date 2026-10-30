@@ -3,14 +3,14 @@
 //   pnpm rekeys [addr … | --file addrs.txt | --recent 2000] [--check 60] [--max-versions 20000]
 //
 // - Search: the reader contract reads every account's auth address at 256 rounds from genesis to now, in one
-//   `atRounds` call. Wherever two samples differ, it reads 256 rounds between them, and so on down to the block: about
+//   `atRounds` call (the node takes up to its query `maxRounds` of them per request). Wherever two samples differ, it reads 256 rounds between them, and so on down to the block: about
 //   four levels from genesis.
 // - Exact: an account's `/versions` lists every change to its base record, so every rekey, including one that was
 //   undone between two samples, which the search can't see.
 // Accounts default to the senders of the latest blocks.
 import { readFileSync } from "node:fs"
 import { cached } from "./lib/cache.js"
-import { algorand, args, describe, makeSDK, mapLimit, measure, num, printNode, safeTip, short, spread, str } from "./lib/node.js"
+import { algorand, args, describe, makeSDK, mapLimit, measure, num, printNode, queries, safeTip, short, spread, str } from "./lib/node.js"
 import { writeReport, type Section } from "./lib/report.js"
 
 interface Rekey {
@@ -51,10 +51,10 @@ async function recentSenders(tip: bigint, count: number): Promise<string[]> {
   // ---- search: sample everyone, then narrow every change down to its block
   let searchRequests = 0
   const rekeys: Rekey[] = []
-  const levels: { level: number; intervals: number; ms: number; simulates: number }[] = []
+  const levels: { level: number; intervals: number; ms: number; queries: number }[] = []
   const top = spread(1n, tip, 256)
   const first = await measure(() => sdk.getAuthAddrsAtRounds(accounts, top))
-  searchRequests += first.simulates
+  searchRequests += first.queries
   const value = (r: (typeof first.result)[number], account: string) => {
     if (!r.ok) throw r.error
     return r.value.get(account)
@@ -67,7 +67,7 @@ async function recentSenders(tip: bigint, count: number): Promise<string[]> {
       const to = value(first.result[i], account)
       if (from !== to) intervals.push({ account, a: top[i - 1], b: top[i], from, to })
     }
-  levels.push({ level: 0, intervals: intervals.length, ms: first.ms, simulates: first.simulates })
+  levels.push({ level: 0, intervals: intervals.length, ms: first.ms, queries: first.queries })
   console.log(`level 0: ${accounts.length} accounts × ${top.length} rounds in ${describe(first)}; ${intervals.length} changes to narrow down`)
 
   for (let level = 1; intervals.length; level++) {
@@ -91,14 +91,14 @@ async function recentSenders(tip: bigint, count: number): Promise<string[]> {
         return found
       }),
     )
-    searchRequests += step.simulates
+    searchRequests += step.queries
     intervals = step.result.flat()
-    levels.push({ level, intervals: open.length, ms: step.ms, simulates: step.simulates })
+    levels.push({ level, intervals: open.length, ms: step.ms, queries: step.queries })
     console.log(`level ${level}: ${open.length} intervals in ${describe(step)}`)
   }
   rekeys.sort((x, y) => (x.round < y.round ? -1 : 1))
   const rekeyed = new Set(rekeys.map((r) => r.account))
-  console.log(`search: ${rekeys.length} auth address changes in ${rekeyed.size} accounts, ${searchRequests} simulate requests`)
+  console.log(`search: ${rekeys.length} auth address changes in ${rekeyed.size} accounts, ${queries(searchRequests)}`)
 
   // ---- exact: the base record history of a sample of accounts
   const sample = [...[...rekeyed].slice(0, num("check", 60) / 2), ...accounts.filter((a) => !rekeyed.has(a)).slice(0, num("check", 60) / 2)]
@@ -161,8 +161,8 @@ async function recentSenders(tip: bigint, count: number): Promise<string[]> {
       kind: "table",
       title: "How the search narrowed down",
       subtitle: "Level 0 reads every account at 256 rounds; each level after reads 256 rounds inside each interval where two samples differed.",
-      columns: ["level", "accounts or intervals", "simulate requests", "wall time (ms)"],
-      rows: levels.map((l) => [l.level, l.level === 0 ? `${accounts.length} accounts` : `${l.intervals} intervals`, l.simulates, l.ms]),
+      columns: ["level", "accounts or intervals", "queries", "wall time (ms)"],
+      rows: levels.map((l) => [l.level, l.level === 0 ? `${accounts.length} accounts` : `${l.intervals} intervals`, l.queries, l.ms]),
     },
     {
       kind: "table",
@@ -175,7 +175,7 @@ async function recentSenders(tip: bigint, count: number): Promise<string[]> {
         ["accounts where both agree", agree],
         ["changes only in the history (missed by the search)", missed.length],
         ["changes only in the search", extra.length],
-        ["simulate requests, search (all accounts)", searchRequests],
+        ["queries, search (all accounts)", searchRequests],
         ["/versions requests, exact (sample only)", exact.versions],
       ],
     },
@@ -207,7 +207,7 @@ async function recentSenders(tip: bigint, count: number): Promise<string[]> {
       title: "How it was read",
       paragraphs: [
         nodeLine + ".",
-        `Search: \`sdk.getAuthAddrsAtRounds(accounts, rounds)\`, ${searchRequests} simulate requests in all. Exact: \`algorand.dt.iterateAccountVersions(addr, { exclude: ['all'], includeValues: true })\`, ${describe(exact)}.`,
+        `Search: \`sdk.getAuthAddrsAtRounds(accounts, rounds)\`, ${queries(searchRequests)} in all. Exact: \`algorand.dt.iterateAccountVersions(addr, { exclude: ['all'], includeValues: true })\`, ${describe(exact)}.`,
       ],
     },
   ]
@@ -217,7 +217,7 @@ async function recentSenders(tip: bigint, count: number): Promise<string[]> {
     stats: [
       { label: "Accounts", value: accounts.length.toLocaleString("en-US") },
       { label: "Rekeyed at some point", value: rekeyed.size.toLocaleString("en-US"), note: `${rekeys.length} changes` },
-      { label: "Search", value: `${searchRequests} requests`, note: `level 0: ${(first.ms / 1000).toFixed(1)} s for ${(accounts.length * top.length).toLocaleString("en-US")} reads` },
+      { label: "Search", value: queries(searchRequests), note: `level 0: ${(first.ms / 1000).toFixed(1)} s for ${(accounts.length * top.length).toLocaleString("en-US")} reads` },
       { label: "Exact check", value: `${agree}/${checked.length}`, note: "accounts agree" },
     ],
     sections,

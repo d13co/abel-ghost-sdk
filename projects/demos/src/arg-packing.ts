@@ -1,5 +1,6 @@
 // How many items fit in an app call, and does filling it pay? The reader's balance and asset methods take four array
-// arguments, since one app arg holds at most 4,096 bytes while an app call can carry more.
+// arguments, since one app arg holds at most 4,096 bytes while an app call can carry more. Every read is a query, which
+// runs each app call alone with the node's per-call budget, so what a layout changes is how many app calls a read takes.
 //
 //   pnpm packing [--reps 3] [--accounts 17000] [--rounds 32]
 //
@@ -27,7 +28,7 @@ interface Result {
   layout: string
   perTxn: number
   ms: number | null
-  simulates: number | null
+  queries: number | null
   note?: string
 }
 
@@ -58,9 +59,9 @@ const median = (values: number[]) => [...values].sort((a, b) => a - b)[Math.floo
     } catch (error) {
       const note = (error as Error).message.replace(/^.*?failed[^:]*: /, "").slice(0, 200)
       console.log(`  ${label} ${layout.name}: failed: ${note}`)
-      return { layout: layout.name, perTxn: layout.perTxn, ms: null, simulates: null, note }
+      return { layout: layout.name, perTxn: layout.perTxn, ms: null, queries: null, note }
     }
-    const result = { layout: layout.name, perTxn: layout.perTxn, ms: median(runs.map((r) => r.ms)), simulates: runs[0].simulates }
+    const result = { layout: layout.name, perTxn: layout.perTxn, ms: median(runs.map((r) => r.ms)), queries: runs[0].queries }
     console.log(`  ${label} ${layout.name}: ${describe(runs[0])}; median ${result.ms} ms`)
     return result
   }
@@ -92,7 +93,7 @@ const median = (values: number[]) => [...values].sort((a, b) => a - b)[Math.floo
   const sameBalances = accounts.every((a) => reference.get(a)?.balance === packed.get(a)?.balance && reference.get(a)?.minBalance === packed.get(a)?.minBalance)
   console.log(`  4 arrays × 127 vs default: ${sameBalances ? "same balances" : "DIFFERENT balances"}`)
 
-  // ---- Abel assets: each asset makes an inner app call, and a group makes at most 256
+  // ---- Abel assets: each asset makes an inner app call, and an app call, alone in its group on a query, makes at most 256
   const assetLayouts: Layout[] = [
     { name: "ghostkit tag: 128 per app call and group", perTxn: 128 },
     { name: "ghostkit, 4 KB arg, 256 per group", perTxn: 256, chunk: { arg: "assetIds", refsPerItem: 2, maxPerGroup: 256, maxArgBytes: 4096 } },
@@ -109,8 +110,8 @@ const median = (values: number[]) => [...values].sort((a, b) => a - b)[Math.floo
     kind: "table",
     title,
     subtitle,
-    columns: ["layout", "items per app call", "simulate requests", "median ms", "note"],
-    rows: results.map((r) => [r === best(results) ? `★ ${r.layout}` : r.layout, r.perTxn, r.simulates ?? "", r.ms ?? "failed", r.note ?? ""]),
+    columns: ["layout", "items per app call", "queries", "median ms", "note"],
+    rows: results.map((r) => [r === best(results) ? `★ ${r.layout}` : r.layout, r.perTxn, r.queries ?? "", r.ms ?? "failed", r.note ?? ""]),
   })
   const bars = (title: string, results: Result[]): Section => ({
     kind: "bar",
@@ -128,7 +129,7 @@ const median = (values: number[]) => [...values].sort((a, b) => a - b)[Math.floo
     bars(`All ${assetIds.length.toLocaleString("en-US")} Abel assets`, assets),
     table(
       `All ${assetIds.length.toLocaleString("en-US")} Abel assets`,
-      `Each asset makes an inner app call to the registry and a group makes at most 256, so filling an app call past 256 can't help. Median of ${reps} runs.`,
+      `Each asset makes an inner app call to the registry, and an app call (alone in its group on a query) makes at most 256, so filling an app call past 256 can't help. The layouts' assets per group make no difference on queries. Median of ${reps} runs.`,
       assets,
     ),
     {
@@ -136,13 +137,13 @@ const median = (values: number[]) => [...values].sort((a, b) => a - b)[Math.floo
       title: "How it was read",
       paragraphs: [
         nodeLine + ".",
-        "One app arg holds at most 4,096 bytes: 127 addresses or 511 asset ids. ghostkit splits one array argument per app call; the `packing` option spreads the items over the reader's four array arguments, and sends the groups together through ghostkit's `batch` (or `atRounds`). Each request carries at most 2,048 items, well under the node's 1 MB limit.",
+        "One app arg holds at most 4,096 bytes: 127 addresses or 511 asset ids. ghostkit splits one array argument per app call; the `packing` option spreads the items over the reader's four array arguments, and sends the groups together through ghostkit's `batch` (or `atRounds`). Every read is a query: the node runs each app call alone, with its per-call opcode budget, and takes up to its `maxCalls` app calls per request. The SDK sends at most 2,048 items per read request.",
       ],
     },
   ]
   const path = writeReport("arg-packing", {
     title: "Packing app args",
-    subtitle: "Filling app calls with up to four 4 KB array arguments, against ghostkit's one-array chunking, on a dtalgorand node.",
+    subtitle: "Filling app calls with up to four 4 KB array arguments, against ghostkit's one-array chunking, through a dtalgorand node's read-only queries.",
     stats: [
       { label: "Balances now, fastest", value: `${best(balancesNow)?.ms} ms`, note: best(balancesNow)?.layout },
       { label: "Balances at rounds, fastest", value: `${best(balancesAtRounds)?.ms} ms`, note: best(balancesAtRounds)?.layout },

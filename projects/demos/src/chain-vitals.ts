@@ -5,9 +5,9 @@
 // - Supply: `GET /v2/ledger/supply?round=` at up to `--supply-samples` of the sampled rounds; a dtalgorand node also reports the exact online
 //   stake, without the keys that had expired.
 // - Blocks: the reader contract reads the timestamp and transaction counter of the `--span` blocks before each sampled
-//   round (`getRecentBlockTimesAndTc`). Its reads are relative to the current round, and ghostkit moves the
-//   transactions' validity window to each simulated round, so every sample shares one request, however far apart.
-import { describe, measure, num, printNode, safeTip, spread, suppliesAt, makeSDK, algo } from "./lib/node.js"
+//   round (`getRecentBlockTimesAndTc`). Its reads are relative to the round it runs at, so the same call runs at every
+//   sample, however far apart, and the node takes up to its query `maxRounds` samples per request.
+import { describe, measure, num, printNode, queries, safeTip, spread, suppliesAt, makeSDK, algo } from "./lib/node.js"
 import { writeReport, type Section } from "./lib/report.js"
 
 ;(async () => {
@@ -153,7 +153,7 @@ import { writeReport, type Section } from "./lib/report.js"
     title: "MainNet vital signs",
     subtitle: `${rows.length} samples from round ${rows[0]?.round} to ${last.round}, each with the ${span} blocks before it, read from a dtalgorand node.`,
     stats: [
-      { label: "Block headers read", value: (rows.length * span).toLocaleString("en-US"), note: `${blocks.simulates} simulate requests, ${(blocks.ms / 1000).toFixed(1)} s (simulate ${(blocks.simulateMs / 1000).toFixed(1)} s)` },
+      { label: "Block headers read", value: (rows.length * span).toLocaleString("en-US"), note: `${queries(blocks.queries)}, ${(blocks.ms / 1000).toFixed(1)} s (query ${(blocks.queryMs / 1000).toFixed(1)} s)` },
       { label: "Block time now", value: `${last.blockTime.toFixed(2)} s`, note: `was ${rows[0]?.blockTime.toFixed(2)} s at round ${rows[0]?.round}` },
       { label: "Throughput now", value: `${last.tps?.toFixed(1)} txn/s` },
       {

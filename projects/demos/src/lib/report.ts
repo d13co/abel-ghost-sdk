@@ -21,7 +21,7 @@ export interface LineSeries {
   slot?: number
 }
 
-/** What a section took to read, shown under its title, e.g. "34,590 reads · 5 simulate requests · 3.2 s" */
+/** What a section took to read, shown under its title, e.g. "34,590 reads · 5 queries · 3.2 s" */
 type Cost = { cost?: string }
 
 export interface LineChart extends Cost {

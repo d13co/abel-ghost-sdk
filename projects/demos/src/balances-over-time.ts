@@ -5,15 +5,15 @@
 //
 // Two views of a dtalgorand node:
 // - sampled: the reader contract runs at `--samples` rounds spread from `--from` to `--to`, a multiple of the rounds
-//   the node takes per simulate (256 on the d13 node). The rounds are dealt into that many parts, each spanning the
-//   whole range, and each part is one simulate request, all sent at once: ghostkit moves the transactions' validity
-//   window to each round, and runs rounds older than the reader's AVM version under the latest protocol.
+//   the node takes per query (its query `maxRounds`: 64 on the local MainNet query node). The rounds are dealt into
+//   that many parts, each spanning the whole range, and each part is one query request, all sent at once; rounds older
+//   than the reader's AVM version run under the latest protocol.
 // - exact: every change to each of the top accounts' balance, from `/v2/accounts/{addr}/versions`.
 // It also reads the total and online supply at up to `--supply-samples` of the sampled rounds (one request each), and checks a few sampled balances against
 // `GET /v2/accounts/{addr}?round=`.
 import { existsSync, readFileSync } from "node:fs"
 import type { AtRounds, BalanceInfo } from "abel-ghost-sdk/src/index.js"
-import { algo, algorand, algoText, args, describe, flag, makeSDK, mapLimit, measure, num, printNode, safeTip, short, spread, str, suppliesAt } from "./lib/node.js"
+import { algo, algorand, algoText, args, describe, flag, makeSDK, mapLimit, measure, num, printNode, queries, queryLimits, safeTip, short, spread, str, suppliesAt } from "./lib/node.js"
 import { writeReport, type LineSeries, type Section } from "./lib/report.js"
 
 interface Account {
@@ -38,7 +38,7 @@ const genesisAccounts = () =>
 /** `rounds` dealt into `parts` interleaved parts, so each part spans the whole range and the requests take about as long */
 const deal = (rounds: bigint[], parts: number) => Array.from({ length: parts }, (_, k) => rounds.filter((_, i) => i % parts === k))
 
-/** runs `read` on every part at once, one simulate request each, and returns the results in round order */
+/** runs `read` on every part at once, one query request each, and returns the results in round order */
 async function inParallel<T>(parts: bigint[][], read: (rounds: bigint[]) => Promise<AtRounds<T>>): Promise<AtRounds<T>> {
   const results = (await Promise.all(parts.map(read))).flat()
   return results.sort((a, b) => (a.round < b.round ? -1 : a.round > b.round ? 1 : 0))
@@ -59,12 +59,11 @@ async function inParallel<T>(parts: bigint[][], read: (rounds: bigint[]) => Prom
   const fixedSupply = genesisAlloc.reduce((sum, a) => sum + (a.genesis ?? 0n), 0n)
   const from = BigInt(num("from", 1))
   const to = BigInt(str("to") ?? tip)
-  // rounds per simulate request: the node's limit, or all of them on a node without multi-round simulate (--stock)
-  const { limits } = await sdk.getBackend()
-  const samples = num("samples", limits.maxRounds || 256)
-  const perRequest = limits.maxRounds || samples
+  // rounds per query request: the node's limit; 256 samples by default, rounded up to a multiple of it
+  const perRequest = (await queryLimits(sdk)).maxRounds
+  const samples = num("samples", Math.ceil(256 / perRequest) * perRequest)
   if (!Number.isInteger(samples) || samples < perRequest || samples % perRequest !== 0) {
-    console.error(`--samples must be a multiple of ${perRequest}, the rounds the node takes per simulate request (got ${args.flags.get("samples")})`)
+    console.error(`--samples must be a multiple of ${perRequest}, the rounds the node takes per query request (got ${args.flags.get("samples")})`)
     process.exit(1)
   }
   const rounds = spread(from, to, samples)
@@ -286,9 +285,9 @@ async function inParallel<T>(parts: bigint[][], read: (rounds: bigint[]) => Prom
     stats: [
       { label: "Accounts", value: accounts.length.toLocaleString("en-US") },
       { label: "Rounds sampled", value: perRound.length.toLocaleString("en-US"), note: `${rounds[0]} → ${rounds.at(-1)}` },
-      { label: "Balances read", value: (accounts.length * perRound.length).toLocaleString("en-US"), note: `${sampled.simulates} simulate requests` },
+      { label: "Balances read", value: (accounts.length * perRound.length).toLocaleString("en-US"), note: queries(sampled.queries) },
       { label: "Wall time", value: `${(sampled.ms / 1000).toFixed(1)} s`, note: "sampled balances" },
-      { label: "Simulate time", value: `${(sampled.simulateMs / 1000).toFixed(1)} s`, note: `requests in flight; client ${(sampled.clientMs / 1000).toFixed(1)} s` },
+      { label: "Query time", value: `${(sampled.queryMs / 1000).toFixed(1)} s`, note: `requests in flight; client ${(sampled.clientMs / 1000).toFixed(1)} s` },
       { label: "Spot checks", value: `${matches}/${checks.length}`, note: "match `?round=` reads" },
     ],
     sections,

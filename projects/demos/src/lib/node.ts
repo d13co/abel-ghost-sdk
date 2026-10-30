@@ -1,17 +1,16 @@
 // Shared setup for the demos: the dtalgorand node, the SDK, request counting and timing, and argument parsing.
 //
-//   DT_ALGOD_SERVER  the dtalgorand node, with its port. Default http://10.114.0.27:4000
+//   DT_ALGOD_SERVER  the dtalgorand node, with its port if not the protocol's own. Default https://mainnet-api-dt.d13.co
 //   DT_ALGOD_TOKEN   its API token. Default none
 //   INDEXER_SERVER   an indexer, for the lists algod can't give (Tinyman pool escrows). Default nodely's MainNet indexer
-//   REQUEST_LOG=1    log every simulate, query and /versions request as it finishes
+//   REQUEST_LOG=1    log every query and /versions request as it finishes
 //
-// The demos read through the node's extended simulate, and stop if the node isn't a dtalgorand node. Every demo takes
-// --stock, which runs its simulates the way a stock algod takes them (one group per request, at most 4 rounds back),
-// for comparing, and --query, which reads through the node's read-only queries (POST /v2/query) instead.
+// The demos read only through the node's read-only queries (POST /v2/query), and stop if the node is stock algod or has
+// queries off. A simulate request is a bug (ghostkit's query backend never simulates), so a demo that sends one stops.
 import { AlgorandClient } from "@algorandfoundation/algokit-utils"
-import { AbelGhostSDK, MAINNET_ABEL_REGISTRY_APP_ID } from "abel-ghost-sdk/src/index.js"
+import { AbelGhostSDK, MAINNET_ABEL_REGISTRY_APP_ID, type GhostkitNode } from "abel-ghost-sdk/src/index.js"
 
-const server = new URL(process.env.DT_ALGOD_SERVER ?? "http://10.114.0.27:4000")
+const server = new URL(process.env.DT_ALGOD_SERVER ?? "https://mainnet-api-dt.d13.co")
 
 export const algorand = AlgorandClient.fromConfig({
   algodConfig: {
@@ -43,21 +42,28 @@ export const flag = (name: string) => args.flags.has(name)
 export const num = (name: string, fallback: number) => (typeof args.flags.get(name) === "string" ? Number(args.flags.get(name)) : fallback)
 export const str = (name: string, fallback?: string) => (typeof args.flags.get(name) === "string" ? (args.flags.get(name) as string) : fallback)
 
-/** the SDK on the node: the dtalgorand extended simulate, or one simulate per group with --stock, or queries with --query */
-export function makeSDK(options: { stock?: boolean; registry?: boolean } = {}): AbelGhostSDK {
+/** the SDK on the node, reading through its read-only queries only */
+export function makeSDK(options: { registry?: boolean } = {}): AbelGhostSDK {
   return new AbelGhostSDK({
     algorand,
-    backend: options.stock ?? flag("stock") ? "stock" : flag("query") ? "query" : "dt",
+    backend: "query",
     registryAppId: options.registry === false ? undefined : MAINNET_ABEL_REGISTRY_APP_ID,
   })
+}
+
+/** the node's query limits; printNode has already stopped the demo if it has none */
+export async function queryLimits(sdk: AbelGhostSDK): Promise<NonNullable<Extract<GhostkitNode, { kind: "dt" }>["query"]>> {
+  const node = await sdk.getNode()
+  if (node.kind !== "dt" || !node.query) throw new Error(`${server.host} has no read-only queries`)
+  return node.query
 }
 
 // ---- request counting, by wrapping fetch, which algosdk's default HTTP client uses
 
 type Kind = "simulate" | "query" | "versions" | "other"
 const counts: Record<Kind, number> = { simulate: 0, query: 0, versions: 0, other: 0 }
-const simulateMs: number[] = []
-/** when each request was in flight: from the call to the response (a simulate's to the end of its body) */
+const queryMs: number[] = []
+/** when each request was in flight: from the call to the response (a query's to the end of its body) */
 const spans: { kind: Kind; start: number; end: number }[] = []
 const LOG = process.env.REQUEST_LOG === "1"
 const realFetch = globalThis.fetch
@@ -67,17 +73,23 @@ globalThis.fetch = (async (input: Parameters<typeof fetch>[0], init?: RequestIni
   const kind: Kind =
     path === "/v2/transactions/simulate" ? "simulate" : path === "/v2/query" ? "query" : path.includes("/versions") ? "versions" : "other"
   counts[kind]++
+  if (kind === "simulate") {
+    // the query backend never simulates: a simulate here means a read went around queries
+    console.error(`unexpected simulate request (${path}): the demos read only through queries`)
+    console.error(new Error("simulate request").stack)
+    process.exit(1)
+  }
   const start = performance.now()
   try {
     const response = await realFetch(input, init)
-    if (kind !== "simulate" && kind !== "query") {
+    if (kind !== "query") {
       if (LOG && kind === "versions") console.log(`    ${kind}: ${(performance.now() - start).toFixed(0)} ms ${response.status}`)
       return response
     }
     // read the whole body, so the time covers the full response
     const body = await response.arrayBuffer()
     const ms = performance.now() - start
-    simulateMs.push(ms)
+    queryMs.push(ms)
     if (LOG) console.log(`    ${kind}: ${ms.toFixed(0)} ms, ${response.status}, ${(body.byteLength / 1024).toFixed(1)} KiB`)
     return new Response(body, { status: response.status, statusText: response.statusText, headers: response.headers })
   } finally {
@@ -105,58 +117,57 @@ export interface Measured<T> {
   result: T
   /** wall time */
   ms: number
-  /** time with at least one simulate or query request in flight, to the end of its body */
-  simulateMs: number
-  /** time with other requests, and no simulate, in flight */
+  /** time with at least one query request in flight, to the end of its body */
+  queryMs: number
+  /** time with other requests, and no query, in flight */
   otherRequestMs: number
   /** time with no request in flight: decoding responses and the demo's own work */
   clientMs: number
-  simulates: number
   queries: number
   versions: number
   other: number
-  /** median time of one simulate or query request */
-  simulateMedianMs: number
+  /** median time of one query request */
+  queryMedianMs: number
 }
 
 /** runs `f`, with its wall time, how much of it went to requests, and the requests it made */
 export async function measure<T>(f: () => Promise<T>): Promise<Measured<T>> {
   const before = { ...counts }
-  const firstTiming = simulateMs.length
+  const firstTiming = queryMs.length
   const start = performance.now()
   const result = await f()
   const end = performance.now()
   const ms = Math.round(end - start)
-  const times = simulateMs.slice(firstTiming).sort((a, b) => a - b)
-  const simulating = inFlight(spans.filter((s) => s.kind === "simulate" || s.kind === "query"), start, end)
+  const times = queryMs.slice(firstTiming).sort((a, b) => a - b)
+  const querying = inFlight(spans.filter((s) => s.kind === "query"), start, end)
   const requesting = inFlight(spans, start, end)
   return {
     result,
     ms,
-    simulateMs: Math.round(simulating),
-    otherRequestMs: Math.round(requesting - simulating),
+    queryMs: Math.round(querying),
+    otherRequestMs: Math.round(requesting - querying),
     clientMs: Math.round(end - start - requesting),
-    simulates: counts.simulate - before.simulate,
     queries: counts.query - before.query,
     versions: counts.versions - before.versions,
     other: counts.other - before.other,
-    simulateMedianMs: Math.round(times[Math.floor(times.length / 2)] ?? 0),
+    queryMedianMs: Math.round(times[Math.floor(times.length / 2)] ?? 0),
   }
 }
 
 export const duration = (ms: number) => (ms >= 1000 ? `${(ms / 1000).toFixed(1)} s` : `${ms} ms`)
 
-/** "1.2 s (simulate 700 ms, other requests 80 ms, client 420 ms), 3 simulates (median 400 ms), 12 /versions, 2 other" */
+/** "1, 2 or 5 queries" */
+export const queries = (n: number) => `${n.toLocaleString("en-US")} quer${n === 1 ? "y" : "ies"}`
+
+/** "1.2 s (query 700 ms, other requests 80 ms, client 420 ms), 3 queries (median 400 ms), 12 /versions, 2 other" */
 export function describe(m: Measured<unknown>): string {
-  const reads = m.simulates + m.queries
   const split = [
-    reads ? `${m.queries ? "query" : "simulate"} ${duration(m.simulateMs)}` : "",
+    m.queries ? `query ${duration(m.queryMs)}` : "",
     m.versions || m.other ? `other requests ${duration(m.otherRequestMs)}` : "",
-    reads || m.versions || m.other ? `client ${duration(m.clientMs)}` : "",
+    m.queries || m.versions || m.other ? `client ${duration(m.clientMs)}` : "",
   ].filter(Boolean)
   const parts = [duration(m.ms) + (split.length ? ` (${split.join(", ")})` : "")]
-  if (m.simulates) parts.push(`${m.simulates} simulate${m.simulates > 1 ? "s" : ""}${m.queries ? "" : ` (median ${m.simulateMedianMs} ms)`}`)
-  if (m.queries) parts.push(`${m.queries} quer${m.queries > 1 ? "ies" : "y"}${m.simulates ? "" : ` (median ${m.simulateMedianMs} ms)`}`)
+  if (m.queries) parts.push(`${queries(m.queries)} (median ${m.queryMedianMs} ms)`)
   if (m.versions) parts.push(`${m.versions} /versions`)
   if (m.other) parts.push(`${m.other} other`)
   return parts.join(", ")
@@ -168,19 +179,28 @@ export async function safeTip(): Promise<bigint> {
   return lastRound - 10n
 }
 
-/** prints what the SDK found about the node, and exits if the demo can't read it the way it was asked to */
+/** prints the node's query limits, and exits if the node can't be queried */
 export async function printNode(sdk: AbelGhostSDK): Promise<string> {
-  let backend
+  let node
   try {
-    backend = await sdk.getBackend()
+    // throws for the query backend on stock algod, on a node with queries off, or without the forks
+    await sdk.getBackend()
+    node = await sdk.getNode()
   } catch (e) {
     console.error(`${server.host}: ${(e as Error).message}`)
-    console.error("The demos need a dtalgorand node (GET /v2/capabilities) and the dtalgorand forks; pass --stock to compare with a stock algod")
+    console.error("The demos read only through read-only queries: they need a dtalgorand node with queries on (GET /v2/capabilities reports `query`) and the dtalgorand forks")
     process.exit(1)
   }
-  const { name, limits } = backend
-  const dt = `dtalgorand node ${server.host}: ${limits.maxTxnGroups} groups and ${limits.maxRounds} rounds per simulate, ${limits.resourceLimitMultiplier}x resources, time travel ${limits.timeTravel ? "on" : "off"}`
-  const line = name === "stock" ? `${server.host} with one simulate per group (--stock)` : name === "query" ? `${dt}; reading through queries (--query)` : dt
+  if (node.kind !== "dt" || !node.query) {
+    console.error(`${server.host}: ${node.kind === "dt" ? "the node has queries off" : node.reason}`)
+    process.exit(1)
+  }
+  const q = node.query
+  const mb = (bytes: number) => `${(bytes / 2 ** 20).toFixed(0)} MiB`
+  const line =
+    `dtalgorand node ${server.host}, read through queries: up to ${q.maxCalls.toLocaleString("en-US")} calls and ${q.maxRounds} rounds per request, ` +
+    `${q.maxCallBudget.toLocaleString("en-US")} opcode budget, ${(q.maxCallLogBytes / 1024).toFixed(0)} KiB of logs and ${q.maxCallStateBytes ? mb(q.maxCallStateBytes) : "any amount"} of ledger state per call, ` +
+    `${mb(q.maxResponseBytes)} per response; time travel ${node.limits.timeTravel ? "on" : "off"}`
   console.log(line)
   return line
 }

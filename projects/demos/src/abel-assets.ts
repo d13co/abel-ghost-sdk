@@ -1,26 +1,24 @@
 // The Abel asset label registry on MainNet: every labelled asset read through the reader contract, the best way to
 // pack that read, and the registry's history.
 //
-//   pnpm abel [--reps 5] [--no-stock]
+//   pnpm abel [--reps 5]
 //
 // - Every asset in the registry (its boxes) through `getAssetsTiny`, which reads each asset's params and asks the
 //   registry, with an inner app call, whether it carries the `pv` label.
-// - A packing sweep: assets per app call × assets per group, on the dtalgorand backend and the stock one, each timed
-//   `--reps` times. The inner app calls bound a group to 256 assets.
+// - A packing sweep: assets per app call, each timed `--reps` times. A query runs every app call alone in its group,
+//   so the inner app calls bound an app call to 256 assets, and how app calls would be grouped makes no difference.
 // - The same labels straight from the registry's boxes, in one `include=values` request, as a baseline.
 // - The registry's history from `/v2/applications/{id}/boxes/versions`: when each asset got its labels.
 import { MAINNET_ABEL_REGISTRY_APP_ID, type AbelLabelChange, type GhostkitChunkOptions } from "abel-ghost-sdk/src/index.js"
-import { describe, flag, makeSDK, measure, num, printNode, type Measured } from "./lib/node.js"
+import { describe, makeSDK, measure, num, printNode, queries, type Measured } from "./lib/node.js"
 import { writeReport, type Point, type Section } from "./lib/report.js"
 
 const PER_TXN = [8, 16, 32, 64, 128, 254]
-const PER_GROUP = [32, 64, 128, 256]
 
 const median = (values: number[]) => [...values].sort((a, b) => a - b)[Math.floor(values.length / 2)]
 
 ;(async () => {
-  const sdk = makeSDK({ stock: false })
-  const stockSdk = makeSDK({ stock: true })
+  const sdk = makeSDK()
   const nodeLine = await printNode(sdk)
   const reps = num("reps", 5)
 
@@ -37,40 +35,26 @@ const median = (values: number[]) => [...values].sort((a, b) => a - b)[Math.floo
   const mismatches = ids.result.filter((id) => read.result.get(id)!.labels.includes("pv") !== (boxes.result.get(id) ?? []).includes("pv"))
   console.log(`  pv label, reader vs boxes: ${ids.result.length - mismatches.length}/${ids.result.length} agree`)
 
-  // ---- the packing sweep
-  type Cell = { ms: number | null; requests: number | null; note?: string }
-  const sweep = async (stock: boolean, perTxn: number, perGroup: number): Promise<Cell> => {
-    const chunk: GhostkitChunkOptions = { arg: "assetIds", refsPerItem: 2, maxPerTxn: perTxn, maxPerGroup: perGroup }
+  // ---- the packing sweep: a query runs each app call alone, so only the assets per app call matter
+  type Cell = { perTxn: number; ms: number | null; requests: number | null; note?: string }
+  const sweep: Cell[] = []
+  for (const perTxn of PER_TXN) {
+    // up to 16 app calls per group, as a group allows; the query sends each alone
+    const chunk: GhostkitChunkOptions = { arg: "assetIds", refsPerItem: 2, maxPerTxn: perTxn, maxPerGroup: perTxn * 16 }
     const runs: Measured<unknown>[] = []
+    let cell: Cell
     try {
-      for (let i = 0; i < reps; i++) runs.push(await measure(() => (stock ? stockSdk : sdk).getAssetsTinyLabels(ids.result, { chunk })))
+      for (let i = 0; i < reps; i++) runs.push(await measure(() => sdk.getAssetsTinyLabels(ids.result, { chunk })))
+      cell = { perTxn, ms: median(runs.map((r) => r.ms)), requests: runs[0].queries }
     } catch (error) {
       const message = (error as Error).message
-      return { ms: null, requests: null, note: message.replace(/^.*?failed[^:]*: /, "").slice(0, 160) }
+      cell = { perTxn, ms: null, requests: null, note: message.replace(/^.*?failed[^:]*: /, "").slice(0, 160) }
     }
-    return { ms: median(runs.map((r) => r.ms)), requests: runs[0].simulates }
+    sweep.push(cell)
+    console.log(`  ${perTxn} per app call: ${cell.ms === null ? `failed: ${cell.note}` : `${cell.ms} ms, ${queries(cell.requests!)}`}`)
   }
-  const grid = async (stock: boolean) => {
-    const cells: Cell[][] = []
-    for (const perTxn of PER_TXN) {
-      const row: Cell[] = []
-      for (const perGroup of PER_GROUP) {
-        const cell = await sweep(stock, perTxn, perGroup)
-        row.push(cell)
-        console.log(
-          `  ${stock ? "stock" : "dtalgorand"} ${perTxn} per app call, ≤${perGroup} per group: ${cell.ms === null ? `failed: ${cell.note}` : `${cell.ms} ms, ${cell.requests} requests`}`,
-        )
-      }
-      cells.push(row)
-    }
-    return cells
-  }
-  const dtGrid = await grid(false)
-  const stockGrid = flag("no-stock") ? undefined : await grid(true)
-
-  let best = { perTxn: 0, perGroup: 0, ms: Infinity }
-  dtGrid.forEach((row, r) => row.forEach((cell, c) => cell.ms !== null && cell.ms < best.ms && (best = { perTxn: PER_TXN[r], perGroup: PER_GROUP[c], ms: cell.ms })))
-  console.log(`fastest on the dtalgorand backend: ${best.perTxn} assets per app call, up to ${best.perGroup} per group (${best.ms} ms)`)
+  const best = sweep.filter((c) => c.ms !== null).sort((a, b) => a.ms! - b.ms!)[0] ?? { perTxn: 0, ms: NaN, requests: null }
+  console.log(`fastest: ${best.perTxn} assets per app call (${best.ms} ms)`)
 
   // ---- history: labels over time
   const history = await measure(() => sdk.getAbelLabelHistory())
@@ -86,40 +70,18 @@ const median = (values: number[]) => [...values].sort((a, b) => a - b)[Math.floo
   // the newest additions, named by the reader
   const newest: AbelLabelChange[] = history.result.filter((c) => !c.deleted).slice(-15).reverse()
 
-  const heat = (cells: Cell[][]) => ({
-    values: cells.map((row) => row.map((c) => c.ms)),
-    notes: cells.map((row) => row.map((c) => (c.ms === null ? c.note : `${c.requests} simulate requests`))),
-  })
   const sections: Section[] = [
     {
-      kind: "heatmap",
-      title: "Packing sweep, dtalgorand backend",
-      subtitle: `Wall time to read all ${ids.result.length} assets, median of ${reps}. A group holds at most 16 app calls, so small app calls also cap the group (8 per call → at most 128 per group). Asset ids are 8 bytes, so an app call takes up to 254. Small app calls cost the most; from 64 per app call up, with groups of 128 or more, the differences are within run-to-run noise. The reader's chunk tag uses 128 per app call and per group.`,
-      rowLabel: "assets per app call",
-      colLabel: "assets per group",
-      rows: PER_TXN.map(String),
-      cols: PER_GROUP.map((g) => `≤${g}`),
-      unit: "ms",
-      lowerIsBetter: true,
-      ...heat(dtGrid),
+      kind: "bar",
+      title: "Packing sweep: assets per app call",
+      subtitle: `Wall time to read all ${ids.result.length} assets through queries, median of ${reps}. A query runs each app call alone in its group, with the node's per-call opcode budget, so how calls would be grouped makes no difference; what changes is how many app calls the read takes. Asset ids are 8 bytes, so an app call takes up to 254, and each asset's inner app call keeps an app call to 256 assets. The reader's chunk tag uses 128 per app call.${
+        sweep.some((c) => c.ms === null) ? ` Failed: ${sweep.filter((c) => c.ms === null).map((c) => `${c.perTxn} per app call (${c.note})`).join("; ")}.` : ""
+      }`,
+      labels: sweep.map((c) => `${c.perTxn} per app call`),
+      yLabel: "median ms",
+      horizontal: true,
+      series: [{ label: "median ms", values: sweep.map((c) => c.ms), slot: 0 }],
     },
-    ...(stockGrid
-      ? [
-          {
-            kind: "heatmap" as const,
-            title: "Packing sweep, stock backend",
-            subtitle:
-              "Same reads, one group per simulate request (8 at a time). Without the resource multiplier a group can reference 128 resources, and each asset takes two (the asset and its registry box), so groups stop at 64 assets.",
-            rowLabel: "assets per app call",
-            colLabel: "assets per group",
-            rows: PER_TXN.map(String),
-            cols: PER_GROUP.map((g) => `≤${g}`),
-            unit: "ms",
-            lowerIsBetter: true,
-            ...heat(stockGrid),
-          },
-        ]
-      : []),
     {
       kind: "line",
       title: "Labelled assets over time",
@@ -147,7 +109,7 @@ const median = (values: number[]) => [...values].sort((a, b) => a - b)[Math.floo
       subtitle: "Two ways to get the registry's labels.",
       columns: ["way", "requests", "wall time (ms)", "gets"],
       rows: [
-        ["`getAssetsTinyLabels` (reader contract)", read.simulates, read.ms, "name, unit name, decimals and the `pv` label, for any asset ids"],
+        ["`getAssetsTinyLabels` (reader contract)", read.queries, read.ms, "name, unit name, decimals and the `pv` label, for any asset ids"],
         ["`getAllAssetLabels` (boxes with values)", boxes.other, boxes.ms, "every label of every registered asset, nothing else"],
       ],
     },
@@ -175,13 +137,13 @@ const median = (values: number[]) => [...values].sort((a, b) => a - b)[Math.floo
     subtitle: `The ${ids.result.length} assets of the Abel registry (app ${MAINNET_ABEL_REGISTRY_APP_ID}) on MainNet, read from a dtalgorand node.`,
     stats: [
       { label: "Assets", value: ids.result.length.toLocaleString("en-US"), note: labels.map((l) => `${l.id}: ${l.numAssets}`).join(", ") },
-      { label: "Reader, default packing", value: `${read.ms} ms`, note: `${read.simulates} simulate requests` },
-      { label: "Fastest packing", value: `${best.ms} ms`, note: `${best.perTxn} per app call, ≤${best.perGroup} per group` },
+      { label: "Reader, default packing", value: `${read.ms} ms`, note: queries(read.queries) },
+      { label: "Fastest packing", value: `${best.ms} ms`, note: `${best.perTxn} per app call` },
       { label: "Boxes with values", value: `${boxes.ms} ms`, note: "1 request, labels only" },
       { label: "Label changes", value: history.result.length.toLocaleString("en-US"), note: `${history.versions} /versions requests` },
     ],
     sections,
-    data: { dtGrid, stockGrid, best },
+    data: { sweep, best },
   })
   console.log(`report: ${path}`)
 })().catch((error) => {

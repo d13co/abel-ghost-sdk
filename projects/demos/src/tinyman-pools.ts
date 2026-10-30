@@ -1,10 +1,10 @@
 // Tinyman v2: every pool now and a day ago, and selected pools over time, tick by tick.
 //
-//   pnpm tinyman [--pools USDC,goBTC,… | --pools <escrow>,…] [--days 7] [--no-global] [--no-compare] [--refresh]
+//   pnpm tinyman [--pools USDC,goBTC,… | --pools <escrow>,…] [--days 7] [--no-global] [--refresh]
 //
 // Global: the pool escrows come from an indexer (cached; algod can't list them). The reader contract checks each one
 // (rekeyed to Tinyman, which pair) in one chunked call, then reads every pool's state now and a day ago in one
-// `atRounds` call, for TVL, 24h price moves and 24h volume. It also times the same pool check on the stock backend.
+// `atRounds` call, for TVL, 24h price moves and 24h volume.
 // Selected pools: every change to the pool (each swap, mint, burn, fee claim) from the escrow's local state
 // `/versions`, beside hourly time-weighted prices and volume from the reader at each hour.
 import { getApplicationAddress } from "algosdk"
@@ -18,7 +18,7 @@ import {
   type TinymanPriceInterval,
 } from "abel-ghost-sdk/src/index.js"
 import { cached } from "./lib/cache.js"
-import { algoText, describe, flag, INDEXER_SERVER, makeSDK, measure, num, printNode, safeTip, short, str, type Measured } from "./lib/node.js"
+import { algoText, describe, flag, INDEXER_SERVER, makeSDK, measure, num, printNode, queries, safeTip, short, str, type Measured } from "./lib/node.js"
 import { writeReport, type Section } from "./lib/report.js"
 
 /** pools to pick by the asset paired with ALGO: the one with the most ALGO */
@@ -95,9 +95,9 @@ async function costed<T>(f: () => Promise<T>): Promise<Costed<T>> {
 const plural = (n: number, word: string) => `${n.toLocaleString("en-US")} ${word}${n === 1 ? "" : "s"}`
 const seconds = (ms: number) => (ms >= 1000 ? `${(ms / 1000).toFixed(1)} s` : `${ms} ms`)
 
-/** "34,590 pool-state reads · 5 simulate requests · 3.2 s" */
+/** "34,590 pool-state reads · 5 queries · 3.2 s" */
 function cost(m: Costed<unknown>, what = "read", reads = m.reads): string {
-  return [plural(reads, what), m.simulates && plural(m.simulates, "simulate request"), m.versions && plural(m.versions, "/versions request"), seconds(m.ms)]
+  return [plural(reads, what), m.queries && queries(m.queries), m.versions && plural(m.versions, "/versions request"), seconds(m.ms)]
     .filter(Boolean)
     .join(" · ")
 }
@@ -123,26 +123,7 @@ function cost(m: Costed<unknown>, what = "read", reads = m.reads): string {
   console.log(`pool check: ${describe(info)} → ${pools.length} pools`)
   notes.push(`Pool check of ${escrows.length} escrows (\`sdk.getTinymanInfo\`): ${describe(info)}.`)
   stats.push({ label: "Pools", value: pools.length.toLocaleString("en-US"), note: `of ${escrows.length.toLocaleString("en-US")} escrows` })
-  stats.push({ label: "Pool check", value: `${(info.ms / 1000).toFixed(1)} s`, note: `${info.simulates} simulate requests` })
-
-  if (!flag("no-compare")) {
-    const subset = escrows.slice(0, 2000)
-    const dt = await costed(() => sdk.getTinymanInfo(subset))
-    const stock = await costed(() => countReads(makeSDK({ stock: true })).getTinymanInfo(subset))
-    console.log(`  ${subset.length} escrows: dtalgorand ${describe(dt)}; stock ${describe(stock)}`)
-    sections.push({
-      kind: "table",
-      title: `Checking ${subset.length.toLocaleString("en-US")} escrows: dtalgorand vs stock simulate`,
-      cost: `dtalgorand: ${cost(dt, "pool check")} — stock: ${cost(stock, "pool check")}`,
-      subtitle:
-        "Same reader, same escrows, same node. The stock backend sends one group per request, with 128 resources per group; the dtalgorand backend sends up to 16 groups per request, with 128× the resources. On a fast link the stock backend's 8 concurrent requests keep up; the difference is in requests, and in latency on a slow link.",
-      columns: ["backend", "simulate requests", "wall time (ms)", "median request (ms)"],
-      rows: [
-        ["dtalgorand", dt.simulates, dt.ms, dt.simulateMedianMs],
-        ["stock", stock.simulates, stock.ms, stock.simulateMedianMs],
-      ],
-    })
-  }
+  stats.push({ label: "Pool check", value: `${(info.ms / 1000).toFixed(1)} s`, note: queries(info.queries) })
 
   // ---- global: every pool now and a day ago
   let poolTable: Section | undefined
@@ -151,7 +132,7 @@ function cost(m: Costed<unknown>, what = "read", reads = m.reads): string {
     const states = await costed(() => sdk.getTinymanPoolStatesAtRounds(pools, [dayAgo, tip]))
     console.log(`pool states now and a day ago: ${describe(states)}`)
     notes.push(`Pool states of ${pools.length} pools at rounds ${dayAgo} and ${tip} (\`sdk.getTinymanPoolStatesAtRounds\`): ${describe(states)}.`)
-    stats.push({ label: "Pool states", value: `${(states.ms / 1000).toFixed(1)} s`, note: `${(pools.length * 2).toLocaleString("en-US")} reads, ${states.simulates} simulates` })
+    stats.push({ label: "Pool states", value: `${(states.ms / 1000).toFixed(1)} s`, note: `${(pools.length * 2).toLocaleString("en-US")} reads, ${queries(states.queries)}` })
     const [then, now] = states.result.map((r) => {
       if (!r.ok) throw r.error
       return r.value
@@ -337,19 +318,19 @@ function cost(m: Costed<unknown>, what = "read", reads = m.reads): string {
   sections.push({
     kind: "table",
     title: "Hourly reads with and without volume",
-    subtitle: `${hours} hourly intervals per pool. Prices alone take one read per hour, and the node takes ${hours + 1} rounds in one request; volume also reads inside every hour whose protocol fees were claimed. Both reads give the same prices: ${twapChecks.matched}/${twapChecks.compared} intervals match.`,
-    columns: ["pool", "prices: reads", "prices: simulate requests", "prices: time", "with volume: reads", "with volume: simulate requests", "with volume: time"],
+    subtitle: `${hours} hourly intervals per pool. Prices alone take one read per hour, at ${hours + 1} rounds, which the node takes up to its query \`maxRounds\` per request; volume also reads inside every hour whose protocol fees were claimed. Both reads give the same prices: ${twapChecks.matched}/${twapChecks.compared} intervals match.`,
+    columns: ["pool", "prices: reads", "prices: queries", "prices: time", "with volume: reads", "with volume: queries", "with volume: time"],
     rows: [
       ...selected.map((escrow, i) => [
         `${nameOf(assets, latest.get(escrow)!.asset1Id)}/ALGO`,
         prices[i].reads,
-        prices[i].simulates,
+        prices[i].queries,
         seconds(prices[i].ms),
         hourlies[i].reads,
-        hourlies[i].simulates,
+        hourlies[i].queries,
         seconds(hourlies[i].ms),
       ]),
-      [`all ${selected.length} together`, together.reads, together.simulates, seconds(together.ms), "", "", ""],
+      [`all ${selected.length} together`, together.reads, together.queries, seconds(together.ms), "", "", ""],
     ],
   })
   stats.push({ label: "Hourly reads vs history", value: `${checks.matched}/${checks.compared}`, note: "reserves match" })
