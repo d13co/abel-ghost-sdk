@@ -709,10 +709,17 @@ export class AbelGhostSDK {
     return history
   }
 
-  /** How many parts to split an interval into: one request's worth of rounds on a dtalgorand node, else halves */
+  /**
+   * How many parts to split an interval into: one request's worth of rounds (the query limit when reads go through
+   * queries, else the simulate limit), or halves when a request takes one round (stock algod, or the stock backend)
+   */
   private async splitParts(): Promise<number> {
-    const { kind, limits } = await this.getNode()
-    return kind === "dt" && limits.maxRounds > 1 ? Math.min(limits.maxRounds, 64) : 2
+    const { name } = await this.getBackend()
+    if (name === "stock") return 2
+    const node = await this.getNode()
+    if (node.kind !== "dt") return 2
+    const perRequest = name === "query" && node.query ? node.query.maxRounds : node.limits.maxRounds
+    return perRequest > 1 ? Math.min(perRequest, 64) : 2
   }
 
   /**
