@@ -30,7 +30,7 @@ This runs the workspace build across both sub-projects **in order** (`contracts`
 1. **`contracts`** — compiles the `AbelReader` contract with PuyaTs, then runs `ghostkit build` over the generated ARC-56 spec to (re)generate the typed `AbelReaderSDK.ts`.
 2. **`sdk`** — copies the freshly generated `AbelReaderSDK.ts` into `projects/sdk/src/generated/` and compiles the SDK with `tsc`.
 
-The contracts build runs Ghostkit from the local `feat/dt` checkout (`ghostkit: link:/home/bit/code/ghostkit/.claude/worktrees/feat-dt`), which generates the dtalgorand-aware runtime: reads at past rounds, batching, and chunking. The dtalgorand forks of algosdk and algokit-utils are vendored in [`vendor/`](vendor) and installed through `pnpm-workspace.yaml` overrides, so the workspace loads one copy of each.
+The contracts build runs Ghostkit 0.1.0-dt.4, vendored in [`vendor/`](vendor), which generates the dtalgorand-aware runtime: reads at past rounds, queries, batching, and chunking. The dtalgorand forks of algosdk and algokit-utils, which aren't on npm yet, are vendored there too and installed through `pnpm-workspace.yaml` overrides, so the workspace loads one copy of each.
 
 Always build from the root with this command so the SDK picks up contract changes — running the sub-project builds out of order can leave the SDK compiled against a stale generated client. After changing [`contract.algo.ts`](projects/contracts/smart_contracts/abel_reader/contract.algo.ts), re-run `algokit project run build` to propagate the new ABI through to the SDK.
 

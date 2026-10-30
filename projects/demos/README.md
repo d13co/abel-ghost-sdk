@@ -25,9 +25,9 @@ Open `out/<demo>.html` in a browser. The pages load Chart.js from cdnjs; everyth
 | `DT_ALGOD_SERVER` | `http://10.114.0.27:4000` | the DT node, with its port. `:4000` goes through a load balancer; `:8100` is a DT node directly |
 | `DT_ALGOD_TOKEN` | none | its API token |
 | `INDEXER_SERVER` | nodely's MainNet indexer | only for listing Tinyman pool escrows, which algod can't list (cached in the temp dir) |
-| `REQUEST_LOG=1` | off | log each simulate and `/versions` request |
+| `REQUEST_LOG=1` | off | log each simulate, query and `/versions` request |
 
-Every demo takes `--stock` to send its simulates the way a stock algod takes them: one group per request, 128 resources per group, and only the last few rounds.
+The demos read through the node's extended simulate, and stop with an error if the node isn't a dtalgorand node or the forks aren't loaded. Every demo takes `--stock` to send its simulates the way a stock algod takes them: one group per request, 128 resources per group, and only the last few rounds; and `--query` to read through the node's read-only queries (`POST /v2/query`) instead.
 
 ## The demos
 
@@ -106,6 +106,6 @@ Not built yet:
 ## Findings along the way
 
 - algosdk's ABI decoder ignores `byteOffset` for dynamic tuples, so it misreads the extended simulate's logs, which are views into the response. The SDK copies each log before ghostkit decodes it.
-- The DT node refuses request bodies over 1 MB (on `:4000` and `:8100` alike), which `/v2/transactions/simulate/limits` doesn't report; ghostkit packs 16 full groups of the reader per request, which goes over for ~17,000 escrows. The SDK splits inputs into requests of at most 2,048 items: for 17,295 pool states at 2 rounds, 9 such requests took 2.9 s against 4.3 s for 2 requests of ~8,600.
+- The DT node refuses request bodies over 1 MB (on `:4000` and `:8100` alike), which `GET /v2/capabilities` doesn't report; ghostkit packs 16 full groups of the reader per request, which goes over for ~17,000 escrows. The SDK splits inputs into requests of at most 2,048 items: for 17,295 pool states at 2 rounds, 9 such requests took 2.9 s against 4.3 s for 2 requests of ~8,600.
 - ghostkit's default extra opcode budget (170,000) is too little for a full group of a batch reader at a 128× multiplier; the SDK asks for the node's most.
 - puya-ts drops JSDoc tags, so a `@ghostkit-chunk` line in a method's doc comment never reaches the ARC-56 description. The tag works inline, in backticks.

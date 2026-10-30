@@ -15,6 +15,8 @@ import {
   GhostkitRound,
   GhostkitRoundResult,
   GhostkitRoundsOptions,
+  GhostkitSDKParams,
+  GHOSTKIT_STOCK_LIMITS,
   PactInfo as PactInfoInternal,
   TinymanInfo,
   TinymanPoolState as TinymanPoolStateInternal,
@@ -28,7 +30,6 @@ import {
   type TinymanPoolState,
   type TinymanPriceInterval,
 } from "./twap.js"
-import { resolveBackend } from "./backend.js"
 
 export {
   cumulativePricesAt,
@@ -94,7 +95,7 @@ export const MAINNET_PACT_POOL_CREATORS: PactPoolCreators = {
 
 /** Options of a single read */
 export interface ReadOptions {
-  /** Read as of the end of this round; the latest round when unset. Any round since genesis on a dtalgorand node */
+  /** Read as of the end of this round; the latest round when unset. Any round since genesis on a dtalgorand node with time travel on */
   round?: GhostkitRound
   /** Overrides the method's default chunking, e.g. to tune packing; `false` sends everything in one app call */
   chunk?: GhostkitChunkOptions | false
@@ -165,6 +166,10 @@ interface BoxListing {
 }
 
 const STRING_ARRAY = ABIType.from("string[]")
+/** The opcode budget each app call adds to its group's pool */
+const APP_CALL_BUDGET = 700
+/** The most transactions in a group */
+const MAX_GROUP_SIZE = 16
 const LABEL_DESCRIPTOR = ABIType.from("(string,string,uint64,uint64)")
 
 type Ghost = AbelReaderSDK
@@ -178,7 +183,7 @@ export class AbelGhostSDK {
   public baseSDK: AbelReaderSDK
   /** memoized `client.isMainNet()` — an algod client's genesis never changes, so ask it once */
   private isMainNetPromise?: Promise<boolean>
-  private backendMode: "auto" | "dt" | "stock" | GhostkitBackend
+  private backendMode: GhostkitSDKParams["backend"]
   /** The most items one read sends in one request (see `sliced`); estimated from their bytes when unset */
   public maxItemsPerRequest?: number
   private backendPromise?: Promise<void>
@@ -205,8 +210,13 @@ export class AbelGhostSDK {
     readerAccount?: string
     /** ms that reads at the latest round reuse suggested params for (default 3,000) */
     cacheParamsTimeout?: number
-    /** How simulates are sent: `auto` (default) uses a dtalgorand node's extended simulate when available */
-    backend?: "auto" | "dt" | "stock" | GhostkitBackend
+    /**
+     * How reads are sent (see ghostkit): `auto` (default) uses read-only queries on a dtalgorand node with queries on,
+     * else its extended simulate, else one simulate per group; `query` always queries and `dt` always uses the extended
+     * simulate (both throw on stock algod, and `query` on a node with queries off); `stock` one simulate per group; or
+     * your own ghostkit backend
+     */
+    backend?: GhostkitSDKParams["backend"]
     /** What each simulated group offers in fees (default 1 Algo; nothing is paid) */
     ghostFee?: GhostkitFee
     debug?: boolean
@@ -225,15 +235,19 @@ export class AbelGhostSDK {
   }
 
   /**
-   * Sets the reader SDK's backend once: the one ghostkit would pick, wrapped to work around an algosdk decoding bug.
-   * Suggested params are fetched at the same time, so the first read only has to simulate.
+   * Fetches what the first read waits for once (the node's capabilities, and suggested params unless reads are
+   * queried), and sets the opcode budget each group asks for from the backend ghostkit picks.
    */
   private ready(): Promise<void> {
     // do not cache a failed lookup: a transient algod error would otherwise poison every later call
-    this.backendPromise ??= Promise.all([resolveBackend(this.algorand, this.backendMode, this.baseSDK.debug), this.baseSDK.prefetch()]).then(
-      ([backend]) => {
-        this.baseSDK.backend = backend
-        this.opcodeBudget = backend.limits.maxExtraOpcodeBudget
+    this.backendPromise ??= Promise.all([this.getBackend(), this.baseSDK.prefetch()]).then(
+      async ([{ name, limits }]) => {
+        this.opcodeBudget = limits.maxExtraOpcodeBudget
+        // ghostkit simulates a group whose extra budget and 700 per app call are over a query's per-call budget
+        const node = name === "query" ? await this.getNode() : undefined
+        if (node?.kind === "dt" && node.query) {
+          this.opcodeBudget = Math.min(this.opcodeBudget, Math.max(0, node.query.maxCallBudget - APP_CALL_BUDGET * MAX_GROUP_SIZE))
+        }
       },
       (error: unknown) => {
         this.backendPromise = undefined
@@ -243,16 +257,26 @@ export class AbelGhostSDK {
     return this.backendPromise
   }
 
-  /** What ghostkit found about the node: `dt` with its simulate limits, or `stock` and why */
+  /** What ghostkit found about the node: `dt` with its simulate limits (and `query` with queries on), or `stock` and why */
   getNode(): Promise<GhostkitNode> {
     return this.baseSDK.getNode()
   }
 
-  /** The backend the reads use, `dt` or `stock`, and its limits */
+  /**
+   * The backend the reads use, `query`, `dt` or `stock` (or your own backend's name), and the node's simulate limits.
+   * Throws like the reads would for a `dt` or `query` backend that the node or libraries can't run
+   */
   async getBackend(): Promise<Pick<GhostkitBackend, "name" | "limits">> {
-    await this.ready()
-    const { name, limits } = this.baseSDK.backend as GhostkitBackend
-    return { name, limits }
+    const mode = this.backendMode ?? "auto"
+    if (typeof mode === "object") return { name: mode.name, limits: mode.limits }
+    if (mode === "stock") return { name: "stock", limits: GHOSTKIT_STOCK_LIMITS }
+    const node = await this.getNode()
+    if (node.kind !== "dt") {
+      if (mode !== "auto") throw new Error(`abel-ghost-sdk: backend '${mode}' can't be used: ${node.reason}`)
+      return { name: "stock", limits: node.limits }
+    }
+    if (mode === "query" && !node.query) throw new Error("abel-ghost-sdk: backend 'query' can't be used: the node has queries off")
+    return { name: mode === "dt" || !node.query ? "dt" : "query", limits: node.limits }
   }
 
   private budget() {
@@ -479,6 +503,8 @@ export class AbelGhostSDK {
   /** The ids of every asset in the registry */
   async getAllAssetIDs({ round }: { round?: GhostkitRound } = {}): Promise<bigint[]> {
     if (!this.registryAppId) return []
+    // stock algokit-utils would ignore the round and list the latest boxes
+    if (round !== undefined) this.requireFork("getAllAssetIDs at a round")
     const names = await this.algorand.app.getBoxNames(this.registryAppId, round !== undefined ? { round } : undefined)
     return names.filter((name) => name.nameRaw.length === 8).map((name) => decodeUint64(name.nameRaw, "bigint"))
   }
@@ -509,7 +535,7 @@ export class AbelGhostSDK {
   async getAbelLabelHistory({ minRound, maxRound }: { minRound?: GhostkitRound; maxRound?: GhostkitRound } = {}): Promise<AbelLabelChange[]> {
     const registry = this.requireRegistry()
     const changes: AbelLabelChange[] = []
-    for await (const { round, timestamp, boxes } of this.algorand.dt.iterateBoxesVersions(registry, {
+    for await (const { round, timestamp, boxes } of this.requireFork("getAbelLabelHistory").iterateBoxesVersions(registry, {
       minRound,
       maxRound,
       includeValues: true,
@@ -529,6 +555,7 @@ export class AbelGhostSDK {
 
   private async registryBoxes(round?: GhostkitRound): Promise<{ name: Uint8Array; value: Uint8Array }[]> {
     const registry = this.requireRegistry()
+    this.requireFork("Reading the Abel registry's boxes")
     // the fork's box listing takes include=values, which algokit-utils' DTAlgodLike doesn't declare
     let request = (this.algorand.client.dtAlgod.getApplicationBoxes(registry) as unknown as BoxListing).include("values").limit(100_000)
     if (round !== undefined) request = request.round(round)
@@ -540,6 +567,13 @@ export class AbelGhostSDK {
       next = page.nextToken
     } while (next)
     return boxes
+  }
+
+  /** The fork's `algorand.dt`, or a clear error with stock algokit-utils, which has none */
+  private requireFork(what: string): AlgorandClient["dt"] {
+    const dt = (this.algorand as { dt?: AlgorandClient["dt"] }).dt
+    if (!dt) throw new Error(`abel-ghost-sdk: ${what} needs the dtalgorand fork of algokit-utils (@d13co/dt-algokit-utils) and a dtalgorand node`)
+    return dt
   }
 
   private requireRegistry(): bigint {
@@ -612,7 +646,7 @@ export class AbelGhostSDK {
   ): Promise<TinymanPoolVersion[]> {
     const appId = BigInt(tinymanAppId)
     const history: TinymanPoolVersion[] = []
-    for await (const version of this.algorand.dt.iterateAccountAppVersions(lpEscrow, appId, {
+    for await (const version of this.requireFork("getTinymanPoolHistory").iterateAccountAppVersions(lpEscrow, appId, {
       minRound,
       maxRound,
       includeValues: true,

@@ -174,3 +174,5 @@ projects/sdk/examples/tm-escrows.txt
 
 # demo output
 projects/demos/out/
+# the demos' shared code, which the lib/ rule above would ignore
+!projects/demos/src/lib/

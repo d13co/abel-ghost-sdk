@@ -14,6 +14,17 @@ npm install abel-ghost-sdk
 npm install @algorandfoundation/algokit-utils algosdk
 ```
 
+With stock algosdk and algokit-utils every read works at recent rounds. Past rounds, many rounds per request and change histories need a [dtalgorand](#dtalgorand-nodes) node and its forks of both, which aren't on npm yet: `dtalgosdk` 3.9.0-dt.4.1.0.0 and `@d13co/dt-algokit-utils` 9.2.3-dt.4.1.0.0, whose tarballs are in this repo's [`vendor/`](../../vendor). Copy them into your repo and install them under the stock names, so that exactly one copy of each loads (your code, this SDK and any wallet library must share them):
+
+```yaml
+# pnpm: pnpm-workspace.yaml, or "pnpm": { "overrides": { ... } } in package.json
+overrides:
+  algosdk: file:vendor/dtalgosdk-3.9.0-dt.4.1.0.0.tgz
+  '@algorandfoundation/algokit-utils': file:vendor/d13co-dt-algokit-utils-9.2.3-dt.4.1.0.0.tgz
+```
+
+With npm, set your `algosdk` and `@algorandfoundation/algokit-utils` dependencies to the tarballs and add `"overrides": { "algosdk": "$algosdk", "@algorandfoundation/algokit-utils": "$@algorandfoundation/algokit-utils" }`. The forks' versions are prereleases, which the stock peer ranges don't accept, so with npm also set `legacy-peer-deps=true` in `.npmrc`.
+
 ## Quick start
 
 ```ts
@@ -37,10 +48,10 @@ new AbelGhostSDK({
   registryAppId,       // number | bigint — Abel label registry app id (MainNet: MAINNET_ABEL_REGISTRY_APP_ID, 2914159523). Needed for label methods.
   ghostAppId,          // bigint — optional deployed ghost app id. Omit to use the deployment-free ghost path.
   readerAccount,       // string — sender used for simulation. Defaults to the network's fee sink, funded at every round.
-  backend,             // 'auto' (default) | 'dt' | 'stock' — how simulates are sent; 'auto' uses a dtalgorand node's extended simulate when it finds one.
+  backend,             // 'auto' (default) | 'query' | 'dt' | 'stock' | a ghostkit backend — how reads are sent; 'auto' uses a dtalgorand node's read-only queries when it has them on, else its extended simulate, else one simulate per group. 'query' and 'dt' throw on stock algod.
   ghostFee,            // what each simulated group offers in fees; default 1 Algo, never paid.
   cacheParamsTimeout,  // number — ms that reads at the latest round reuse suggested params for. Defaults to 3,000.
-  maxItemsPerRequest,  // number — most items one read sends in one request; larger inputs are split and run concurrently. Default 4,096.
+  maxItemsPerRequest,  // number — most items one read sends in one request; larger inputs are split and run concurrently. Default 2,048, fewer if their bytes would come near 1 MB.
   debug,               // boolean — log ghostkit's diagnostics of each call.
 })
 ```
@@ -67,7 +78,7 @@ for (const r of history) {
 
 A stock node only simulates its last few rounds (usually 4). A dtalgorand node with time travel simulates any round since genesis, and packs up to its `max-rounds` rounds into one request however far apart they are. The reader contract is AVM 11, which MainNet only allows from round ~46.5M: older rounds run under the latest protocol, as if it took effect right after the round. Each round's result carries a `protocolOverride` saying whether that applied, with notes on any data the old round never produced.
 
-`getNode()` says what ghostkit found about the node, and `getBackend()` which backend the reads use.
+`getNode()` says what ghostkit found about the node (from `GET /v2/capabilities`, which every dtalgorand node serves and stock algod doesn't), and `getBackend()` which backend the reads use: `query`, `dt` or `stock`.
 
 ## Methods
 
@@ -208,10 +219,9 @@ Each pool can cost 3 resource references (the app itself plus its two assets), w
 
 A dtalgorand node is an algod with extra API features: reads at any past round, `/versions` change histories, and a simulate that takes several groups and several rounds per request, with a multiplier on the resources a group can reference. The SDK uses them through the dtalgorand forks of algosdk and algokit-utils, which this repo vendors under [`vendor/`](../../vendor) and installs through `pnpm-workspace.yaml` overrides. With stock packages, or on a stock node, everything still works the stock way, one group per request at recent rounds; the methods marked **dtalgorand only** need both.
 
-Two workarounds live in the SDK for now, both worth fixing upstream:
+A dtalgorand node refuses request bodies over 1 MB, which `GET /v2/capabilities` doesn't report, and ghostkit packs up to 16 full groups per request. The SDK splits each read into requests of at most 2,048 items and well under 1 MB (or `maxItemsPerRequest`), and asks for the node's most extra opcode budget, since a full group of a batch reader needs more than ghostkit's default. On a node with queries on, it asks for no more than a query's per-call budget allows (`maxCallBudget` less 700 per app call of a full group), so that ghostkit queries the read rather than simulating it.
 
-- algosdk's ABI decoder reads a dynamic tuple through `new DataView(bytes.buffer)`, ignoring `byteOffset`, so it misreads a log that is a view into a larger buffer, as the extended simulate's logs are. The SDK wraps ghostkit's backend to copy each log first ([`src/backend.ts`](src/backend.ts)).
-- A dtalgorand node refuses request bodies over 1 MB, which its limits endpoint doesn't report, and ghostkit packs up to 16 full groups per request. The SDK splits each read into requests of at most 2,048 items and well under 1 MB (or `maxItemsPerRequest`), and asks for the node's most extra opcode budget, since a full group of a batch reader needs more than ghostkit's default.
+Only the current dtalgorand release is supported: older forks, and dtalgorand nodes from before `GET /v2/capabilities`, read as stock.
 
 For demos of all this against MainNet, with charts, see [`projects/demos`](../demos).
 
