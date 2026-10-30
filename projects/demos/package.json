@@ -1,0 +1,25 @@
+{
+  "name": "abel-dt-demos",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Demos of the Abel ghost SDK on a dtalgorand node: reads at any past round, change history and extended simulate",
+  "scripts": {
+    "balances": "tsx src/balances-over-time.ts",
+    "tinyman": "tsx src/tinyman-pools.ts",
+    "abel": "tsx src/abel-assets.ts",
+    "vitals": "tsx src/chain-vitals.ts",
+    "rekeys": "tsx src/rekey-forensics.ts",
+    "packing": "tsx src/arg-packing.ts",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@algorandfoundation/algokit-utils": "9.2.3-dt.1",
+    "abel-ghost-sdk": "workspace:*",
+    "algosdk": "3.8.0-dt.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "tsx": "^4.21.0",
+    "typescript": "5.9.3"
+  }
+}

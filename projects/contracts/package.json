@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@algorandfoundation/algorand-typescript": "^1.0.1",
-    "ghostkit": "^0.0.10"
+    "ghostkit": "link:/home/bit/code/ghostkit/.claude/worktrees/feat-dt"
   },
   "devDependencies": {
     "@algorandfoundation/algokit-client-generator": "^6.0.0",

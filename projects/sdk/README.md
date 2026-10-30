@@ -1,6 +1,8 @@
 # Abel Ghost SDK
 
-Tiny [Ghostkit](https://github.com/d13co/ghostkit) SDK for [Abel](https://github.com/Algorand-Developer-Retreat/abel). It batches read-only on-chain lookups (balances, asset metadata, block times, auth/rekey addresses) into single `simulate` calls — **no deployment, no fees, on any network**.
+Tiny [Ghostkit](https://github.com/d13co/ghostkit) SDK for [Abel](https://github.com/Algorand-Developer-Retreat/abel). It batches read-only on-chain lookups (balances, asset metadata and labels, block times, auth/rekey addresses, Tinyman and PACT pools) into single `simulate` calls — **no deployment, no fees, on any network**.
+
+On a [dtalgorand](#dtalgorand-nodes) node it also reads **any past round since genesis**, reads **many rounds in one request**, and reads the **exact change history** of pools and the Abel registry.
 
 For background on _how_ the ghost (simulate-based, deployment-free) calls work, and the canonical build process (`algokit project run build` from the repo root), see the [root README](../../README.md).
 
@@ -32,15 +34,40 @@ console.log(assets.get(31566704n))
 ```ts
 new AbelGhostSDK({
   algorand,            // AlgorandClient (required) — picks the network (LocalNet/TestNet/MainNet)
-  registryAppId,       // number | bigint — Abel label registry app id (MainNet: 2914159523). Needed for label methods.
-  concurrency = 4,     // how many chunked simulate calls run in parallel
+  registryAppId,       // number | bigint — Abel label registry app id (MainNet: MAINNET_ABEL_REGISTRY_APP_ID, 2914159523). Needed for label methods.
   ghostAppId,          // bigint — optional deployed ghost app id. Omit to use the deployment-free ghost path.
-  readerAccount,       // string — sender used for simulation. Defaults to a fee-sink address; override per network if needed.
-  cacheParamsTimeout,  // number — ms to cache algod suggested params across chunked calls. Defaults to 75; 0 disables caching.
+  readerAccount,       // string — sender used for simulation. Defaults to the network's fee sink, funded at every round.
+  backend,             // 'auto' (default) | 'dt' | 'stock' — how simulates are sent; 'auto' uses a dtalgorand node's extended simulate when it finds one.
+  ghostFee,            // what each simulated group offers in fees; default 1 Algo, never paid.
+  cacheParamsTimeout,  // number — ms that reads at the latest round reuse suggested params for. Defaults to 3,000.
+  maxItemsPerRequest,  // number — most items one read sends in one request; larger inputs are split and run concurrently. Default 4,096.
+  debug,               // boolean — log ghostkit's diagnostics of each call.
 })
 ```
 
-Requests larger than the per-call limit (63 accounts / assets) are chunked automatically and run with the configured `concurrency`.
+Inputs of any size are split across app calls and groups by ghostkit, sized to the node's limits: on a stock node a group can reference 128 accounts, assets or apps; a dtalgorand node can multiply that (128× on the d13 node), and takes up to 16 groups per request. Ghostkit fills up to 4 KB of app args per app call (127 addresses), which MainNet's current protocol allows. Each read method also takes `{ chunk }` to override how its input is split, e.g. `{ chunk: { arg: "accounts", maxArgBytes: 2048 } }` for a network that still limits an app call to 2 KB of args.
+
+The reader's `getBalanceInfo` and `getAssetsTiny` take four array arguments, since one app arg holds at most 4,096 bytes while an app call can carry 16 KB. `getBalanceInfo` and `getAssetsTinyLabels` (and their `…AtRounds` forms) take `{ packing: { perArg, args, perGroup? } }` to spread the items over them by hand: `{ perArg: 127, args: 4 }` puts 508 addresses in each app call. A read sends at most 2,048 items per request, about one full group at a 128× multiplier, and fewer if their bytes would come near a dtalgorand node's 1 MB limit; larger inputs become concurrent requests, which ran faster on the d13 node than fewer, larger ones. `maxItemsPerRequest` overrides it.
+
+## Past rounds
+
+Every read takes `{ round }`, and has an `…AtRounds(…, rounds)` form that reads the same items at many rounds:
+
+```ts
+// as of the end of round 40,000,000
+const then = await sdk.getBalanceInfo(accounts, { round: 40_000_000 })
+
+// at 256 rounds since genesis, in as few requests as the node allows
+const history = await sdk.getBalanceInfoAtRounds(accounts, roundRange(1, 66_000_000, 260_000))
+for (const r of history) {
+  if (r.ok) console.log(r.round, r.value.get(accounts[0])?.balance)
+  else console.error(r.round, r.error.message)
+}
+```
+
+A stock node only simulates its last few rounds (usually 4). A dtalgorand node with time travel simulates any round since genesis, and packs up to its `max-rounds` rounds into one request however far apart they are. The reader contract is AVM 11, which MainNet only allows from round ~46.5M: older rounds run under the latest protocol, as if it took effect right after the round. Each round's result carries a `protocolOverride` saying whether that applied, with notes on any data the old round never produced.
+
+`getNode()` says what ghostkit found about the node, and `getBackend()` which backend the reads use.
 
 ## Methods
 
@@ -87,7 +114,7 @@ Abel registry labels for a single asset. Returns `[]` if no `registryAppId` is c
 const labels = await sdk.getAssetLabels(31566704)
 ```
 
-### `getAllAssetIDs(): Promise<bigint[]>`
+### `getAllAssetIDs({ round }?): Promise<bigint[]>`
 
 Every asset id known to the configured Abel registry (reads the registry's box names). Returns `[]` without a `registryAppId`.
 
@@ -95,17 +122,33 @@ Every asset id known to the configured Abel registry (reads the registry's box n
 const ids = await sdk.getAllAssetIDs()
 ```
 
+### `getAllAssetLabels({ round }?): Promise<Map<bigint, string[]>>` and `getAbelLabels({ round }?): Promise<AbelLabel[]>`
+
+**dtalgorand only** (they list box values, `include=values`). Every registered asset's labels, and the label definitions (`{ id, name, url, numAssets, numOperators }`), each in one request. Gets every label, where `getAssetsTinyLabels` only checks `pv`, but no asset params.
+
+### `getAbelLabelHistory({ minRound, maxRound }?): Promise<AbelLabelChange[]>`
+
+**dtalgorand only.** Every change to the assets' labels, oldest first, from the registry's box history: `{ round, timestamp, assetId, labels, deleted }`.
+
+### `getAssetHoldings(assetId, accounts, { round }?): Promise<Map<string, AssetHolding | undefined>>`
+
+One asset's holding (`{ optedIn, frozen, balance }`) in each of many accounts; `undefined` when not opted in. Asset ids below 256 are refused, since a ghost read can't reference them. `getAssetHoldingsAtRounds` reads them at many rounds.
+
 ### `getBlockTimesAndTc(firstRound, lastRound): Promise<BlockRoundTimeAndTc[]>`
 
-Timestamp and transaction counter for a range of blocks. Each entry is `{ rnd: bigint, ts: number, tc: bigint }`.
+Timestamp and transaction counter for a range of blocks, at most the ~1,000 before `lastRound`. Each entry is `{ rnd: bigint, ts: number, tc: bigint }`.
 
 ```ts
 const { lastRound } = await algorand.client.algod.status().do()
-const blocks = await sdk.getBlockTimesAndTc(lastRound - 1000n, lastRound)
+const blocks = await sdk.getBlockTimesAndTc(lastRound - 999n, lastRound)
 console.log(blocks[0]) // { rnd, ts, tc }
 ```
 
-### `getTinymanInfo(lpEscrows: string[], tinymanAppId?: number | bigint): Promise<Map<string, TinymanInfo>>`
+### `getBlockTimesAndTcAtRounds(rounds, span): Promise<AtRounds<BlockRoundTimeAndTc[]>>`
+
+The `span` blocks up to each of `rounds`. The reader reads relative to the round it runs at, so on a dtalgorand node every round shares one request: 256 rounds of 1,000 blocks each is one simulate.
+
+### `getTinymanInfo(lpEscrows: string[], tinymanAppId?: number | bigint, { round }?): Promise<Map<string, TinymanInfo>>`
 
 Tinyman pool info for many pool (LP) escrow accounts. `TinymanInfo` is `{ validRekey: boolean, asset1Id: bigint, asset1UnitName: string, asset2Id: bigint, asset2UnitName: string }`.
 
@@ -121,7 +164,19 @@ pools.get("4PE4NCV73L26GIUKZPZTIEASAERJQL2E4IFVXPTOPWVQFZ2RHCQW3VU7AM")
 // { validRekey: true, asset1Id: 1065092715n, asset1UnitName: "COSG", asset2Id: 0n, asset2UnitName: "ALGO" }
 ```
 
-Batched 42 escrows per simulate: each escrow can cost 3 of the group's 128 resource references (the account plus its two assets), on top of one reference for the Tinyman app itself.
+Each escrow can cost 3 resource references (the account plus its two assets), which sizes the groups. `getTinymanInfo` takes `{ round }` too.
+
+### `getTinymanPoolStates(lpEscrows, tinymanAppId?, { round }?): Promise<Map<string, TinymanPoolState | undefined>>`
+
+Each pool's state from its escrow's local state: reserves, issued pool tokens, unclaimed protocol fees, fee settings and the cumulative prices of Tinyman's oracle, with the round and its block timestamp. `undefined` for an account that is not opted in to Tinyman. `getTinymanPoolStatesAtRounds(lpEscrows, rounds)` reads them at many rounds.
+
+### `getTinymanPriceHistory(lpEscrows, rounds, tinymanAppId?, { volume }?): Promise<Map<string, TinymanPriceInterval[]>>`
+
+Time-weighted average prices, spot prices and swap volume of each pool between consecutive `rounds`. The volume comes from the growth of the protocol fees; an interval in which they were claimed is split until the claim is down to its block. Helpers: `twap`, `vwap`, `priceInterval`, `volumeEstimate`, `cumulativePricesAt`, `roundRange`.
+
+### `getTinymanPoolHistory(lpEscrow, { minRound, maxRound, tinymanAppId }?): Promise<TinymanPoolVersion[]>`
+
+**dtalgorand only.** Every change to one pool — each swap, mint, burn and fee claim — from the escrow's local state history (`/versions`), as `{ round, timestamp, deleted, state }`. Exact, where the reads above sample.
 
 ### `getPactInfo(pactAppIds: (number | bigint)[], creators?: PactPoolCreators): Promise<Map<bigint, PactInfo>>`
 
@@ -147,7 +202,18 @@ import { MAINNET_PACT_POOL_CREATORS } from "abel-ghost-sdk"
 await sdk.getPactInfo([1073547054], { ...MAINNET_PACT_POOL_CREATORS, MANAGED_WEIGHTED: myCreator })
 ```
 
-Batched 42 pools per simulate: each pool can cost 3 of the group's 128 resource references (the app itself plus its two assets). The creators travel as ARC-4 addresses in the app args, so they cost no references.
+Each pool can cost 3 resource references (the app itself plus its two assets), which sizes the groups. The creators travel as ARC-4 addresses in the app args, so they cost no references.
+
+## dtalgorand nodes
+
+A dtalgorand node is an algod with extra API features: reads at any past round, `/versions` change histories, and a simulate that takes several groups and several rounds per request, with a multiplier on the resources a group can reference. The SDK uses them through the dtalgorand forks of algosdk and algokit-utils, which this repo vendors under [`vendor/`](../../vendor) and installs through `pnpm-workspace.yaml` overrides. With stock packages, or on a stock node, everything still works the stock way, one group per request at recent rounds; the methods marked **dtalgorand only** need both.
+
+Two workarounds live in the SDK for now, both worth fixing upstream:
+
+- algosdk's ABI decoder reads a dynamic tuple through `new DataView(bytes.buffer)`, ignoring `byteOffset`, so it misreads a log that is a view into a larger buffer, as the extended simulate's logs are. The SDK wraps ghostkit's backend to copy each log first ([`src/backend.ts`](src/backend.ts)).
+- A dtalgorand node refuses request bodies over 1 MB, which its limits endpoint doesn't report, and ghostkit packs up to 16 full groups per request. The SDK splits each read into requests of at most 2,048 items and well under 1 MB (or `maxItemsPerRequest`), and asks for the node's most extra opcode budget, since a full group of a batch reader needs more than ghostkit's default.
+
+For demos of all this against MainNet, with charts, see [`projects/demos`](../demos).
 
 ## Running the examples
 
@@ -155,6 +221,7 @@ The [`examples/`](examples) directory has runnable MainNet scripts. Build first 
 
 ```bash
 npx tsx examples/get-simple.ts          # asset metadata
+npx tsx examples/get-balance-info.ts    # balances, checked against the indexer
 npx tsx examples/get-label.ts           # asset labels + tiny labels
 npx tsx examples/get-all-assets.ts      # all registry asset ids
 npx tsx examples/get-blk-time-tc.ts     # block times & tx counters

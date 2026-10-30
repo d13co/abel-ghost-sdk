@@ -6,7 +6,6 @@ const algorand = AlgorandClient.mainNet()
 // no ghostAppId: the deployed app predates this method, so run the deployment-free ghost path
 const sdk = new AbelGhostSDK({
   algorand,
-  concurrency: 10,
   debug: true,
 })
 

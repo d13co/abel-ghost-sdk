@@ -6,7 +6,6 @@ const algorand = AlgorandClient.mainNet()
 
 const sdk = new AbelGhostSDK({
   algorand,
-  concurrency: 10,
   ghostAppId: 3381542955n,
   debug: true,
 })

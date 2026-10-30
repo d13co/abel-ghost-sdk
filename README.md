@@ -2,7 +2,7 @@
 
 Tiny [Ghostkit](https://github.com/d13co/ghostkit) SDK for [Abel](https://github.com/Algorand-Developer-Retreat/abel), allowing [algo.surf](https://algo.surf) to batch look up on-chain data on any network, while also supporting the Abel label registry on Mainnet.
 
-The reader contract lives in [`projects/contracts`](projects/contracts) and the published SDK in [`projects/sdk`](projects/sdk).
+The reader contract lives in [`projects/contracts`](projects/contracts), the published SDK in [`projects/sdk`](projects/sdk), and demos with charts on a dtalgorand node (reads at any past round, change histories, many rounds per simulate) in [`projects/demos`](projects/demos).
 
 ## What is Ghostkit?
 
@@ -13,7 +13,7 @@ The reader contract lives in [`projects/contracts`](projects/contracts) and the 
 - **Batched** — a single method can loop over many inputs and `log()` one ARC-4 encoded result per item. One `simulate` round-trip returns hundreds of results, and the SDK chunks larger requests automatically.
 - **Network-agnostic** — because nothing is deployed, the same contract code runs against LocalNet, TestNet or MainNet.
 
-In this repo the [`AbelReader`](projects/contracts/smart_contracts/abel_reader/contract.algo.ts) contract uses this pattern to expose batch readers such as `getBalanceInfo`, `getAssetsTiny`, `getBlockTimesAndTc` and `getAuthAddrs`. Each method iterates over its inputs, logs an encoded result per item, and Ghostkit harvests those logs in one simulate call.
+In this repo the [`AbelReader`](projects/contracts/smart_contracts/abel_reader/contract.algo.ts) contract uses this pattern to expose batch readers such as `getBalanceInfo`, `getAssetsTiny`, `getAuthAddrs`, `getAssetHoldings`, `getTinymanPoolStates` and `getRecentBlockTimesAndTc`. Each method iterates over its inputs, logs an encoded result per item, and Ghostkit harvests those logs in one simulate call. A `@ghostkit-chunk` tag in each method's doc comment tells Ghostkit how to split large inputs across app calls and groups. Puya-ts drops JSDoc tags, so the tag sits inline in backticks.
 
 The contract build runs `ghostkit build` over the generated ARC-56 spec to produce the typed `AbelReaderSDK.ts`, which the SDK wraps with a friendlier, chunked API.
 
@@ -29,6 +29,8 @@ This runs the workspace build across both sub-projects **in order** (`contracts`
 
 1. **`contracts`** — compiles the `AbelReader` contract with PuyaTs, then runs `ghostkit build` over the generated ARC-56 spec to (re)generate the typed `AbelReaderSDK.ts`.
 2. **`sdk`** — copies the freshly generated `AbelReaderSDK.ts` into `projects/sdk/src/generated/` and compiles the SDK with `tsc`.
+
+The contracts build runs Ghostkit from the local `feat/dt` checkout (`ghostkit: link:/home/bit/code/ghostkit/.claude/worktrees/feat-dt`), which generates the dtalgorand-aware runtime: reads at past rounds, batching, and chunking. The dtalgorand forks of algosdk and algokit-utils are vendored in [`vendor/`](vendor) and installed through `pnpm-workspace.yaml` overrides, so the workspace loads one copy of each.
 
 Always build from the root with this command so the SDK picks up contract changes — running the sub-project builds out of order can leave the SDK compiled against a stale generated client. After changing [`contract.algo.ts`](projects/contracts/smart_contracts/abel_reader/contract.algo.ts), re-run `algokit project run build` to propagate the new ABI through to the SDK.
 

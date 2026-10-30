@@ -171,3 +171,6 @@ node_modules
 .npmrc
 
 projects/sdk/examples/tm-escrows.txt
+
+# demo output
+projects/demos/out/

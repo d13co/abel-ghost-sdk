@@ -12,6 +12,7 @@ import {
   uint64,
   Account,
   Bytes,
+  bytes,
 } from "@algorandfoundation/algorand-typescript";
 import { AbelStub } from "../abel_stub/contract.algo";
 import { Address, baremethod, compileArc4, encodeArc4, Uint32, Uint8 } from "@algorandfoundation/algorand-typescript/arc4";
@@ -41,6 +42,34 @@ export type TinymanInfo = {
   asset2UnitName: string;
 };
 
+export type AssetHolding = {
+  optedIn: boolean;
+  frozen: boolean;
+  balance: uint64;
+};
+
+// a Tinyman v2 pool's state, from its escrow's local state in the Tinyman app. `exists` is false for an account that
+// is not opted in to the app. `round` is the round the state is as of, and `ts` its block timestamp, which
+// time-weighted prices need
+export type TinymanPoolState = {
+  exists: boolean;
+  validRekey: boolean;
+  round: uint64;
+  ts: uint64;
+  asset1Id: uint64;
+  asset2Id: uint64;
+  asset1Reserves: uint64;
+  asset2Reserves: uint64;
+  issuedPoolTokens: uint64;
+  asset1ProtocolFees: uint64;
+  asset2ProtocolFees: uint64;
+  totalFeeShare: uint64;
+  protocolFeeRatio: uint64;
+  cumulativePriceUpdateTimestamp: uint64;
+  asset1CumulativePrice: bytes;
+  asset2CumulativePrice: bytes;
+};
+
 // pool type codes, kept numeric on chain and expanded to names by the SDK
 const PACT_TYPE_NONE: uint64 = 0;
 const PACT_TYPE_CONSTANT_PRODUCT: uint64 = 1;
@@ -63,8 +92,21 @@ export class AbelReader extends Contract {
     assert(TemplateVar<uint64>("UPDATABLE") === 1 && Txn.sender === Global.creatorAddress);
   }
 
+  /**
+   * Algo balance and minimum balance of each account, in argument order. An app arg holds at most 4,096 bytes (127
+   * addresses), so the accounts can be spread over four arrays to fill an app call; empty ones are skipped.
+   * Chunked by ghostkit: `@ghostkit-chunk accounts`
+   */
   @abimethod({ readonly: true, onCreate: "allow" })
-  getBalanceInfo(accounts: Account[]): BalanceInfo {
+  getBalanceInfo(accounts: Account[], accounts2: Account[], accounts3: Account[], accounts4: Account[]): BalanceInfo {
+    this.logBalanceInfos(accounts);
+    this.logBalanceInfos(accounts2);
+    this.logBalanceInfos(accounts3);
+    this.logBalanceInfos(accounts4);
+    return this.getEmptyBalanceInfo();
+  }
+
+  private logBalanceInfos(accounts: Account[]): void {
     for (let idx: uint64 = 0; idx < accounts.length; idx++) {
       const account = accounts[idx];
       const balance = op.balance(account);
@@ -76,15 +118,29 @@ export class AbelReader extends Contract {
         log(encodeArc4(this.getEmptyBalanceInfo()));
       }
     }
-    return this.getEmptyBalanceInfo();
   }
 
   private getEmptyBalanceInfo(): BalanceInfo {
     return { balance: 0, minBalance: 0 };
   }
 
+  /**
+   * Name, unit name and decimals of each asset, and whether the Abel registry labels it `pv`. Each existing asset makes
+   * one inner app call to the registry, and a group can make at most 256 inner transactions. 128 per app call and per
+   * group is among the fastest packings on MainNet (see the abel-assets demo). The assets can be spread over four
+   * arrays, logged in argument order; empty ones are skipped.
+   * Chunked by ghostkit: `@ghostkit-chunk assetIds refsPerItem=2 maxPerTxn=128 maxPerGroup=128`
+   */
   @abimethod({ readonly: true, onCreate: "allow" })
-  getAssetsTiny(assetIds: Asset[], abelAppId: uint64): AssetTinyLabels {
+  getAssetsTiny(assetIds: Asset[], abelAppId: uint64, assetIds2: Asset[], assetIds3: Asset[], assetIds4: Asset[]): AssetTinyLabels {
+    this.logAssetsTiny(assetIds, abelAppId);
+    this.logAssetsTiny(assetIds2, abelAppId);
+    this.logAssetsTiny(assetIds3, abelAppId);
+    this.logAssetsTiny(assetIds4, abelAppId);
+    return this.getEmptyAssetTinyLabels();
+  }
+
+  private logAssetsTiny(assetIds: Asset[], abelAppId: uint64): void {
     for (let idx: uint64 = 0; idx < assetIds.length; idx++) {
       const asset = assetIds[idx];
       const [_, exists] = op.AssetParams.assetCreator(asset.id);
@@ -102,7 +158,6 @@ export class AbelReader extends Contract {
         log(encodeArc4(assetInfo));
       }
     }
-    return this.getEmptyAssetTinyLabels();
   }
 
   @abimethod({ readonly: true, onCreate: "allow", name: "get_asset_labels", resourceEncoding: "index" })
@@ -132,6 +187,21 @@ export class AbelReader extends Contract {
     return { ts: new Uint32(0), tc: 0 };
   }
 
+  /**
+   * Timestamp and transaction counter of the `span` blocks before the current one, oldest first. Relative to the
+   * current round, so the same call reads the latest blocks at any round it is simulated at.
+   */
+  @abimethod({ readonly: true, onCreate: "allow" })
+  public getRecentBlockTimesAndTc(span: uint64): BlockTimeAndTc {
+    // the block opcode reads up to the block before FirstValid, which is the current round when valid in one round only
+    const lastRound: uint64 = Global.round - 1;
+    return this.getBlockTimesAndTc(lastRound - span + 1, lastRound);
+  }
+
+  /**
+   * The auth (rekeyed-to) address of each account, or the zero address.
+   * Chunked by ghostkit: `@ghostkit-chunk accounts`
+   */
   @abimethod({ readonly: true, onCreate: "allow" })
   public getAuthAddrs(accounts: Account[]): Account {
     for (let idx: uint64 = 0; idx < accounts.length; idx++) {
@@ -142,6 +212,29 @@ export class AbelReader extends Contract {
     return Global.zeroAddress;
   }
 
+  /**
+   * One asset's holding in each of many accounts. asset_holding_get flags an account that is not opted in, or does not
+   * exist, instead of failing, so no account can abort the batch.
+   * Chunked by ghostkit: `@ghostkit-chunk accounts`
+   */
+  @abimethod({ readonly: true, onCreate: "allow" })
+  public getAssetHoldings(assetId: uint64, accounts: Account[]): AssetHolding {
+    // ids below 256 cannot be unnamed resources (see getPactPoolInfo), and touching one would abort the batch
+    const readable = assetId >= 256;
+    for (const account of accounts) {
+      if (readable) {
+        const [balance, optedIn] = op.AssetHolding.assetBalance(account, assetId);
+        const [frozen, _] = op.AssetHolding.assetFrozen(account, assetId);
+        log(encodeArc4({ optedIn, frozen, balance } as AssetHolding));
+      } else log(encodeArc4(getEmptyAssetHolding()));
+    }
+    return getEmptyAssetHolding();
+  }
+
+  /**
+   * The pair of each Tinyman v2 pool escrow, and whether it is rekeyed to the Tinyman app.
+   * Chunked by ghostkit: `@ghostkit-chunk lpEscrows refsPerItem=3`
+   */
   @abimethod({ readonly: true, onCreate: "allow" })
   public getTinymanInfo(tinymanAppId: Application, lpEscrows: Account[]): TinymanInfo {
     const tinymanEscrow = tinymanAppId.address;
@@ -168,9 +261,51 @@ export class AbelReader extends Contract {
     return getEmptyTinymanInfo();
   }
 
+  /**
+   * The state of each Tinyman v2 pool: reserves, issued pool tokens, protocol fees and cumulative prices, read from the
+   * escrow's local state. Only the Tinyman app writes that state, so its types are known; an escrow that is not opted
+   * in logs `exists: false`.
+   * Chunked by ghostkit: `@ghostkit-chunk lpEscrows`
+   */
+  @abimethod({ readonly: true, onCreate: "allow" })
+  public getTinymanPoolStates(tinymanAppId: Application, lpEscrows: Account[]): TinymanPoolState {
+    const tinymanEscrow = tinymanAppId.address;
+    for (const lpEscrow of lpEscrows) {
+      // app_local_get_ex errors on an account that is not opted in, which would abort the whole batch
+      if (op.appOptedIn(lpEscrow, tinymanAppId)) {
+        const [authAddr, _] = op.AcctParams.acctAuthAddr(lpEscrow);
+        const state: TinymanPoolState = {
+          exists: true,
+          validRekey: authAddr === tinymanEscrow,
+          // the program runs in the block after the state it reads
+          round: Global.round - 1,
+          ts: Global.latestTimestamp,
+          asset1Id: localUint(lpEscrow, tinymanAppId, Bytes`asset_1_id`),
+          asset2Id: localUint(lpEscrow, tinymanAppId, Bytes`asset_2_id`),
+          asset1Reserves: localUint(lpEscrow, tinymanAppId, Bytes`asset_1_reserves`),
+          asset2Reserves: localUint(lpEscrow, tinymanAppId, Bytes`asset_2_reserves`),
+          issuedPoolTokens: localUint(lpEscrow, tinymanAppId, Bytes`issued_pool_tokens`),
+          asset1ProtocolFees: localUint(lpEscrow, tinymanAppId, Bytes`asset_1_protocol_fees`),
+          asset2ProtocolFees: localUint(lpEscrow, tinymanAppId, Bytes`asset_2_protocol_fees`),
+          totalFeeShare: localUint(lpEscrow, tinymanAppId, Bytes`total_fee_share`),
+          protocolFeeRatio: localUint(lpEscrow, tinymanAppId, Bytes`protocol_fee_ratio`),
+          cumulativePriceUpdateTimestamp: localUint(lpEscrow, tinymanAppId, Bytes`cumulative_price_update_timestamp`),
+          asset1CumulativePrice: localBytes(lpEscrow, tinymanAppId, Bytes`asset_1_cumulative_price`),
+          asset2CumulativePrice: localBytes(lpEscrow, tinymanAppId, Bytes`asset_2_cumulative_price`),
+        };
+        log(encodeArc4(state));
+      } else log(encodeArc4(getEmptyTinymanPoolState()));
+    }
+    return getEmptyTinymanPoolState();
+  }
+
   // the three creators are network specific, so they are arguments rather than constants; the SDK
   // fills in the mainnet ones. they are arc4 addresses, not Account references, so they cost app
   // arg bytes instead of eating into the group's resource references
+  /**
+   * Type, pair and fee of each PACT pool app, or type 0 for an app that is not an authenticated PACT pool.
+   * Chunked by ghostkit: `@ghostkit-chunk pactAppIds refsPerItem=3`
+   */
   @abimethod({ readonly: true, onCreate: "allow" })
   public getPactInfo(
     constantProductCreator: Address,
@@ -192,6 +327,43 @@ export class AbelReader extends Contract {
     }
     return getEmptyPactInfo();
   }
+}
+
+function getEmptyAssetHolding(): AssetHolding {
+  return { optedIn: false, frozen: false, balance: 0 };
+}
+
+function getEmptyTinymanPoolState(): TinymanPoolState {
+  return {
+    exists: false,
+    validRekey: false,
+    round: 0,
+    ts: 0,
+    asset1Id: 0,
+    asset2Id: 0,
+    asset1Reserves: 0,
+    asset2Reserves: 0,
+    issuedPoolTokens: 0,
+    asset1ProtocolFees: 0,
+    asset2ProtocolFees: 0,
+    totalFeeShare: 0,
+    protocolFeeRatio: 0,
+    cumulativePriceUpdateTimestamp: 0,
+    asset1CumulativePrice: Bytes``,
+    asset2CumulativePrice: Bytes``,
+  };
+}
+
+// a uint64 from the Tinyman app's local state, or 0 if the key is missing
+function localUint(account: Account, app: Application, key: bytes): uint64 {
+  const [value, exists] = op.AppLocal.getExUint64(account, app, key);
+  return exists ? value : 0;
+}
+
+// a byte string from the Tinyman app's local state, or empty if the key is missing
+function localBytes(account: Account, app: Application, key: bytes): bytes {
+  const [value, exists] = op.AppLocal.getExBytes(account, app, key);
+  return exists ? value : Bytes``;
 }
 
 function getEmptyTinymanInfo(): TinymanInfo {

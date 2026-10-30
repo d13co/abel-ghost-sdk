@@ -4,3 +4,7 @@ linkWorkspacePackages: true
 onlyBuiltDependencies:
   - '@algorandfoundation/puya-ts'
   - esbuild
+# dtalgorand forks of algosdk and algokit-utils, packed from local builds (see vendor/README.md)
+overrides:
+  algosdk: file:vendor/algosdk-3.8.0-dt.1.tgz
+  '@algorandfoundation/algokit-utils': file:vendor/algorandfoundation-algokit-utils-9.2.3-dt.1.tgz
