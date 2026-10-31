@@ -14,16 +14,22 @@ npm install abel-ghost-sdk
 npm install @algorandfoundation/algokit-utils algosdk
 ```
 
-With stock algosdk and algokit-utils every read works at recent rounds. Past rounds, many rounds per request and change histories need a [dtalgorand](#dtalgorand-nodes) node and its forks of both, which aren't on npm yet: `dtalgosdk` 3.9.0-dt.4.1.0.0 and `@d13co/dt-algokit-utils` 9.2.3-dt.4.1.0.0, whose tarballs are in this repo's [`vendor/`](../../vendor). Copy them into your repo and install them under the stock names, so that exactly one copy of each loads (your code, this SDK and any wallet library must share them):
+With stock algosdk and algokit-utils every read works at recent rounds. Past rounds, many rounds per request and change histories need a [dtalgorand](#dtalgorand-nodes) node and its forks of both from npm, `dt-algosdk` 3.9.0-dt.4.1.0.0 and `@d13co/dt-algokit-utils` 9.2.3-dt.4.1.0.0. Install them under the stock names, pinned exactly, and override them everywhere, so that exactly one copy of each loads (your code, this SDK and any wallet library must share them):
 
-```yaml
-# pnpm: pnpm-workspace.yaml, or "pnpm": { "overrides": { ... } } in package.json
-overrides:
-  algosdk: file:vendor/dtalgosdk-3.9.0-dt.4.1.0.0.tgz
-  '@algorandfoundation/algokit-utils': file:vendor/d13co-dt-algokit-utils-9.2.3-dt.4.1.0.0.tgz
+```json
+{
+  "dependencies": {
+    "@algorandfoundation/algokit-utils": "npm:@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0",
+    "algosdk": "npm:dt-algosdk@3.9.0-dt.4.1.0.0"
+  },
+  "overrides": {
+    "@algorandfoundation/algokit-utils": "npm:@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0",
+    "algosdk": "npm:dt-algosdk@3.9.0-dt.4.1.0.0"
+  }
+}
 ```
 
-With npm, set your `algosdk` and `@algorandfoundation/algokit-utils` dependencies to the tarballs and add `"overrides": { "algosdk": "$algosdk", "@algorandfoundation/algokit-utils": "$@algorandfoundation/algokit-utils" }`. The forks' versions are prereleases, which the stock peer ranges don't accept, so with npm also set `legacy-peer-deps=true` in `.npmrc`.
+With pnpm, put the same two entries under `overrides` in `pnpm-workspace.yaml` (or `pnpm.overrides` in `package.json`); with yarn, under `resolutions`. The forks' versions are prereleases, which `^` ranges don't match, so pin them exactly. Don't use `--legacy-peer-deps` or `--force` for a peer conflict: it means an override is missing, and those flags install a second, stock copy. See [Installing the fork](https://github.com/d13co/dt-algokit-utils-ts#installing-the-fork).
 
 ## Quick start
 
@@ -217,7 +223,7 @@ Each pool can cost 3 resource references (the app itself plus its two assets), w
 
 ## dtalgorand nodes
 
-A dtalgorand node is an algod with extra API features: reads at any past round, `/versions` change histories, and a simulate that takes several groups and several rounds per request, with a multiplier on the resources a group can reference. The SDK uses them through the dtalgorand forks of algosdk and algokit-utils, which this repo vendors under [`vendor/`](../../vendor) and installs through `pnpm-workspace.yaml` overrides. With stock packages, or on a stock node, everything still works the stock way, one group per request at recent rounds; the methods marked **dtalgorand only** need both.
+A dtalgorand node is an algod with extra API features: reads at any past round, `/versions` change histories, and a simulate that takes several groups and several rounds per request, with a multiplier on the resources a group can reference. The SDK uses them through the dtalgorand forks of algosdk and algokit-utils, which this repo installs from npm through `pnpm-workspace.yaml` overrides. With stock packages, or on a stock node, everything still works the stock way, one group per request at recent rounds; the methods marked **dtalgorand only** need both.
 
 A dtalgorand node refuses request bodies over 1 MB, which `GET /v2/capabilities` doesn't report, and ghostkit packs up to 16 full groups per request. The SDK splits each read into requests of at most 2,048 items and well under 1 MB (or `maxItemsPerRequest`), and asks for the node's most extra opcode budget, since a full group of a batch reader needs more than ghostkit's default. On a node with queries on, it asks for no more than a query's per-call budget allows (`maxCallBudget` less 700 per app call of a full group), so that ghostkit queries the read rather than simulating it.
 

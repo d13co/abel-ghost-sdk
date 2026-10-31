@@ -13,9 +13,9 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@algorandfoundation/algokit-utils": "9.2.3-dt.4.1.0.0",
+    "@algorandfoundation/algokit-utils": "npm:@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0",
     "abel-ghost-sdk": "workspace:*",
-    "algosdk": "3.9.0-dt.4.1.0.0"
+    "algosdk": "npm:dt-algosdk@3.9.0-dt.4.1.0.0"
   },
   "devDependencies": {
     "@types/node": "^25.0.3",
