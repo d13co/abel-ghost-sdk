@@ -14,17 +14,17 @@ npm install abel-ghost-sdk
 npm install @algorandfoundation/algokit-utils algosdk
 ```
 
-With stock algosdk and algokit-utils every read works at recent rounds. Past rounds, many rounds per request and change histories need a [dtalgorand](#dtalgorand-nodes) node and its forks of both from npm, `dt-algosdk` 3.9.0-dt.4.1.0.0 and `@d13co/dt-algokit-utils` 9.2.3-dt.4.1.0.0. Install them under the stock names, pinned exactly, and override them everywhere, so that exactly one copy of each loads (your code, this SDK and any wallet library must share them):
+With stock algosdk and algokit-utils every read works at recent rounds. Past rounds, many rounds per request and change histories need a [dtalgorand](#dtalgorand-nodes) node and its dt5 forks of both, `dt-algosdk` 3.9.0-dt.5.2.0.0 and `@d13co/dt-algokit-utils` 9.2.3-dt.5.2.0.0 (not on npm yet: until they are, use the tarballs in this repo's [`vendor/`](../../vendor), through `file:` specs in place of the `npm:` ones below). Install them under the stock names, pinned exactly, and override them everywhere, so that exactly one copy of each loads (your code, this SDK and any wallet library must share them):
 
 ```json
 {
   "dependencies": {
-    "@algorandfoundation/algokit-utils": "npm:@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0",
-    "algosdk": "npm:dt-algosdk@3.9.0-dt.4.1.0.0"
+    "@algorandfoundation/algokit-utils": "npm:@d13co/dt-algokit-utils@9.2.3-dt.5.2.0.0",
+    "algosdk": "npm:dt-algosdk@3.9.0-dt.5.2.0.0"
   },
   "overrides": {
-    "@algorandfoundation/algokit-utils": "npm:@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0",
-    "algosdk": "npm:dt-algosdk@3.9.0-dt.4.1.0.0"
+    "@algorandfoundation/algokit-utils": "npm:@d13co/dt-algokit-utils@9.2.3-dt.5.2.0.0",
+    "algosdk": "npm:dt-algosdk@3.9.0-dt.5.2.0.0"
   }
 }
 ```
@@ -64,7 +64,7 @@ new AbelGhostSDK({
 
 Inputs of any size are split across app calls and groups by ghostkit, sized to the node's limits: on a stock node a group can reference 128 accounts, assets or apps; a dtalgorand node can multiply that (128× on the d13 node), and takes up to 16 groups per request. Ghostkit fills up to 4 KB of app args per app call (127 addresses), which MainNet's current protocol allows. Each read method also takes `{ chunk }` to override how its input is split, e.g. `{ chunk: { arg: "accounts", maxArgBytes: 2048 } }` for a network that still limits an app call to 2 KB of args.
 
-The reader's `getBalanceInfo` and `getAssetsTiny` take four array arguments, since one app arg holds at most 4,096 bytes while an app call can carry 16 KB. `getBalanceInfo` and `getAssetsTinyLabels` (and their `…AtRounds` forms) take `{ packing: { perArg, args, perGroup? } }` to spread the items over them by hand: `{ perArg: 127, args: 4 }` puts 508 addresses in each app call. A read sends at most 2,048 items per request, about one full group at a 128× multiplier, and fewer if their bytes would come near a dtalgorand node's 1 MB limit; larger inputs become concurrent requests, which ran faster on the d13 node than fewer, larger ones. `maxItemsPerRequest` overrides it.
+The reader's `getBalanceInfo` and `getAssetsTiny` take four array arguments, since one app arg holds at most 4,096 bytes while an app call can carry 16 KB. `getBalanceInfo` and `getAssetsTinyLabels` (and their `…AtRounds` forms) take `{ packing: { perArg, args, perGroup? } }` to spread the items over them by hand: `{ perArg: 127, args: 4 }` puts 508 addresses in each app call. A read sends at most 2,048 items per request, and fewer if their bytes would come near a dtalgorand node's 1 MB limit; larger inputs become concurrent requests, which ran faster on the d13 node than fewer, larger ones. `maxItemsPerRequest` overrides it.
 
 ## Past rounds
 
@@ -82,7 +82,7 @@ for (const r of history) {
 }
 ```
 
-A stock node only simulates its last few rounds (usually 4). A dtalgorand node with time travel simulates any round since genesis, and packs up to its `max-rounds` rounds into one request however far apart they are. The reader contract is AVM 11, which MainNet only allows from round ~46.5M: older rounds run under the latest protocol, as if it took effect right after the round. Each round's result carries a `protocolOverride` saying whether that applied, with notes on any data the old round never produced.
+A stock node only simulates its last few rounds (usually 4). A dtalgorand node with time travel reads any round since genesis: a query packs up to its query `maxRounds` rounds into one request however far apart they are, while simulate takes one round per request. The reader contract is AVM 11, which MainNet only allows from round ~46.5M: on queries, older rounds run under the latest protocol, as if it took effect right after the round. Each round's result carries a `protocolOverride` saying whether that applied, with notes on any data the old round never produced.
 
 `getNode()` says what ghostkit found about the node (from `GET /v2/capabilities`, which every dtalgorand node serves and stock algod doesn't), and `getBackend()` which backend the reads use: `query`, `dt` or `stock`.
 
@@ -223,9 +223,9 @@ Each pool can cost 3 resource references (the app itself plus its two assets), w
 
 ## dtalgorand nodes
 
-A dtalgorand node is an algod with extra API features: reads at any past round, `/versions` change histories, and a simulate that takes several groups and several rounds per request, with a multiplier on the resources a group can reference. The SDK uses them through the dtalgorand forks of algosdk and algokit-utils, which this repo installs from npm through `pnpm-workspace.yaml` overrides. With stock packages, or on a stock node, everything still works the stock way, one group per request at recent rounds; the methods marked **dtalgorand only** need both.
+A dtalgorand node is an algod with extra API features: reads at any past round, `/versions` change histories, a simulate that takes several groups per request, and read-only queries (`POST /v2/query`) that take many calls at many rounds per request. The SDK uses them through the dtalgorand forks of algosdk and algokit-utils, which this repo installs from npm through `pnpm-workspace.yaml` overrides. With stock packages, or on a stock node, everything still works the stock way, one group per request at recent rounds; the methods marked **dtalgorand only** need both.
 
-A dtalgorand node refuses request bodies over 1 MB, which `GET /v2/capabilities` doesn't report, and ghostkit packs up to 16 full groups per request. The SDK splits each read into requests of at most 2,048 items and well under 1 MB (or `maxItemsPerRequest`), and asks for the node's most extra opcode budget, since a full group of a batch reader needs more than ghostkit's default. On a node with queries on, it asks for no more than a query's per-call budget allows (`maxCallBudget` less 700 per app call of a full group), so that ghostkit queries the read rather than simulating it.
+A dtalgorand node refuses request bodies over 1 MB, which `GET /v2/capabilities` doesn't report, and ghostkit packs up to the node's `maxTxnGroups` groups per simulate request. The SDK splits each read into requests of at most 2,048 items and well under 1 MB (or `maxItemsPerRequest`), and asks for the node's most extra opcode budget, since a full group of a batch reader needs more than ghostkit's default. On a node with queries on, it asks for no more than a query's per-call budget allows (`maxCallBudget` less 700 per app call of a full group), so that ghostkit queries the read rather than simulating it.
 
 Only the current dtalgorand release is supported: older forks, and dtalgorand nodes from before `GET /v2/capabilities`, read as stock.
 

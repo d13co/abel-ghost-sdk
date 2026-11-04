@@ -2,7 +2,7 @@
 
 Tiny [Ghostkit](https://github.com/d13co/ghostkit) SDK for [Abel](https://github.com/Algorand-Developer-Retreat/abel), allowing [algo.surf](https://algo.surf) to batch look up on-chain data on any network, while also supporting the Abel label registry on Mainnet.
 
-The reader contract lives in [`projects/contracts`](projects/contracts), the published SDK in [`projects/sdk`](projects/sdk), and demos with charts on a dtalgorand node (reads at any past round, change histories, many rounds per simulate) in [`projects/demos`](projects/demos).
+The reader contract lives in [`projects/contracts`](projects/contracts), the published SDK in [`projects/sdk`](projects/sdk), and demos with charts on a dtalgorand node (reads at any past round, change histories, many rounds per query) in [`projects/demos`](projects/demos).
 
 ## What is Ghostkit?
 

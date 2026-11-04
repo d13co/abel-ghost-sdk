@@ -5,8 +5,8 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  algosdk: npm:dt-algosdk@3.9.0-dt.4.1.0.0
-  '@algorandfoundation/algokit-utils': npm:@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0
+  algosdk: file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz
+  '@algorandfoundation/algokit-utils': file:vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz
 
 importers:
 
@@ -16,18 +16,18 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1(tslib@2.8.1)
       ghostkit:
-        specifier: file:../../vendor/ghostkit-0.1.0-dt.5.tgz
-        version: file:vendor/ghostkit-0.1.0-dt.5.tgz
+        specifier: file:../../vendor/ghostkit-0.1.0-dt.7.tgz
+        version: file:vendor/ghostkit-0.1.0-dt.7.tgz
     devDependencies:
       '@algorandfoundation/algokit-client-generator':
         specifier: ^6.0.0
-        version: 6.0.1(@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0(dt-algosdk@3.9.0-dt.4.1.0.0))(dt-algosdk@3.9.0-dt.4.1.0.0)
+        version: 6.0.1(@d13co/dt-algokit-utils@file:vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz(dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz))(dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz)
       '@algorandfoundation/algokit-utils':
-        specifier: npm:@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0
-        version: '@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0(dt-algosdk@3.9.0-dt.4.1.0.0)'
+        specifier: file:../../vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz
+        version: '@d13co/dt-algokit-utils@file:vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz(dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz)'
       '@algorandfoundation/algokit-utils-debug':
         specifier: ^1.0.4
-        version: 1.0.4(@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0(dt-algosdk@3.9.0-dt.4.1.0.0))(dt-algosdk@3.9.0-dt.4.1.0.0)
+        version: 1.0.4(@d13co/dt-algokit-utils@file:vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz(dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz))(dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz)
       '@algorandfoundation/puya-ts':
         specifier: ^1.0.1
         version: 1.0.1
@@ -41,8 +41,8 @@ importers:
         specifier: ^25.0.3
         version: 25.0.3
       algosdk:
-        specifier: npm:dt-algosdk@3.9.0-dt.4.1.0.0
-        version: dt-algosdk@3.9.0-dt.4.1.0.0
+        specifier: file:../../vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz
+        version: dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz
       dotenv:
         specifier: ^16.4.7
         version: 16.6.1
@@ -56,14 +56,14 @@ importers:
   projects/demos:
     dependencies:
       '@algorandfoundation/algokit-utils':
-        specifier: npm:@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0
-        version: '@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0(dt-algosdk@3.9.0-dt.4.1.0.0)'
+        specifier: file:../../vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz
+        version: '@d13co/dt-algokit-utils@file:vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz(dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz)'
       abel-ghost-sdk:
         specifier: workspace:*
         version: link:../sdk
       algosdk:
-        specifier: npm:dt-algosdk@3.9.0-dt.4.1.0.0
-        version: dt-algosdk@3.9.0-dt.4.1.0.0
+        specifier: file:../../vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz
+        version: dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz
     devDependencies:
       '@types/node':
         specifier: ^25.0.3
@@ -78,11 +78,11 @@ importers:
   projects/sdk:
     dependencies:
       '@algorandfoundation/algokit-utils':
-        specifier: npm:@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0
-        version: '@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0(dt-algosdk@3.9.0-dt.4.1.0.0)'
+        specifier: file:../../vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz
+        version: '@d13co/dt-algokit-utils@file:vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz(dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz)'
       algosdk:
-        specifier: npm:dt-algosdk@3.9.0-dt.4.1.0.0
-        version: dt-algosdk@3.9.0-dt.4.1.0.0
+        specifier: file:../../vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz
+        version: dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz
     devDependencies:
       '@types/node':
         specifier: ^25.0.3
@@ -98,6 +98,7 @@ packages:
 
   '@algorandfoundation/algokit-client-generator@6.0.1':
     resolution: {integrity: sha512-9IMblhFK7BX8vC5R9txb9wWwQTW1ThzraBWwzhk4niE0kZMzYIh5ZD+WVUxg+zTtwK66ziQVU1NO/v9Q8pEyzw==}
+    version: 6.0.1
     engines: {node: '>=20.0'}
     hasBin: true
     peerDependencies:
@@ -106,6 +107,7 @@ packages:
 
   '@algorandfoundation/algokit-utils-debug@1.0.4':
     resolution: {integrity: sha512-Sx1M6DTRUcgrOc5Q289G1K3xKf/8JzGXnB6LD7DXEnpnkNLenHForlqHH5vAsN1RY6H2viwYSxEFmKItqY9WDQ==}
+    version: 1.0.4
     engines: {node: '>=18.0'}
     peerDependencies:
       '@algorandfoundation/algokit-utils': ^9.0.0
@@ -128,11 +130,12 @@ packages:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
 
-  '@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0':
-    resolution: {integrity: sha512-KYbqH9IGZeokL13cjv/65Dg8dai4eJGkDf2H+J6n+x76WssGDpya+19VG3BIYLIC+YqstXQZej88BpNJgZmjXg==}
+  '@d13co/dt-algokit-utils@file:vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz':
+    resolution: {integrity: sha512-QZQLUeb3prFIHVVyqkjOMSsZlUT0MFsTcFirtLeHAvPN1nNjGu0TLFZjAclGWY+SUEMyjUt2OsU5+kh/Pjv05w==, tarball: file:vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz}
+    version: 9.2.3-dt.5.2.0.0
     engines: {node: '>=22.0'}
     peerDependencies:
-      algosdk: ^3.5.2 || ^3.9.0-dt.4.1.0.0
+      algosdk: ^3.5.2 || ^3.9.0-dt.5.2.0.0
 
   '@esbuild/aix-ppc64@0.27.2':
     resolution: {integrity: sha512-GZMB+a0mOMZs4MpDbj8RJp4cw+w1WV5NYD6xzgvzUJ5Ek2jerwfO2eADyI6ExDSUED+1X8aMbegahsJi+8mgpw==}
@@ -477,8 +480,9 @@ packages:
     resolution: {integrity: sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==}
     engines: {node: '>=12'}
 
-  dt-algosdk@3.9.0-dt.4.1.0.0:
-    resolution: {integrity: sha512-E1DY99dKin93/APXnwWI8zqJAsEQolgp6Ql9s5dttUZ7tL2WGX7BGoo1IDoXjAR/EvXdAmujZqxgdIPGSyh54w==}
+  dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz:
+    resolution: {integrity: sha512-35Ot4TC6cmY4geLSSjnx+XxGAl7L4WhM4uR/bLAiqAFXhTskYkcMxnxk2CqKHZfCbb+pE/UfW3WjaBMLKxcNyA==, tarball: file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz}
+    version: 3.9.0-dt.5.2.0.0
     engines: {node: '>=22.0'}
 
   dynamic-dedupe@0.3.0:
@@ -523,9 +527,9 @@ packages:
   get-tsconfig@4.13.0:
     resolution: {integrity: sha512-1VKTZJCwBrvbd+Wn3AOgQP/2Av+TfTCOlE4AcRJE72W1ksZXbAx8PPBR9RzgTeSPzlPMHrbANMH3LbltH73wxQ==}
 
-  ghostkit@file:vendor/ghostkit-0.1.0-dt.5.tgz:
-    resolution: {integrity: sha512-Dz1cm1GLaUV6L5pjz4hiM6gWXonZmLcoPuKPu20A5vzpGFnNdjGuXT+SDdHwERYyYVEVF8LzPEcUzXUJOj+dig==, tarball: file:vendor/ghostkit-0.1.0-dt.5.tgz}
-    version: 0.1.0-dt.5
+  ghostkit@file:vendor/ghostkit-0.1.0-dt.7.tgz:
+    resolution: {integrity: sha512-h+9z19817Z/Vak5x96HFZkI0L5AXqLcpzXXY7BbNeRGujx9Z/8nVLtAQu/4cKGLHcAirgBqfTMDsfTIyUho1jQ==, tarball: file:vendor/ghostkit-0.1.0-dt.7.tgz}
+    version: 0.1.0-dt.7
     hasBin: true
 
   glob-parent@5.1.2:
@@ -847,19 +851,19 @@ packages:
 
 snapshots:
 
-  '@algorandfoundation/algokit-client-generator@6.0.1(@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0(dt-algosdk@3.9.0-dt.4.1.0.0))(dt-algosdk@3.9.0-dt.4.1.0.0)':
+  '@algorandfoundation/algokit-client-generator@6.0.1(@d13co/dt-algokit-utils@file:vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz(dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz))(dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz)':
     dependencies:
-      '@algorandfoundation/algokit-utils': '@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0(dt-algosdk@3.9.0-dt.4.1.0.0)'
-      algosdk: dt-algosdk@3.9.0-dt.4.1.0.0
+      '@algorandfoundation/algokit-utils': '@d13co/dt-algokit-utils@file:vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz(dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz)'
+      algosdk: dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz
       chalk: 5.6.2
       change-case: 5.4.4
       commander: 14.0.2
       jsonschema: 1.5.0
 
-  '@algorandfoundation/algokit-utils-debug@1.0.4(@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0(dt-algosdk@3.9.0-dt.4.1.0.0))(dt-algosdk@3.9.0-dt.4.1.0.0)':
+  '@algorandfoundation/algokit-utils-debug@1.0.4(@d13co/dt-algokit-utils@file:vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz(dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz))(dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz)':
     dependencies:
-      '@algorandfoundation/algokit-utils': '@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0(dt-algosdk@3.9.0-dt.4.1.0.0)'
-      algosdk: dt-algosdk@3.9.0-dt.4.1.0.0
+      '@algorandfoundation/algokit-utils': '@d13co/dt-algokit-utils@file:vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz(dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz)'
+      algosdk: dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz
       buffer: 6.0.3
 
   '@algorandfoundation/algorand-typescript@1.0.1(tslib@2.8.1)':
@@ -889,9 +893,9 @@ snapshots:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  '@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0(dt-algosdk@3.9.0-dt.4.1.0.0)':
+  '@d13co/dt-algokit-utils@file:vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz(dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz)':
     dependencies:
-      algosdk: dt-algosdk@3.9.0-dt.4.1.0.0
+      algosdk: dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz
       buffer: 6.0.3
 
   '@esbuild/aix-ppc64@0.27.2':
@@ -1127,7 +1131,7 @@ snapshots:
 
   dotenv@16.6.1: {}
 
-  dt-algosdk@3.9.0-dt.4.1.0.0:
+  dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz:
     dependencies:
       algorand-msgpack: 1.1.0
       hi-base32: 0.5.1
@@ -1199,10 +1203,11 @@ snapshots:
     dependencies:
       resolve-pkg-maps: 1.0.0
 
-  ghostkit@file:vendor/ghostkit-0.1.0-dt.5.tgz:
+  ghostkit@file:vendor/ghostkit-0.1.0-dt.7.tgz:
     dependencies:
-      '@algorandfoundation/algokit-utils': '@d13co/dt-algokit-utils@9.2.3-dt.4.1.0.0(dt-algosdk@3.9.0-dt.4.1.0.0)'
-      algosdk: dt-algosdk@3.9.0-dt.4.1.0.0
+      '@algorandfoundation/algokit-client-generator': 6.0.1(@d13co/dt-algokit-utils@file:vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz(dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz))(dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz)
+      '@algorandfoundation/algokit-utils': '@d13co/dt-algokit-utils@file:vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz(dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz)'
+      algosdk: dt-algosdk@file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz
       change-case: 5.4.4
 
   glob-parent@5.1.2:
