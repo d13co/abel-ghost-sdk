@@ -14,7 +14,7 @@ npm install abel-ghost-sdk
 npm install @algorandfoundation/algokit-utils algosdk
 ```
 
-With stock algosdk and algokit-utils every read works at recent rounds. Past rounds, many rounds per request and change histories need a [dtalgorand](#dtalgorand-nodes) node and its dt5 forks of both, `dt-algosdk` 3.9.0-dt.5.2.0.0 and `@d13co/dt-algokit-utils` 9.2.3-dt.5.2.0.0 (dt-algokit-utils isn't on npm yet: until it is, use the tarball in this repo's [`vendor/`](../../vendor), through a `file:` spec in place of the `npm:` one below). Install them under the stock names, pinned exactly, and override them everywhere, so that exactly one copy of each loads (your code, this SDK and any wallet library must share them):
+With stock algosdk and algokit-utils every read works at recent rounds. Past rounds, many rounds per request and change histories need a [dtalgorand](#dtalgorand-nodes) node and its dt5 forks of both from npm, `dt-algosdk` 3.9.0-dt.5.2.0.0 and `@d13co/dt-algokit-utils` 9.2.3-dt.5.2.0.0. Install them under the stock names, pinned exactly, and override them everywhere, so that exactly one copy of each loads (your code, this SDK and any wallet library must share them):
 
 ```json
 {

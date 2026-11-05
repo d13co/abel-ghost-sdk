@@ -13,7 +13,7 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@algorandfoundation/algokit-utils": "file:../../vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz",
+    "@algorandfoundation/algokit-utils": "npm:@d13co/dt-algokit-utils@9.2.3-dt.5.2.0.0",
     "abel-ghost-sdk": "workspace:*",
     "algosdk": "npm:dt-algosdk@3.9.0-dt.5.2.0.0"
   },
