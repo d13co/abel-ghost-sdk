@@ -4,7 +4,7 @@ linkWorkspacePackages: true
 onlyBuiltDependencies:
   - '@algorandfoundation/puya-ts'
   - esbuild
-# dtalgorand dt5 forks of algosdk and algokit-utils, vendored until published (see vendor/README.md): one copy of each everywhere
+# dtalgorand dt5 forks of algosdk (from npm, pinned exactly) and algokit-utils (vendored until published, see vendor/README.md): one copy of each everywhere
 overrides:
-  algosdk: file:vendor/dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz
+  algosdk: npm:dt-algosdk@3.9.0-dt.5.2.0.0
   '@algorandfoundation/algokit-utils': file:vendor/d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz

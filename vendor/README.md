@@ -1,8 +1,7 @@
 # vendor
 
-The dtalgorand dt5 builds this repo uses until they are published: ghostkit, and the forks of algosdk and algokit-utils, which `pnpm-workspace.yaml` overrides `algosdk` and `@algorandfoundation/algokit-utils` with, so the workspace loads a single copy of each.
+The dtalgorand dt5 builds this repo uses until they are published: ghostkit, and the fork of algokit-utils. `pnpm-workspace.yaml` overrides `@algorandfoundation/algokit-utils` with it, and `algosdk` with dt-algosdk 3.9.0-dt.5.2.0.0 from npm (release v3.9.0-dt.5.2.0.0, `2a8612d`), so the workspace loads a single copy of each.
 
-- `dt-algosdk-3.9.0-dt.5.2.0.0-4892b5e7.tgz`: dt-algosdk, js-algorand-sdk `05457f0`.
 - `d13co-dt-algokit-utils-9.2.3-dt.5.2.0.0-5d34a1ef.tgz`: dt-algokit-utils, algokit-utils-ts `d06d1de7`.
 - `ghostkit-0.1.0-dt.7.tgz`: ghostkit, dt-stack `54043ac`, which `projects/contracts` runs to generate `AbelReaderSDK.ts`. It detects a dtalgorand node from `GET /v2/capabilities`. Build time only: the generated client inlines its runtime and imports only algosdk and algokit-utils.
 
