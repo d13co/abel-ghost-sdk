@@ -16,8 +16,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1(tslib@2.8.1)
       ghostkit:
-        specifier: file:../../vendor/ghostkit-0.1.0-dt.7-2d3dcf59.tgz
-        version: file:vendor/ghostkit-0.1.0-dt.7-2d3dcf59.tgz
+        specifier: 0.1.0-dt.8
+        version: 0.1.0-dt.8
     devDependencies:
       '@algorandfoundation/algokit-client-generator':
         specifier: ^6.0.0
@@ -523,9 +523,8 @@ packages:
   get-tsconfig@4.13.0:
     resolution: {integrity: sha512-1VKTZJCwBrvbd+Wn3AOgQP/2Av+TfTCOlE4AcRJE72W1ksZXbAx8PPBR9RzgTeSPzlPMHrbANMH3LbltH73wxQ==}
 
-  ghostkit@file:vendor/ghostkit-0.1.0-dt.7-2d3dcf59.tgz:
-    resolution: {integrity: sha512-CqdJt9QvlSoZ913eJGtNE68nPze98uKPFpme6jCYeH6Wyr4GyLzy442bK8dSPmmUcohLu184MeGtDCt4MnoTuA==, tarball: file:vendor/ghostkit-0.1.0-dt.7-2d3dcf59.tgz}
-    version: 0.1.0-dt.7
+  ghostkit@0.1.0-dt.8:
+    resolution: {integrity: sha512-t8k8+tLhGWiJ9+3AHLelvzblL3FeX+0wAn+bgWglsyxW2YL9rPqlh2kR+AZyPrdm/jb+a3KcjIWfc2l+68zKiA==}
     hasBin: true
 
   glob-parent@5.1.2:
@@ -1199,7 +1198,7 @@ snapshots:
     dependencies:
       resolve-pkg-maps: 1.0.0
 
-  ghostkit@file:vendor/ghostkit-0.1.0-dt.7-2d3dcf59.tgz:
+  ghostkit@0.1.0-dt.8:
     dependencies:
       '@algorandfoundation/algokit-client-generator': 6.0.1(@d13co/dt-algokit-utils@9.2.3-dt.5.2.0.0(dt-algosdk@3.9.0-dt.5.2.0.0))(dt-algosdk@3.9.0-dt.5.2.0.0)
       '@algorandfoundation/algokit-utils': '@d13co/dt-algokit-utils@9.2.3-dt.5.2.0.0(dt-algosdk@3.9.0-dt.5.2.0.0)'

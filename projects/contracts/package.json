@@ -5,7 +5,7 @@
   "main": "smart_contracts/index.ts",
   "scripts": {
     "generate:client": "algokit generate client smart_contracts/artifacts/abel_reader/AbelReader.arc56.json --language typescript --output smart_contracts/artifacts/abel_reader/AbelReaderClient.ts",
-    "build": "algokit compile ts smart_contracts --output-source-map --out-dir artifacts && npx ghostkit build smart_contracts/artifacts/abel_reader/AbelReader.arc56.json",
+    "build": "algokit compile ts smart_contracts --output-source-map --out-dir artifacts && pnpm exec ghostkit build smart_contracts/artifacts/abel_reader/AbelReader.arc56.json",
     "deploy": "ts-node-dev --transpile-only --watch .env -r dotenv/config smart_contracts/index.ts",
     "deploy:ci": "npm run generate:client && ts-node --transpile-only -r dotenv/config smart_contracts/index.ts",
     "check-types": "tsc --noEmit"
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@algorandfoundation/algorand-typescript": "^1.0.1",
-    "ghostkit": "file:../../vendor/ghostkit-0.1.0-dt.7-2d3dcf59.tgz"
+    "ghostkit": "0.1.0-dt.8"
   },
   "devDependencies": {
     "@algorandfoundation/algokit-client-generator": "^6.0.0",
