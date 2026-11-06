@@ -9,15 +9,19 @@
   "bugs": {
     "url": "https://github.com/d13co/abel-ghost-sdk/issues"
   },
-  "homepage": "https://github.com/d13co/abel-ghost-sdk/tree/main/projects/sdk#readme",
+  "homepage": "https://github.com/d13co/abel-ghost-sdk/tree/dtalgorand/projects/sdk#readme",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist/"
   ],
+  "publishConfig": {
+    "tag": "beta"
+  },
   "scripts": {
     "prebuild": "cp ../contracts/smart_contracts/artifacts/abel_reader/AbelReaderSDK.ts src/generated",
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "node scripts/check-publish-tag.mjs && pnpm run build"
   },
   "keywords": [],
   "author": "",

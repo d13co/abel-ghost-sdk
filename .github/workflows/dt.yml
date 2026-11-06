@@ -1,0 +1,172 @@
+name: dt
+
+# CI for the dtalgorand branch, and the npm release of its beta line: pushing a v<version> tag (v0.1.0-dt.3) on
+# dtalgorand tests, packs and publishes abel-ghost-sdk under the `beta` dist-tag. `latest` stays the stable SDK from
+# main. See "Releasing a beta" in README.md.
+on:
+  push:
+    branches: [dtalgorand]
+    tags: ['v*-dt.*']
+  pull_request:
+    branches: [dtalgorand]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dt-${{ github.ref }}
+  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/tags/') }}
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          fetch-depth: 0
+
+      - name: Check the tag is on dtalgorand
+        if: github.ref_type == 'tag'
+        run: |
+          git fetch --quiet origin dtalgorand
+          git merge-base --is-ancestor "$GITHUB_SHA" FETCH_HEAD || {
+            echo "::error::$GITHUB_REF_NAME is not on dtalgorand"
+            exit 1
+          }
+
+      # Needs no install, so a mistagged release fails before the build
+      - name: Check the version, the dist-tag, the fork versions and the tag
+        env:
+          TAG: ${{ github.ref_type == 'tag' && github.ref_name || '' }}
+        run: node scripts/ci/dt-release.mjs check "$TAG"
+
+      - name: Use pnpm
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+        with:
+          package_json_file: projects/sdk/package.json
+
+      - name: Use Node.js 24.x
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        with:
+          node-version: 24.x
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # puya-ts and ghostkit, without the AlgoKit CLI: the same output as `algokit project run build`. The contract
+      # artifacts and both copies of AbelReaderSDK.ts are committed, so they must be what the source builds.
+      - name: Build, and check the committed artifacts match
+        run: |
+          pnpm --filter smart_contracts build
+          pnpm --filter abel-ghost-sdk build
+          if [ -n "$(git status --porcelain)" ]; then
+            git status --short
+            echo "::error::the committed artifacts differ from what the source builds: run algokit project run build and commit"
+            exit 1
+          fi
+
+      # The demos need a dtalgorand node, so only their types are checked here; run them yourself before a release
+      - name: Check types
+        run: pnpm --filter smart_contracts --filter abel-dt-demos run check-types
+
+      - name: Pack
+        if: github.ref_type == 'tag'
+        working-directory: projects/sdk
+        run: pnpm pack --pack-destination "$GITHUB_WORKSPACE"
+
+      - name: Upload package
+        if: github.ref_type == 'tag'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: package
+          path: abel-ghost-sdk-*.tgz
+          if-no-files-found: error
+
+  publish:
+    name: Publish to npm
+    needs: test
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    # One publish at a time across tags, so the last tag pushed is the one `beta` ends on
+    concurrency:
+      group: npm-publish
+      cancel-in-progress: false
+    # The trusted publisher on npmjs.com names this environment. Add required reviewers to it on GitHub to approve
+    # each release by hand.
+    environment:
+      name: npm
+      url: https://www.npmjs.com/package/abel-ghost-sdk/v/${{ steps.version.outputs.version }}
+    permissions:
+      contents: write # GitHub release
+      id-token: write # npm trusted publishing
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js 24.x
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        with:
+          node-version: 24.x
+          registry-url: https://registry.npmjs.org
+
+      # Trusted publishing (OIDC) needs npm 11.5.1 or later
+      - name: Check npm version
+        run: |
+          node -e '
+            const [a, b, c] = process.argv[1].split(".").map(Number);
+            if (a > 11 || (a === 11 && (b > 5 || (b === 5 && c >= 1)))) process.exit(0);
+            console.error("::error::npm " + process.argv[1] + " is older than 11.5.1, which trusted publishing needs");
+            process.exit(1);
+          ' "$(npm -v)"
+
+      - name: Read version
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Download package
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          name: package
+          path: package
+
+      # Authenticates with npm trusted publishing (OIDC), which also adds provenance; there is no token. Under `beta`,
+      # never `latest`, which is the stable SDK from main. A version already on npm is not published again, and the
+      # GitHub release gets npm's tarball in place of the rebuilt one.
+      - name: Publish
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          if npm view "abel-ghost-sdk@$VERSION" version >/dev/null 2>&1; then
+            echo "::notice::abel-ghost-sdk@$VERSION is already on npm, not publishing it again"
+            npm pack "abel-ghost-sdk@$VERSION" --pack-destination package
+          else
+            # ./ makes npm read a file: without it, package/<file> is a GitHub shorthand
+            npm publish "./package/abel-ghost-sdk-$VERSION.tgz" --tag beta
+          fi
+
+      - name: Create GitHub release
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            echo "::notice::The $GITHUB_REF_NAME release already exists"
+            exit 0
+          fi
+          {
+            echo "npm: [abel-ghost-sdk@$VERSION](https://www.npmjs.com/package/abel-ghost-sdk/v/$VERSION), dist-tag \`beta\`. Install it with the dtalgorand forks as described in the [SDK README](https://github.com/$GITHUB_REPOSITORY/blob/$GITHUB_REF_NAME/projects/sdk/README.md#install)."
+            prev=$(git describe --tags --abbrev=0 --match 'v*-dt.*' "$GITHUB_REF_NAME^" 2>/dev/null || true)
+            if [ -n "$prev" ]; then
+              echo
+              echo "## Changes since $prev"
+              echo
+              git log --first-parent --format='- %s (%h)' "$prev..$GITHUB_REF_NAME"
+            fi
+          } > notes.md
+          gh release create "$GITHUB_REF_NAME" "package/abel-ghost-sdk-$VERSION.tgz" \
+            --verify-tag --prerelease --latest=false --title "abel-ghost-sdk $VERSION" --notes-file notes.md

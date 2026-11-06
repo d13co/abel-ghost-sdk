@@ -8,11 +8,15 @@ For background on _how_ the ghost (simulate-based, deployment-free) calls work, 
 
 ## Install
 
+This is the dt line, released to npm under the `beta` dist-tag (the stable SDK is `latest`, 0.0.x, from `main`):
+
 ```bash
-npm install abel-ghost-sdk
+npm install abel-ghost-sdk@beta
 # peer deps
 npm install @algorandfoundation/algokit-utils algosdk
 ```
+
+Versions are `0.1.0-dt.N`; pin one exactly to stay on it.
 
 With stock algosdk and algokit-utils every read works at recent rounds. Past rounds, many rounds per request and change histories need a [dtalgorand](#dtalgorand-nodes) node and its dt5 forks of both from npm, `dt-algosdk` 3.9.0-dt.5.2.0.0 and `@d13co/dt-algokit-utils` 9.2.3-dt.5.2.0.0. Install them under the stock names, pinned exactly, and override them everywhere, so that exactly one copy of each loads (your code, this SDK and any wallet library must share them):
 

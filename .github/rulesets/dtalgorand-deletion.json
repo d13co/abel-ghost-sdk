@@ -1,0 +1,8 @@
+{
+  "name": "dtalgorand deletion",
+  "target": "branch",
+  "enforcement": "active",
+  "conditions": { "ref_name": { "include": ["refs/heads/dtalgorand"], "exclude": [] } },
+  "bypass_actors": [],
+  "rules": [{ "type": "deletion" }]
+}
