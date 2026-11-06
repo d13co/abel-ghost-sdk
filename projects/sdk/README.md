@@ -47,7 +47,7 @@ const sdk = new AbelGhostSDK({ algorand })
 // Batch look up asset metadata (one simulate round-trip)
 const assets = await sdk.getAssetsTinyLabels([31566704n])
 console.log(assets.get(31566704n))
-// { id: 31566704n, name: 'USDC', unitName: 'USDC', decimals: 6, labels: [...] }
+// { id: 31566704n, exists: true, name: 'USDC', unitName: 'USDC', decimals: 6, labels: [...] }
 ```
 
 ## Constructor
@@ -119,7 +119,7 @@ authAddrs.get("AAEXOSW7JKN4IYPMUSKKIIJXIK2RRXMBWVZTN2RH5DDH4HZSQETPYBHCJQ")
 
 ### `getAssetsTinyLabels(assetIds: (number | bigint)[]): Promise<Map<bigint, AssetTinyLabels>>`
 
-Lightweight metadata for many assets in one go. `AssetTinyLabels` is `{ id: bigint, name: string, unitName: string, decimals: number, labels: string[] }`. The `labels` array is populated from the Abel registry when `registryAppId` is set. The `"pv"` label means **Pera Verified**.
+Lightweight metadata for many assets in one go. `AssetTinyLabels` is `{ id: bigint, exists: boolean, name: string, unitName: string, decimals: number, labels: string[] }`. `exists` is false when no asset has the id at the round read: it was destroyed, or not created yet. The other fields are then empty, which a live asset's can also be, so `exists` is how to tell; a destroyed asset's params can still be read at a round before it was destroyed (dtalgorand node). The `labels` array is populated from the Abel registry when `registryAppId` is set, and empty where the registry doesn't exist (e.g. a read at a round before it was created). The `"pv"` label means **Pera Verified**.
 
 ```ts
 const sdk = new AbelGhostSDK({ algorand, registryAppId: 2914159523 })

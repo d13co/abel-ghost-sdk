@@ -5,20 +5,20 @@
 main:
     intcblock 0 1 32 8 TMPL_UPDATABLE
     bytecblock "" 0x000000000000000000001d0000000000000000001f000000000000000000000000 0x151f7c75 0x00 "asset_1_id" "asset_2_id" 0x001d
-    // smart_contracts/abel_reader/contract.algo.ts:89
+    // smart_contracts/abel_reader/contract.algo.ts:92
     // export class AbelReader extends Contract {
     txn NumAppArgs
     bz main_adminOnly@17
     txn OnCompletion
     !
     assert // OnCompletion must be NoOp
-    pushbytess 0xe97ac3a9 0xae2958e9 0xc2ed743f 0xa70e62a0 0xb231a851 0xc2f8d617 0xe0df1302 0x742b0bba 0x12b31862 0x9428d790 // method "getBalanceInfo(address[],address[],address[],address[])(uint64,uint64)", method "getAssetsTiny(uint64[],uint64,uint64[],uint64[],uint64[])(string,string,uint8,string[])", method "get_asset_labels(asset)string[]", method "getBlockTimesAndTc(uint64,uint64)(uint32,uint64)", method "getRecentBlockTimesAndTc(uint64)(uint32,uint64)", method "getAuthAddrs(address[])address", method "getAssetHoldings(uint64,address[])(bool,bool,uint64)", method "getTinymanInfo(uint64,address[])(bool,uint64,string,uint64,string)", method "getTinymanPoolStates(uint64,address[])(bool,bool,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,byte[],byte[])", method "getPactInfo(address,address,address,uint64[])(uint8,uint64,string,uint64,string,uint64)"
+    pushbytess 0xe97ac3a9 0x3ee100c5 0xc2ed743f 0xa70e62a0 0xb231a851 0xc2f8d617 0xe0df1302 0x742b0bba 0x12b31862 0x9428d790 // method "getBalanceInfo(address[],address[],address[],address[])(uint64,uint64)", method "getAssetsTiny(uint64[],uint64,uint64[],uint64[],uint64[])(bool,string,string,uint8,string[])", method "get_asset_labels(asset)string[]", method "getBlockTimesAndTc(uint64,uint64)(uint32,uint64)", method "getRecentBlockTimesAndTc(uint64)(uint32,uint64)", method "getAuthAddrs(address[])address", method "getAssetHoldings(uint64,address[])(bool,bool,uint64)", method "getTinymanInfo(uint64,address[])(bool,uint64,string,uint64,string)", method "getTinymanPoolStates(uint64,address[])(bool,bool,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64,byte[],byte[])", method "getPactInfo(address,address,address,uint64[])(uint8,uint64,string,uint64,string,uint64)"
     txna ApplicationArgs 0
     match getBalanceInfo getAssetsTiny getAssetLabels getBlockTimesAndTc getRecentBlockTimesAndTc getAuthAddrs getAssetHoldings getTinymanInfo getTinymanPoolStates getPactInfo
     err
 
 main_adminOnly@17:
-    // smart_contracts/abel_reader/contract.algo.ts:90
+    // smart_contracts/abel_reader/contract.algo.ts:93
     // @baremethod({ allowActions: ["UpdateApplication", "DeleteApplication"] })
     intc_1 // 1
     txn OnCompletion
@@ -28,7 +28,7 @@ main_adminOnly@17:
     txn ApplicationID
     &&
     assert // OnCompletion must be one of UpdateApplication, DeleteApplication && can only call when not creating
-    // smart_contracts/abel_reader/contract.algo.ts:92
+    // smart_contracts/abel_reader/contract.algo.ts:95
     // assert(TemplateVar<uint64>("UPDATABLE") === 1 && Txn.sender === Global.creatorAddress);
     intc 4 // TMPL_UPDATABLE
     intc_1 // 1
@@ -39,24 +39,24 @@ main_adminOnly@17:
     ==
     bz main_bool_false@21
     intc_1 // 1
-    // smart_contracts/abel_reader/contract.algo.ts:90
+    // smart_contracts/abel_reader/contract.algo.ts:93
     // @baremethod({ allowActions: ["UpdateApplication", "DeleteApplication"] })
     return
 
 main_bool_false@21:
     intc_0 // 0
-    // smart_contracts/abel_reader/contract.algo.ts:90
+    // smart_contracts/abel_reader/contract.algo.ts:93
     // @baremethod({ allowActions: ["UpdateApplication", "DeleteApplication"] })
     return
 
 
 // smart_contracts/abel_reader/contract.algo.ts::getAssetUnitName(assetId: uint64) -> bytes:
 getAssetUnitName:
-    // smart_contracts/abel_reader/contract.algo.ts:477
+    // smart_contracts/abel_reader/contract.algo.ts:485
     // function getAssetUnitName(assetId: uint64): string {
     proto 1 1
     intc_0 // 0
-    // smart_contracts/abel_reader/contract.algo.ts:479
+    // smart_contracts/abel_reader/contract.algo.ts:487
     // if (assetId === 0) return "ALGO";
     frame_dig -1
     bnz getAssetUnitName_after_if_else@2
@@ -65,25 +65,25 @@ getAssetUnitName:
     retsub
 
 getAssetUnitName_after_if_else@2:
-    // smart_contracts/abel_reader/contract.algo.ts:482
+    // smart_contracts/abel_reader/contract.algo.ts:490
     // const [unitName, exists] = op.AssetParams.assetUnitName(assetId);
     frame_dig -1
     asset_params_get AssetUnitName
     swap
     frame_bury 0
-    // smart_contracts/abel_reader/contract.algo.ts:483
+    // smart_contracts/abel_reader/contract.algo.ts:491
     // return exists ? unitName.toString() : "";
     bz getAssetUnitName_ternary_false@4
     frame_dig 0
 
 getAssetUnitName_ternary_merge@5:
-    // smart_contracts/abel_reader/contract.algo.ts:483
+    // smart_contracts/abel_reader/contract.algo.ts:491
     // return exists ? unitName.toString() : "";
     swap
     retsub
 
 getAssetUnitName_ternary_false@4:
-    // smart_contracts/abel_reader/contract.algo.ts:483
+    // smart_contracts/abel_reader/contract.algo.ts:491
     // return exists ? unitName.toString() : "";
     bytec_0 // ""
     b getAssetUnitName_ternary_merge@5
@@ -91,7 +91,7 @@ getAssetUnitName_ternary_false@4:
 
 // smart_contracts/abel_reader/contract.algo.ts::AbelReader.getBalanceInfo[routing]() -> void:
 getBalanceInfo:
-    // smart_contracts/abel_reader/contract.algo.ts:100
+    // smart_contracts/abel_reader/contract.algo.ts:103
     // @abimethod({ readonly: true, onCreate: "allow" })
     txna ApplicationArgs 1
     dup
@@ -141,26 +141,26 @@ getBalanceInfo:
     len
     ==
     assert // invalid number of bytes for arc4.dynamic_array<account>
-    // smart_contracts/abel_reader/contract.algo.ts:102
+    // smart_contracts/abel_reader/contract.algo.ts:105
     // this.logBalanceInfos(accounts);
     uncover 3
     callsub logBalanceInfos
     pop
-    // smart_contracts/abel_reader/contract.algo.ts:103
+    // smart_contracts/abel_reader/contract.algo.ts:106
     // this.logBalanceInfos(accounts2);
     uncover 2
     callsub logBalanceInfos
     pop
-    // smart_contracts/abel_reader/contract.algo.ts:104
+    // smart_contracts/abel_reader/contract.algo.ts:107
     // this.logBalanceInfos(accounts3);
     swap
     callsub logBalanceInfos
     pop
-    // smart_contracts/abel_reader/contract.algo.ts:105
+    // smart_contracts/abel_reader/contract.algo.ts:108
     // this.logBalanceInfos(accounts4);
     callsub logBalanceInfos
     pop
-    // smart_contracts/abel_reader/contract.algo.ts:100
+    // smart_contracts/abel_reader/contract.algo.ts:103
     // @abimethod({ readonly: true, onCreate: "allow" })
     pushbytes 0x151f7c7500000000000000000000000000000000
     log
@@ -170,17 +170,17 @@ getBalanceInfo:
 
 // smart_contracts/abel_reader/contract.algo.ts::AbelReader.getAssetsTiny[routing]() -> void:
 getAssetsTiny:
-    // smart_contracts/abel_reader/contract.algo.ts:134
+    // smart_contracts/abel_reader/contract.algo.ts:138
     // @abimethod({ readonly: true, onCreate: "allow" })
     txna ApplicationArgs 1
-    dup
+    dupn 2
     intc_0 // 0
     extract_uint16 // on error: invalid array length header
     intc_3 // 8
     *
     pushint 2 // 2
     +
-    dig 1
+    swap
     len
     ==
     assert // invalid number of bytes for arc4.dynamic_array<asset>
@@ -191,7 +191,10 @@ getAssetsTiny:
     ==
     assert // invalid number of bytes for arc4.uint64
     btoi
+    dup
     txna ApplicationArgs 3
+    dup
+    cover 2
     dup
     intc_0 // 0
     extract_uint16 // on error: invalid array length header
@@ -199,23 +202,13 @@ getAssetsTiny:
     *
     pushint 2 // 2
     +
-    dig 1
+    swap
     len
     ==
     assert // invalid number of bytes for arc4.dynamic_array<asset>
     txna ApplicationArgs 4
     dup
-    intc_0 // 0
-    extract_uint16 // on error: invalid array length header
-    intc_3 // 8
-    *
-    pushint 2 // 2
-    +
-    dig 1
-    len
-    ==
-    assert // invalid number of bytes for arc4.dynamic_array<asset>
-    txna ApplicationArgs 5
+    cover 2
     dup
     intc_0 // 0
     extract_uint16 // on error: invalid array length header
@@ -223,44 +216,79 @@ getAssetsTiny:
     *
     pushint 2 // 2
     +
-    dig 1
+    swap
     len
     ==
     assert // invalid number of bytes for arc4.dynamic_array<asset>
-    // smart_contracts/abel_reader/contract.algo.ts:136
-    // this.logAssetsTiny(assetIds, abelAppId);
-    uncover 4
-    dig 4
+    txna ApplicationArgs 5
+    dup
+    cover 2
+    dup
+    intc_0 // 0
+    extract_uint16 // on error: invalid array length header
+    intc_3 // 8
+    *
+    pushint 2 // 2
+    +
+    swap
+    len
+    ==
+    assert // invalid number of bytes for arc4.dynamic_array<asset>
+    // smart_contracts/abel_reader/contract.algo.ts:141
+    // const registryAppId: uint64 = abelAppId !== 0 && op.AppParams.appCreator(abelAppId)[1] ? abelAppId : 0;
+    bz getAssetsTiny_bool_false@4
+    dig 3
+    app_params_get AppCreator
+    bury 1
+    bz getAssetsTiny_bool_false@4
+    intc_1 // 1
+
+getAssetsTiny_bool_merge@5:
+    // smart_contracts/abel_reader/contract.algo.ts:141
+    // const registryAppId: uint64 = abelAppId !== 0 && op.AppParams.appCreator(abelAppId)[1] ? abelAppId : 0;
+    intc_0 // 0
+    dig 5
+    uncover 2
+    select
+    // smart_contracts/abel_reader/contract.algo.ts:142
+    // this.logAssetsTiny(assetIds, registryAppId);
+    dig 5
+    dig 1
     callsub logAssetsTiny
     pop
-    // smart_contracts/abel_reader/contract.algo.ts:137
-    // this.logAssetsTiny(assetIds2, abelAppId);
-    uncover 2
+    // smart_contracts/abel_reader/contract.algo.ts:143
+    // this.logAssetsTiny(assetIds2, registryAppId);
     dig 3
+    dig 1
+    callsub logAssetsTiny
+    pop
+    // smart_contracts/abel_reader/contract.algo.ts:144
+    // this.logAssetsTiny(assetIds3, registryAppId);
+    dig 2
+    dig 1
+    callsub logAssetsTiny
+    pop
+    // smart_contracts/abel_reader/contract.algo.ts:145
+    // this.logAssetsTiny(assetIds4, registryAppId);
+    dig 1
+    swap
     callsub logAssetsTiny
     pop
     // smart_contracts/abel_reader/contract.algo.ts:138
-    // this.logAssetsTiny(assetIds3, abelAppId);
-    swap
-    dig 2
-    callsub logAssetsTiny
-    pop
-    // smart_contracts/abel_reader/contract.algo.ts:139
-    // this.logAssetsTiny(assetIds4, abelAppId);
-    swap
-    callsub logAssetsTiny
-    pop
-    // smart_contracts/abel_reader/contract.algo.ts:134
     // @abimethod({ readonly: true, onCreate: "allow" })
-    pushbytes 0x151f7c750007000900000b000000000000
+    pushbytes 0x151f7c75000008000a00000c000000000000
     log
     intc_1 // 1
     return
 
+getAssetsTiny_bool_false@4:
+    intc_0 // 0
+    b getAssetsTiny_bool_merge@5
+
 
 // smart_contracts/abel_reader/contract.algo.ts::AbelReader.getAssetLabels[routing]() -> void:
 getAssetLabels:
-    // smart_contracts/abel_reader/contract.algo.ts:163
+    // smart_contracts/abel_reader/contract.algo.ts:170
     // @abimethod({ readonly: true, onCreate: "allow", name: "get_asset_labels", resourceEncoding: "index" })
     txna ApplicationArgs 1
     len
@@ -275,7 +303,7 @@ getAssetLabels:
 
 // smart_contracts/abel_reader/contract.algo.ts::AbelReader.getBlockTimesAndTc[routing]() -> void:
 getBlockTimesAndTc:
-    // smart_contracts/abel_reader/contract.algo.ts:178
+    // smart_contracts/abel_reader/contract.algo.ts:186
     // @abimethod({ readonly: true, onCreate: "allow" })
     txna ApplicationArgs 1
     dup
@@ -302,7 +330,7 @@ getBlockTimesAndTc:
 
 // smart_contracts/abel_reader/contract.algo.ts::AbelReader.getRecentBlockTimesAndTc[routing]() -> void:
 getRecentBlockTimesAndTc:
-    // smart_contracts/abel_reader/contract.algo.ts:194
+    // smart_contracts/abel_reader/contract.algo.ts:202
     // @abimethod({ readonly: true, onCreate: "allow" })
     txna ApplicationArgs 1
     dup
@@ -311,12 +339,12 @@ getRecentBlockTimesAndTc:
     ==
     assert // invalid number of bytes for arc4.uint64
     btoi
-    // smart_contracts/abel_reader/contract.algo.ts:197
+    // smart_contracts/abel_reader/contract.algo.ts:205
     // const lastRound: uint64 = Global.round - 1;
     global Round
     intc_1 // 1
     -
-    // smart_contracts/abel_reader/contract.algo.ts:198
+    // smart_contracts/abel_reader/contract.algo.ts:206
     // return this.getBlockTimesAndTc(lastRound - span + 1, lastRound);
     dup
     uncover 2
@@ -325,7 +353,7 @@ getRecentBlockTimesAndTc:
     +
     swap
     callsub smart_contracts/abel_reader/contract.algo.ts::AbelReader.getBlockTimesAndTc
-    // smart_contracts/abel_reader/contract.algo.ts:194
+    // smart_contracts/abel_reader/contract.algo.ts:202
     // @abimethod({ readonly: true, onCreate: "allow" })
     bytec_2 // 0x151f7c75
     swap
@@ -337,7 +365,7 @@ getRecentBlockTimesAndTc:
 
 // smart_contracts/abel_reader/contract.algo.ts::AbelReader.getAuthAddrs[routing]() -> void:
 getAuthAddrs:
-    // smart_contracts/abel_reader/contract.algo.ts:205
+    // smart_contracts/abel_reader/contract.algo.ts:213
     // @abimethod({ readonly: true, onCreate: "allow" })
     txna ApplicationArgs 1
     dupn 2
@@ -353,18 +381,18 @@ getAuthAddrs:
     len
     ==
     assert // invalid number of bytes for arc4.dynamic_array<account>
-    // smart_contracts/abel_reader/contract.algo.ts:207
+    // smart_contracts/abel_reader/contract.algo.ts:215
     // for (let idx: uint64 = 0; idx < accounts.length; idx++) {
     intc_0 // 0
 
 getAuthAddrs_while_top@2:
-    // smart_contracts/abel_reader/contract.algo.ts:207
+    // smart_contracts/abel_reader/contract.algo.ts:215
     // for (let idx: uint64 = 0; idx < accounts.length; idx++) {
     dup
     dig 2
     <
     bz getAuthAddrs_after_while@4
-    // smart_contracts/abel_reader/contract.algo.ts:208
+    // smart_contracts/abel_reader/contract.algo.ts:216
     // const [authAddr, _] = op.AcctParams.acctAuthAddr(accounts[idx]);
     dig 2
     extract 2 0
@@ -377,10 +405,10 @@ getAuthAddrs_while_top@2:
     extract3 // on error: index access is out of bounds
     acct_params_get AcctAuthAddr
     pop
-    // smart_contracts/abel_reader/contract.algo.ts:210
+    // smart_contracts/abel_reader/contract.algo.ts:218
     // log(authAddr.bytes);
     log
-    // smart_contracts/abel_reader/contract.algo.ts:207
+    // smart_contracts/abel_reader/contract.algo.ts:215
     // for (let idx: uint64 = 0; idx < accounts.length; idx++) {
     intc_1 // 1
     +
@@ -388,7 +416,7 @@ getAuthAddrs_while_top@2:
     b getAuthAddrs_while_top@2
 
 getAuthAddrs_after_while@4:
-    // smart_contracts/abel_reader/contract.algo.ts:205
+    // smart_contracts/abel_reader/contract.algo.ts:213
     // @abimethod({ readonly: true, onCreate: "allow" })
     pushbytes base32(CUPXY5IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA)
     log
@@ -399,7 +427,7 @@ getAuthAddrs_after_while@4:
 // smart_contracts/abel_reader/contract.algo.ts::AbelReader.getAssetHoldings[routing]() -> void:
 getAssetHoldings:
     intc_0 // 0
-    // smart_contracts/abel_reader/contract.algo.ts:220
+    // smart_contracts/abel_reader/contract.algo.ts:228
     // @abimethod({ readonly: true, onCreate: "allow" })
     txna ApplicationArgs 1
     dup
@@ -425,14 +453,14 @@ getAssetHoldings:
     len
     ==
     assert // invalid number of bytes for arc4.dynamic_array<account>
-    // smart_contracts/abel_reader/contract.algo.ts:223
+    // smart_contracts/abel_reader/contract.algo.ts:231
     // const readable = assetId >= 256;
     pushint 256 // 256
     >=
     intc_0 // 0
 
 getAssetHoldings_for_header@2:
-    // smart_contracts/abel_reader/contract.algo.ts:224
+    // smart_contracts/abel_reader/contract.algo.ts:232
     // for (const account of accounts) {
     dup
     dig 3
@@ -446,11 +474,11 @@ getAssetHoldings_for_header@2:
     intc_2 // 32
     extract3 // on error: index access is out of bounds
     bury 6
-    // smart_contracts/abel_reader/contract.algo.ts:225
+    // smart_contracts/abel_reader/contract.algo.ts:233
     // if (readable) {
     dig 1
     bz getAssetHoldings_else_body@5
-    // smart_contracts/abel_reader/contract.algo.ts:226
+    // smart_contracts/abel_reader/contract.algo.ts:234
     // const [balance, optedIn] = op.AssetHolding.assetBalance(account, assetId);
     dig 5
     dup
@@ -458,13 +486,13 @@ getAssetHoldings_for_header@2:
     dup
     cover 3
     asset_holding_get AssetBalance
-    // smart_contracts/abel_reader/contract.algo.ts:227
+    // smart_contracts/abel_reader/contract.algo.ts:235
     // const [frozen, _] = op.AssetHolding.assetFrozen(account, assetId);
     uncover 2
     uncover 3
     asset_holding_get AssetFrozen
     pop
-    // smart_contracts/abel_reader/contract.algo.ts:228
+    // smart_contracts/abel_reader/contract.algo.ts:236
     // log(encodeArc4({ optedIn, frozen, balance } as AssetHolding));
     bytec_3 // 0x00
     intc_0 // 0
@@ -486,16 +514,16 @@ getAssetHoldings_after_if_else@6:
     b getAssetHoldings_for_header@2
 
 getAssetHoldings_else_body@5:
-    // smart_contracts/abel_reader/contract.algo.ts:333
+    // smart_contracts/abel_reader/contract.algo.ts:341
     // return { optedIn: false, frozen: false, balance: 0 };
     pushbytes 0x000000000000000000
-    // smart_contracts/abel_reader/contract.algo.ts:229
+    // smart_contracts/abel_reader/contract.algo.ts:237
     // } else log(encodeArc4(getEmptyAssetHolding()));
     log
     b getAssetHoldings_after_if_else@6
 
 getAssetHoldings_after_for@8:
-    // smart_contracts/abel_reader/contract.algo.ts:220
+    // smart_contracts/abel_reader/contract.algo.ts:228
     // @abimethod({ readonly: true, onCreate: "allow" })
     pushbytes 0x151f7c75000000000000000000
     log
@@ -509,7 +537,7 @@ getTinymanInfo:
     dup
     bytec_0 // ""
     dupn 3
-    // smart_contracts/abel_reader/contract.algo.ts:238
+    // smart_contracts/abel_reader/contract.algo.ts:246
     // @abimethod({ readonly: true, onCreate: "allow" })
     txna ApplicationArgs 1
     dup
@@ -535,14 +563,14 @@ getTinymanInfo:
     len
     ==
     assert // invalid number of bytes for arc4.dynamic_array<account>
-    // smart_contracts/abel_reader/contract.algo.ts:240
+    // smart_contracts/abel_reader/contract.algo.ts:248
     // const tinymanEscrow = tinymanAppId.address;
     app_params_get AppAddress
     assert // application exists
     intc_0 // 0
 
 getTinymanInfo_for_header@2:
-    // smart_contracts/abel_reader/contract.algo.ts:241
+    // smart_contracts/abel_reader/contract.algo.ts:249
     // for (const lpEscrow of lpEscrows) {
     dup
     dig 3
@@ -557,22 +585,22 @@ getTinymanInfo_for_header@2:
     extract3 // on error: index access is out of bounds
     dup
     bury 12
-    // smart_contracts/abel_reader/contract.algo.ts:243
+    // smart_contracts/abel_reader/contract.algo.ts:251
     // const [authAddr, _] = op.AcctParams.acctAuthAddr(lpEscrow);
     dup
     acct_params_get AcctAuthAddr
     pop
-    // smart_contracts/abel_reader/contract.algo.ts:244
+    // smart_contracts/abel_reader/contract.algo.ts:252
     // const validRekey = authAddr === tinymanEscrow;
     dig 3
     ==
     bury 7
-    // smart_contracts/abel_reader/contract.algo.ts:247
+    // smart_contracts/abel_reader/contract.algo.ts:255
     // if (op.appOptedIn(lpEscrow, tinymanAppId)) {
     dig 5
     app_opted_in
     bz getTinymanInfo_else_body@11
-    // smart_contracts/abel_reader/contract.algo.ts:248
+    // smart_contracts/abel_reader/contract.algo.ts:256
     // const [asset1Id, asset1Exists] = op.AppLocal.getExUint64(lpEscrow, tinymanAppId, Bytes`asset_1_id`);
     dig 10
     dup
@@ -583,14 +611,14 @@ getTinymanInfo_for_header@2:
     app_local_get_ex
     cover 3
     bury 12
-    // smart_contracts/abel_reader/contract.algo.ts:249
+    // smart_contracts/abel_reader/contract.algo.ts:257
     // const [asset2Id, asset2Exists] = op.AppLocal.getExUint64(lpEscrow, tinymanAppId, Bytes`asset_2_id`);
     swap
     bytec 5 // "asset_2_id"
     app_local_get_ex
     bury 10
     bury 8
-    // smart_contracts/abel_reader/contract.algo.ts:254
+    // smart_contracts/abel_reader/contract.algo.ts:262
     // asset1UnitName: asset1Exists ? getAssetUnitName(asset1Id) : "",
     bz getTinymanInfo_ternary_false@6
     dig 8
@@ -598,7 +626,7 @@ getTinymanInfo_for_header@2:
     bury 10
 
 getTinymanInfo_ternary_merge@7:
-    // smart_contracts/abel_reader/contract.algo.ts:256
+    // smart_contracts/abel_reader/contract.algo.ts:264
     // asset2UnitName: asset2Exists ? getAssetUnitName(asset2Id) : "",
     dig 7
     bz getTinymanInfo_ternary_false@9
@@ -606,7 +634,7 @@ getTinymanInfo_ternary_merge@7:
     callsub getAssetUnitName
 
 getTinymanInfo_ternary_merge@10:
-    // smart_contracts/abel_reader/contract.algo.ts:251-257
+    // smart_contracts/abel_reader/contract.algo.ts:259-265
     // encodeArc4({
     //   validRekey,
     //   asset1Id,
@@ -657,7 +685,7 @@ getTinymanInfo_ternary_merge@10:
     concat
     swap
     concat
-    // smart_contracts/abel_reader/contract.algo.ts:250-258
+    // smart_contracts/abel_reader/contract.algo.ts:258-266
     // log(
     //   encodeArc4({
     //     validRekey,
@@ -677,20 +705,20 @@ getTinymanInfo_after_if_else@12:
     b getTinymanInfo_for_header@2
 
 getTinymanInfo_ternary_false@9:
-    // smart_contracts/abel_reader/contract.algo.ts:256
+    // smart_contracts/abel_reader/contract.algo.ts:264
     // asset2UnitName: asset2Exists ? getAssetUnitName(asset2Id) : "",
     bytec_0 // ""
     b getTinymanInfo_ternary_merge@10
 
 getTinymanInfo_ternary_false@6:
-    // smart_contracts/abel_reader/contract.algo.ts:254
+    // smart_contracts/abel_reader/contract.algo.ts:262
     // asset1UnitName: asset1Exists ? getAssetUnitName(asset1Id) : "",
     bytec_0 // ""
     bury 10
     b getTinymanInfo_ternary_merge@7
 
 getTinymanInfo_else_body@11:
-    // smart_contracts/abel_reader/contract.algo.ts:370-376
+    // smart_contracts/abel_reader/contract.algo.ts:378-384
     // return {
     //   validRekey: false,
     //   asset1Id: 0,
@@ -699,13 +727,13 @@ getTinymanInfo_else_body@11:
     //   asset2UnitName: "",
     // };
     pushbytes 0x00000000000000000000150000000000000000001700000000
-    // smart_contracts/abel_reader/contract.algo.ts:259
+    // smart_contracts/abel_reader/contract.algo.ts:267
     // } else log(encodeArc4(getEmptyTinymanInfo()));
     log
     b getTinymanInfo_after_if_else@12
 
 getTinymanInfo_after_for@14:
-    // smart_contracts/abel_reader/contract.algo.ts:238
+    // smart_contracts/abel_reader/contract.algo.ts:246
     // @abimethod({ readonly: true, onCreate: "allow" })
     pushbytes 0x151f7c7500000000000000000000150000000000000000001700000000
     log
@@ -716,7 +744,7 @@ getTinymanInfo_after_for@14:
 // smart_contracts/abel_reader/contract.algo.ts::AbelReader.getTinymanPoolStates[routing]() -> void:
 getTinymanPoolStates:
     intc_0 // 0
-    // smart_contracts/abel_reader/contract.algo.ts:270
+    // smart_contracts/abel_reader/contract.algo.ts:278
     // @abimethod({ readonly: true, onCreate: "allow" })
     txna ApplicationArgs 1
     dup
@@ -742,14 +770,14 @@ getTinymanPoolStates:
     len
     ==
     assert // invalid number of bytes for arc4.dynamic_array<account>
-    // smart_contracts/abel_reader/contract.algo.ts:272
+    // smart_contracts/abel_reader/contract.algo.ts:280
     // const tinymanEscrow = tinymanAppId.address;
     app_params_get AppAddress
     assert // application exists
     intc_0 // 0
 
 getTinymanPoolStates_for_header@2:
-    // smart_contracts/abel_reader/contract.algo.ts:273
+    // smart_contracts/abel_reader/contract.algo.ts:281
     // for (const lpEscrow of lpEscrows) {
     dup
     dig 3
@@ -764,212 +792,212 @@ getTinymanPoolStates_for_header@2:
     extract3 // on error: index access is out of bounds
     dup
     bury 7
-    // smart_contracts/abel_reader/contract.algo.ts:275
+    // smart_contracts/abel_reader/contract.algo.ts:283
     // if (op.appOptedIn(lpEscrow, tinymanAppId)) {
     dig 5
     app_opted_in
     bz getTinymanPoolStates_else_body@5
-    // smart_contracts/abel_reader/contract.algo.ts:276
+    // smart_contracts/abel_reader/contract.algo.ts:284
     // const [authAddr, _] = op.AcctParams.acctAuthAddr(lpEscrow);
     dig 5
     dup
     acct_params_get AcctAuthAddr
     pop
-    // smart_contracts/abel_reader/contract.algo.ts:279
+    // smart_contracts/abel_reader/contract.algo.ts:287
     // validRekey: authAddr === tinymanEscrow,
     dig 3
     ==
-    // smart_contracts/abel_reader/contract.algo.ts:281
+    // smart_contracts/abel_reader/contract.algo.ts:289
     // round: Global.round - 1,
     global Round
     intc_1 // 1
     -
-    // smart_contracts/abel_reader/contract.algo.ts:282
+    // smart_contracts/abel_reader/contract.algo.ts:290
     // ts: Global.latestTimestamp,
     global LatestTimestamp
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     dig 3
     dig 9
     dup
     cover 3
-    // smart_contracts/abel_reader/contract.algo.ts:283
+    // smart_contracts/abel_reader/contract.algo.ts:291
     // asset1Id: localUint(lpEscrow, tinymanAppId, Bytes`asset_1_id`),
     bytec 4 // "asset_1_id"
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     app_local_get_ex
-    // smart_contracts/abel_reader/contract.algo.ts:360
+    // smart_contracts/abel_reader/contract.algo.ts:368
     // return exists ? value : 0;
     intc_0 // 0
     cover 2
     select
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     dig 5
     dig 3
-    // smart_contracts/abel_reader/contract.algo.ts:284
+    // smart_contracts/abel_reader/contract.algo.ts:292
     // asset2Id: localUint(lpEscrow, tinymanAppId, Bytes`asset_2_id`),
     bytec 5 // "asset_2_id"
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     app_local_get_ex
-    // smart_contracts/abel_reader/contract.algo.ts:360
+    // smart_contracts/abel_reader/contract.algo.ts:368
     // return exists ? value : 0;
     intc_0 // 0
     cover 2
     select
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     dig 6
     dig 4
-    // smart_contracts/abel_reader/contract.algo.ts:285
+    // smart_contracts/abel_reader/contract.algo.ts:293
     // asset1Reserves: localUint(lpEscrow, tinymanAppId, Bytes`asset_1_reserves`),
     pushbytes "asset_1_reserves"
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     app_local_get_ex
-    // smart_contracts/abel_reader/contract.algo.ts:360
+    // smart_contracts/abel_reader/contract.algo.ts:368
     // return exists ? value : 0;
     intc_0 // 0
     cover 2
     select
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     dig 7
     dig 5
-    // smart_contracts/abel_reader/contract.algo.ts:286
+    // smart_contracts/abel_reader/contract.algo.ts:294
     // asset2Reserves: localUint(lpEscrow, tinymanAppId, Bytes`asset_2_reserves`),
     pushbytes "asset_2_reserves"
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     app_local_get_ex
-    // smart_contracts/abel_reader/contract.algo.ts:360
+    // smart_contracts/abel_reader/contract.algo.ts:368
     // return exists ? value : 0;
     intc_0 // 0
     cover 2
     select
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     dig 8
     dig 6
-    // smart_contracts/abel_reader/contract.algo.ts:287
+    // smart_contracts/abel_reader/contract.algo.ts:295
     // issuedPoolTokens: localUint(lpEscrow, tinymanAppId, Bytes`issued_pool_tokens`),
     pushbytes "issued_pool_tokens"
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     app_local_get_ex
-    // smart_contracts/abel_reader/contract.algo.ts:360
+    // smart_contracts/abel_reader/contract.algo.ts:368
     // return exists ? value : 0;
     intc_0 // 0
     cover 2
     select
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     dig 9
     dig 7
-    // smart_contracts/abel_reader/contract.algo.ts:288
+    // smart_contracts/abel_reader/contract.algo.ts:296
     // asset1ProtocolFees: localUint(lpEscrow, tinymanAppId, Bytes`asset_1_protocol_fees`),
     pushbytes "asset_1_protocol_fees"
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     app_local_get_ex
-    // smart_contracts/abel_reader/contract.algo.ts:360
+    // smart_contracts/abel_reader/contract.algo.ts:368
     // return exists ? value : 0;
     intc_0 // 0
     cover 2
     select
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     dig 10
     dig 8
-    // smart_contracts/abel_reader/contract.algo.ts:289
+    // smart_contracts/abel_reader/contract.algo.ts:297
     // asset2ProtocolFees: localUint(lpEscrow, tinymanAppId, Bytes`asset_2_protocol_fees`),
     pushbytes "asset_2_protocol_fees"
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     app_local_get_ex
-    // smart_contracts/abel_reader/contract.algo.ts:360
+    // smart_contracts/abel_reader/contract.algo.ts:368
     // return exists ? value : 0;
     intc_0 // 0
     cover 2
     select
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     dig 11
     dig 9
-    // smart_contracts/abel_reader/contract.algo.ts:290
+    // smart_contracts/abel_reader/contract.algo.ts:298
     // totalFeeShare: localUint(lpEscrow, tinymanAppId, Bytes`total_fee_share`),
     pushbytes "total_fee_share"
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     app_local_get_ex
-    // smart_contracts/abel_reader/contract.algo.ts:360
+    // smart_contracts/abel_reader/contract.algo.ts:368
     // return exists ? value : 0;
     intc_0 // 0
     cover 2
     select
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     dig 12
     dig 10
-    // smart_contracts/abel_reader/contract.algo.ts:291
+    // smart_contracts/abel_reader/contract.algo.ts:299
     // protocolFeeRatio: localUint(lpEscrow, tinymanAppId, Bytes`protocol_fee_ratio`),
     pushbytes "protocol_fee_ratio"
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     app_local_get_ex
-    // smart_contracts/abel_reader/contract.algo.ts:360
+    // smart_contracts/abel_reader/contract.algo.ts:368
     // return exists ? value : 0;
     intc_0 // 0
     cover 2
     select
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     dig 13
     dig 11
-    // smart_contracts/abel_reader/contract.algo.ts:292
+    // smart_contracts/abel_reader/contract.algo.ts:300
     // cumulativePriceUpdateTimestamp: localUint(lpEscrow, tinymanAppId, Bytes`cumulative_price_update_timestamp`),
     pushbytes "cumulative_price_update_timestamp"
-    // smart_contracts/abel_reader/contract.algo.ts:359
+    // smart_contracts/abel_reader/contract.algo.ts:367
     // const [value, exists] = op.AppLocal.getExUint64(account, app, key);
     app_local_get_ex
-    // smart_contracts/abel_reader/contract.algo.ts:360
+    // smart_contracts/abel_reader/contract.algo.ts:368
     // return exists ? value : 0;
     intc_0 // 0
     cover 2
     select
-    // smart_contracts/abel_reader/contract.algo.ts:365
+    // smart_contracts/abel_reader/contract.algo.ts:373
     // const [value, exists] = op.AppLocal.getExBytes(account, app, key);
     dig 14
     dig 12
-    // smart_contracts/abel_reader/contract.algo.ts:293
+    // smart_contracts/abel_reader/contract.algo.ts:301
     // asset1CumulativePrice: localBytes(lpEscrow, tinymanAppId, Bytes`asset_1_cumulative_price`),
     pushbytes "asset_1_cumulative_price"
-    // smart_contracts/abel_reader/contract.algo.ts:365
+    // smart_contracts/abel_reader/contract.algo.ts:373
     // const [value, exists] = op.AppLocal.getExBytes(account, app, key);
     app_local_get_ex
-    // smart_contracts/abel_reader/contract.algo.ts:366
+    // smart_contracts/abel_reader/contract.algo.ts:374
     // return exists ? value : Bytes``;
     bytec_0 // ""
     cover 2
     select
-    // smart_contracts/abel_reader/contract.algo.ts:365
+    // smart_contracts/abel_reader/contract.algo.ts:373
     // const [value, exists] = op.AppLocal.getExBytes(account, app, key);
     uncover 15
     uncover 13
-    // smart_contracts/abel_reader/contract.algo.ts:294
+    // smart_contracts/abel_reader/contract.algo.ts:302
     // asset2CumulativePrice: localBytes(lpEscrow, tinymanAppId, Bytes`asset_2_cumulative_price`),
     pushbytes "asset_2_cumulative_price"
-    // smart_contracts/abel_reader/contract.algo.ts:365
+    // smart_contracts/abel_reader/contract.algo.ts:373
     // const [value, exists] = op.AppLocal.getExBytes(account, app, key);
     app_local_get_ex
-    // smart_contracts/abel_reader/contract.algo.ts:366
+    // smart_contracts/abel_reader/contract.algo.ts:374
     // return exists ? value : Bytes``;
     bytec_0 // ""
     cover 2
     select
-    // smart_contracts/abel_reader/contract.algo.ts:277-295
+    // smart_contracts/abel_reader/contract.algo.ts:285-303
     // const state: TinymanPoolState = {
     //   exists: true,
     //   validRekey: authAddr === tinymanEscrow,
@@ -1058,7 +1086,7 @@ getTinymanPoolStates_for_header@2:
     concat
     swap
     concat
-    // smart_contracts/abel_reader/contract.algo.ts:296
+    // smart_contracts/abel_reader/contract.algo.ts:304
     // log(encodeArc4(state));
     log
 
@@ -1070,7 +1098,7 @@ getTinymanPoolStates_after_if_else@6:
     b getTinymanPoolStates_for_header@2
 
 getTinymanPoolStates_else_body@5:
-    // smart_contracts/abel_reader/contract.algo.ts:337-354
+    // smart_contracts/abel_reader/contract.algo.ts:345-362
     // return {
     //   exists: false,
     //   validRekey: false,
@@ -1090,13 +1118,13 @@ getTinymanPoolStates_else_body@5:
     //   asset2CumulativePrice: Bytes``,
     // };
     pushbytes 0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000065006700000000
-    // smart_contracts/abel_reader/contract.algo.ts:297
+    // smart_contracts/abel_reader/contract.algo.ts:305
     // } else log(encodeArc4(getEmptyTinymanPoolState()));
     log
     b getTinymanPoolStates_after_if_else@6
 
 getTinymanPoolStates_after_for@8:
-    // smart_contracts/abel_reader/contract.algo.ts:270
+    // smart_contracts/abel_reader/contract.algo.ts:278
     // @abimethod({ readonly: true, onCreate: "allow" })
     pushbytes 0x151f7c75000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000065006700000000
     log
@@ -1110,7 +1138,7 @@ getPactInfo:
     dup
     bytec_0 // ""
     dupn 14
-    // smart_contracts/abel_reader/contract.algo.ts:309
+    // smart_contracts/abel_reader/contract.algo.ts:317
     // @abimethod({ readonly: true, onCreate: "allow" })
     txna ApplicationArgs 1
     dup
@@ -1147,7 +1175,7 @@ getPactInfo:
     intc_0 // 0
 
 getPactInfo_for_header@2:
-    // smart_contracts/abel_reader/contract.algo.ts:316
+    // smart_contracts/abel_reader/contract.algo.ts:324
     // for (const pactAppId of pactAppIds) {
     dup
     dig 2
@@ -1161,12 +1189,12 @@ getPactInfo_for_header@2:
     extract_uint64
     dup
     bury 9
-    // smart_contracts/abel_reader/contract.algo.ts:400
+    // smart_contracts/abel_reader/contract.algo.ts:408
     // if (app.id < 256) return getEmptyPactInfo();
     pushint 256 // 256
     <
     bz getPactInfo_after_if_else@8
-    // smart_contracts/abel_reader/contract.algo.ts:380-387
+    // smart_contracts/abel_reader/contract.algo.ts:388-395
     // return {
     //   type: new Uint8(PACT_TYPE_NONE),
     //   asset1Id: 0,
@@ -1178,7 +1206,7 @@ getPactInfo_for_header@2:
     bytec_1 // 0x000000000000000000001d0000000000000000001f000000000000000000000000
 
 getPactInfo_after_inlined_smart_contracts/abel_reader/contract.algo.ts::getPactPoolInfo@33:
-    // smart_contracts/abel_reader/contract.algo.ts:317-326
+    // smart_contracts/abel_reader/contract.algo.ts:325-334
     // log(
     //   encodeArc4(
     //     getPactPoolInfo(
@@ -1197,16 +1225,16 @@ getPactInfo_after_inlined_smart_contracts/abel_reader/contract.algo.ts::getPactP
     b getPactInfo_for_header@2
 
 getPactInfo_after_if_else@8:
-    // smart_contracts/abel_reader/contract.algo.ts:404
+    // smart_contracts/abel_reader/contract.algo.ts:412
     // const [creator, appExists] = op.AppParams.appCreator(app);
     dig 7
     app_params_get AppCreator
     swap
     bury 23
-    // smart_contracts/abel_reader/contract.algo.ts:405
+    // smart_contracts/abel_reader/contract.algo.ts:413
     // if (!appExists) return getEmptyPactInfo();
     bnz getPactInfo_after_if_else@10
-    // smart_contracts/abel_reader/contract.algo.ts:380-387
+    // smart_contracts/abel_reader/contract.algo.ts:388-395
     // return {
     //   type: new Uint8(PACT_TYPE_NONE),
     //   asset1Id: 0,
@@ -1216,7 +1244,7 @@ getPactInfo_after_if_else@8:
     //   feeBps: 0,
     // };
     bytec_1 // 0x000000000000000000001d0000000000000000001f000000000000000000000000
-    // smart_contracts/abel_reader/contract.algo.ts:319-324
+    // smart_contracts/abel_reader/contract.algo.ts:327-332
     // getPactPoolInfo(
     //   pactAppId,
     //   constantProductCreator.native,
@@ -1226,7 +1254,7 @@ getPactInfo_after_if_else@8:
     b getPactInfo_after_inlined_smart_contracts/abel_reader/contract.algo.ts::getPactPoolInfo@33
 
 getPactInfo_after_if_else@10:
-    // smart_contracts/abel_reader/contract.algo.ts:409
+    // smart_contracts/abel_reader/contract.algo.ts:417
     // const isConstProduct = creator === constantProductCreator;
     dig 21
     dup
@@ -1235,25 +1263,25 @@ getPactInfo_after_if_else@10:
     dup
     cover 2
     bury 15
-    // smart_contracts/abel_reader/contract.algo.ts:410
+    // smart_contracts/abel_reader/contract.algo.ts:418
     // const isStableswapCreator = creator === stableswapCreator;
     dup
     dig 7
     ==
     bury 12
-    // smart_contracts/abel_reader/contract.algo.ts:411
+    // smart_contracts/abel_reader/contract.algo.ts:419
     // const isManagedWeighted = creator === managedWeightedCreator;
     dig 5
     ==
     bury 13
-    // smart_contracts/abel_reader/contract.algo.ts:417
+    // smart_contracts/abel_reader/contract.algo.ts:425
     // if (!isConstProduct && !isStableswapCreator && !isManagedWeighted) return getEmptyPactInfo();
     bnz getPactInfo_after_if_else@14
     dig 9
     bnz getPactInfo_after_if_else@14
     dig 11
     bnz getPactInfo_after_if_else@14
-    // smart_contracts/abel_reader/contract.algo.ts:380-387
+    // smart_contracts/abel_reader/contract.algo.ts:388-395
     // return {
     //   type: new Uint8(PACT_TYPE_NONE),
     //   asset1Id: 0,
@@ -1263,7 +1291,7 @@ getPactInfo_after_if_else@10:
     //   feeBps: 0,
     // };
     bytec_1 // 0x000000000000000000001d0000000000000000001f000000000000000000000000
-    // smart_contracts/abel_reader/contract.algo.ts:319-324
+    // smart_contracts/abel_reader/contract.algo.ts:327-332
     // getPactPoolInfo(
     //   pactAppId,
     //   constantProductCreator.native,
@@ -1273,7 +1301,7 @@ getPactInfo_after_if_else@10:
     b getPactInfo_after_inlined_smart_contracts/abel_reader/contract.algo.ts::getPactPoolInfo@33
 
 getPactInfo_after_if_else@14:
-    // smart_contracts/abel_reader/contract.algo.ts:424
+    // smart_contracts/abel_reader/contract.algo.ts:432
     // const [swapFeeBps, hasSwapFeeBps] = op.AppGlobal.getExUint64(app, Bytes`swap_fee_bps`);
     dig 7
     dup
@@ -1281,31 +1309,31 @@ getPactInfo_after_if_else@14:
     app_global_get_ex
     cover 2
     bury 11
-    // smart_contracts/abel_reader/contract.algo.ts:425
+    // smart_contracts/abel_reader/contract.algo.ts:433
     // const [assetA, hasAssetA] = op.AppGlobal.getExUint64(app, Bytes`asset_a`);
     dup
     pushbytes "asset_a"
     app_global_get_ex
     bury 20
     bury 23
-    // smart_contracts/abel_reader/contract.algo.ts:426
+    // smart_contracts/abel_reader/contract.algo.ts:434
     // const [assetB, hasAssetB] = op.AppGlobal.getExUint64(app, Bytes`asset_b`);
     pushbytes "asset_b"
     app_global_get_ex
     bury 18
     bury 21
-    // smart_contracts/abel_reader/contract.algo.ts:427
+    // smart_contracts/abel_reader/contract.algo.ts:435
     // if (hasSwapFeeBps && hasAssetA && hasAssetB) {
     bz getPactInfo_after_if_else@20
     dig 16
     bz getPactInfo_after_if_else@20
     dig 15
     bz getPactInfo_after_if_else@20
-    // smart_contracts/abel_reader/contract.algo.ts:431
+    // smart_contracts/abel_reader/contract.algo.ts:439
     // if (!isManagedWeighted) return getEmptyPactInfo();
     dig 11
     bnz getPactInfo_after_if_else@19
-    // smart_contracts/abel_reader/contract.algo.ts:380-387
+    // smart_contracts/abel_reader/contract.algo.ts:388-395
     // return {
     //   type: new Uint8(PACT_TYPE_NONE),
     //   asset1Id: 0,
@@ -1315,7 +1343,7 @@ getPactInfo_after_if_else@14:
     //   feeBps: 0,
     // };
     bytec_1 // 0x000000000000000000001d0000000000000000001f000000000000000000000000
-    // smart_contracts/abel_reader/contract.algo.ts:319-324
+    // smart_contracts/abel_reader/contract.algo.ts:327-332
     // getPactPoolInfo(
     //   pactAppId,
     //   constantProductCreator.native,
@@ -1325,18 +1353,18 @@ getPactInfo_after_if_else@14:
     b getPactInfo_after_inlined_smart_contracts/abel_reader/contract.algo.ts::getPactPoolInfo@33
 
 getPactInfo_after_if_else@19:
-    // smart_contracts/abel_reader/contract.algo.ts:435
+    // smart_contracts/abel_reader/contract.algo.ts:443
     // asset1UnitName: getAssetUnitName(assetA),
     dig 20
     dup
     callsub getAssetUnitName
-    // smart_contracts/abel_reader/contract.algo.ts:437
+    // smart_contracts/abel_reader/contract.algo.ts:445
     // asset2UnitName: getAssetUnitName(assetB),
     dig 21
     dup
     cover 3
     callsub getAssetUnitName
-    // smart_contracts/abel_reader/contract.algo.ts:432-439
+    // smart_contracts/abel_reader/contract.algo.ts:440-447
     // return {
     //   type: new Uint8(PACT_TYPE_MANAGED_WEIGHTED),
     //   asset1Id: assetA,
@@ -1347,10 +1375,10 @@ getPactInfo_after_if_else@19:
     // };
     uncover 2
     itob
-    // smart_contracts/abel_reader/contract.algo.ts:433
+    // smart_contracts/abel_reader/contract.algo.ts:441
     // type: new Uint8(PACT_TYPE_MANAGED_WEIGHTED),
     pushbytes 0x03
-    // smart_contracts/abel_reader/contract.algo.ts:432-439
+    // smart_contracts/abel_reader/contract.algo.ts:440-447
     // return {
     //   type: new Uint8(PACT_TYPE_MANAGED_WEIGHTED),
     //   asset1Id: assetA,
@@ -1398,7 +1426,7 @@ getPactInfo_after_if_else@19:
     concat
     swap
     concat
-    // smart_contracts/abel_reader/contract.algo.ts:319-324
+    // smart_contracts/abel_reader/contract.algo.ts:327-332
     // getPactPoolInfo(
     //   pactAppId,
     //   constantProductCreator.native,
@@ -1408,7 +1436,7 @@ getPactInfo_after_if_else@19:
     b getPactInfo_after_inlined_smart_contracts/abel_reader/contract.algo.ts::getPactPoolInfo@33
 
 getPactInfo_after_if_else@20:
-    // smart_contracts/abel_reader/contract.algo.ts:444
+    // smart_contracts/abel_reader/contract.algo.ts:452
     // const [config, hasConfig] = op.AppGlobal.getExBytes(app, Bytes`CONFIG`);
     dig 7
     dup
@@ -1416,13 +1444,13 @@ getPactInfo_after_if_else@20:
     app_global_get_ex
     cover 2
     bury 25
-    // smart_contracts/abel_reader/contract.algo.ts:445
+    // smart_contracts/abel_reader/contract.algo.ts:453
     // const [_ltid, hasLtid] = op.AppGlobal.getExUint64(app, Bytes`LTID`);
     pushbytes "LTID"
     app_global_get_ex
     bury 16
     pop
-    // smart_contracts/abel_reader/contract.algo.ts:446
+    // smart_contracts/abel_reader/contract.algo.ts:454
     // if (!hasConfig || !hasLtid || config.length < 24) return getEmptyPactInfo();
     bz getPactInfo_if_body@23
     dig 13
@@ -1436,7 +1464,7 @@ getPactInfo_after_if_else@20:
     bz getPactInfo_after_if_else@24
 
 getPactInfo_if_body@23:
-    // smart_contracts/abel_reader/contract.algo.ts:380-387
+    // smart_contracts/abel_reader/contract.algo.ts:388-395
     // return {
     //   type: new Uint8(PACT_TYPE_NONE),
     //   asset1Id: 0,
@@ -1446,7 +1474,7 @@ getPactInfo_if_body@23:
     //   feeBps: 0,
     // };
     bytec_1 // 0x000000000000000000001d0000000000000000001f000000000000000000000000
-    // smart_contracts/abel_reader/contract.algo.ts:319-324
+    // smart_contracts/abel_reader/contract.algo.ts:327-332
     // getPactPoolInfo(
     //   pactAppId,
     //   constantProductCreator.native,
@@ -1456,13 +1484,13 @@ getPactInfo_if_body@23:
     b getPactInfo_after_inlined_smart_contracts/abel_reader/contract.algo.ts::getPactPoolInfo@33
 
 getPactInfo_after_if_else@24:
-    // smart_contracts/abel_reader/contract.algo.ts:450
+    // smart_contracts/abel_reader/contract.algo.ts:458
     // const [_initialA, hasInitialA] = op.AppGlobal.getExUint64(app, Bytes`INITIAL_A`);
     dig 7
     pushbytes "INITIAL_A"
     app_global_get_ex
     bury 1
-    // smart_contracts/abel_reader/contract.algo.ts:451
+    // smart_contracts/abel_reader/contract.algo.ts:459
     // const isStableswap = config.length >= 32 && hasInitialA;
     dig 7
     intc_2 // 32
@@ -1470,17 +1498,17 @@ getPactInfo_after_if_else@24:
     &&
     dup
     bury 12
-    // smart_contracts/abel_reader/contract.algo.ts:455
+    // smart_contracts/abel_reader/contract.algo.ts:463
     // if (isStableswap ? !isStableswapCreator : !isConstProduct) return getEmptyPactInfo();
     bz getPactInfo_ternary_false@26
     dig 9
     !
 
 getPactInfo_ternary_merge@27:
-    // smart_contracts/abel_reader/contract.algo.ts:455
+    // smart_contracts/abel_reader/contract.algo.ts:463
     // if (isStableswap ? !isStableswapCreator : !isConstProduct) return getEmptyPactInfo();
     bz getPactInfo_after_if_else@29
-    // smart_contracts/abel_reader/contract.algo.ts:380-387
+    // smart_contracts/abel_reader/contract.algo.ts:388-395
     // return {
     //   type: new Uint8(PACT_TYPE_NONE),
     //   asset1Id: 0,
@@ -1490,7 +1518,7 @@ getPactInfo_ternary_merge@27:
     //   feeBps: 0,
     // };
     bytec_1 // 0x000000000000000000001d0000000000000000001f000000000000000000000000
-    // smart_contracts/abel_reader/contract.algo.ts:319-324
+    // smart_contracts/abel_reader/contract.algo.ts:327-332
     // getPactPoolInfo(
     //   pactAppId,
     //   constantProductCreator.native,
@@ -1500,13 +1528,13 @@ getPactInfo_ternary_merge@27:
     b getPactInfo_after_inlined_smart_contracts/abel_reader/contract.algo.ts::getPactPoolInfo@33
 
 getPactInfo_after_if_else@29:
-    // smart_contracts/abel_reader/contract.algo.ts:460
+    // smart_contracts/abel_reader/contract.algo.ts:468
     // const configFeeBps = op.extractUint64(config, 16);
     dig 22
     pushint 16 // 16
     extract_uint64
     bury 19
-    // smart_contracts/abel_reader/contract.algo.ts:461
+    // smart_contracts/abel_reader/contract.algo.ts:469
     // const [feeBps, hasFeeBps] = op.AppGlobal.getExUint64(app, Bytes`FEE_BPS`);
     dig 7
     pushbytes "FEE_BPS"
@@ -1515,14 +1543,14 @@ getPactInfo_after_if_else@29:
     cover 2
     bury 17
     bury 19
-    // smart_contracts/abel_reader/contract.algo.ts:462
+    // smart_contracts/abel_reader/contract.algo.ts:470
     // if (hasFeeBps && feeBps !== configFeeBps) return getEmptyPactInfo();
     bz getPactInfo_after_if_else@32
     dig 17
     dig 19
     !=
     bz getPactInfo_after_if_else@32
-    // smart_contracts/abel_reader/contract.algo.ts:380-387
+    // smart_contracts/abel_reader/contract.algo.ts:388-395
     // return {
     //   type: new Uint8(PACT_TYPE_NONE),
     //   asset1Id: 0,
@@ -1532,7 +1560,7 @@ getPactInfo_after_if_else@29:
     //   feeBps: 0,
     // };
     bytec_1 // 0x000000000000000000001d0000000000000000001f000000000000000000000000
-    // smart_contracts/abel_reader/contract.algo.ts:319-324
+    // smart_contracts/abel_reader/contract.algo.ts:327-332
     // getPactPoolInfo(
     //   pactAppId,
     //   constantProductCreator.native,
@@ -1542,18 +1570,18 @@ getPactInfo_after_if_else@29:
     b getPactInfo_after_inlined_smart_contracts/abel_reader/contract.algo.ts::getPactPoolInfo@33
 
 getPactInfo_after_if_else@32:
-    // smart_contracts/abel_reader/contract.algo.ts:464
+    // smart_contracts/abel_reader/contract.algo.ts:472
     // const asset1Id = op.extractUint64(config, 0);
     dig 22
     dup
     intc_0 // 0
     extract_uint64
-    // smart_contracts/abel_reader/contract.algo.ts:465
+    // smart_contracts/abel_reader/contract.algo.ts:473
     // const asset2Id = op.extractUint64(config, 8);
     swap
     intc_3 // 8
     extract_uint64
-    // smart_contracts/abel_reader/contract.algo.ts:467
+    // smart_contracts/abel_reader/contract.algo.ts:475
     // type: new Uint8(isStableswap ? PACT_TYPE_STABLESWAP : PACT_TYPE_CONSTANT_PRODUCT),
     intc_1 // 1
     pushint 2 // 2
@@ -1566,21 +1594,21 @@ getPactInfo_after_if_else@32:
     <=
     assert // overflow
     extract 7 1
-    // smart_contracts/abel_reader/contract.algo.ts:470
+    // smart_contracts/abel_reader/contract.algo.ts:478
     // asset1UnitName: getAssetUnitName(asset1Id),
     dig 2
     callsub getAssetUnitName
-    // smart_contracts/abel_reader/contract.algo.ts:472
+    // smart_contracts/abel_reader/contract.algo.ts:480
     // asset2UnitName: getAssetUnitName(asset2Id),
     dig 2
     callsub getAssetUnitName
-    // smart_contracts/abel_reader/contract.algo.ts:473
+    // smart_contracts/abel_reader/contract.algo.ts:481
     // feeBps: hasFeeBps ? feeBps : configFeeBps,
     dig 23
     dig 23
     dig 21
     select
-    // smart_contracts/abel_reader/contract.algo.ts:466-474
+    // smart_contracts/abel_reader/contract.algo.ts:474-482
     // return {
     //   type: new Uint8(isStableswap ? PACT_TYPE_STABLESWAP : PACT_TYPE_CONSTANT_PRODUCT),
     //   asset1Id,
@@ -1632,7 +1660,7 @@ getPactInfo_after_if_else@32:
     concat
     swap
     concat
-    // smart_contracts/abel_reader/contract.algo.ts:319-324
+    // smart_contracts/abel_reader/contract.algo.ts:327-332
     // getPactPoolInfo(
     //   pactAppId,
     //   constantProductCreator.native,
@@ -1642,14 +1670,14 @@ getPactInfo_after_if_else@32:
     b getPactInfo_after_inlined_smart_contracts/abel_reader/contract.algo.ts::getPactPoolInfo@33
 
 getPactInfo_ternary_false@26:
-    // smart_contracts/abel_reader/contract.algo.ts:455
+    // smart_contracts/abel_reader/contract.algo.ts:463
     // if (isStableswap ? !isStableswapCreator : !isConstProduct) return getEmptyPactInfo();
     dig 12
     !
     b getPactInfo_ternary_merge@27
 
 getPactInfo_after_for@5:
-    // smart_contracts/abel_reader/contract.algo.ts:309
+    // smart_contracts/abel_reader/contract.algo.ts:317
     // @abimethod({ readonly: true, onCreate: "allow" })
     pushbytes 0x151f7c75000000000000000000001d0000000000000000001f000000000000000000000000
     log
@@ -1659,17 +1687,17 @@ getPactInfo_after_for@5:
 
 // smart_contracts/abel_reader/contract.algo.ts::AbelReader.logBalanceInfos(accounts: bytes) -> bytes:
 logBalanceInfos:
-    // smart_contracts/abel_reader/contract.algo.ts:109
+    // smart_contracts/abel_reader/contract.algo.ts:112
     // private logBalanceInfos(accounts: Account[]): void {
     proto 1 1
     intc_0 // 0
     bytec_0 // ""
-    // smart_contracts/abel_reader/contract.algo.ts:110
+    // smart_contracts/abel_reader/contract.algo.ts:113
     // for (let idx: uint64 = 0; idx < accounts.length; idx++) {
     intc_0 // 0
 
 logBalanceInfos_while_top@1:
-    // smart_contracts/abel_reader/contract.algo.ts:110
+    // smart_contracts/abel_reader/contract.algo.ts:113
     // for (let idx: uint64 = 0; idx < accounts.length; idx++) {
     frame_dig -1
     intc_0 // 0
@@ -1677,7 +1705,7 @@ logBalanceInfos_while_top@1:
     frame_dig 2
     >
     bz logBalanceInfos_after_while@6
-    // smart_contracts/abel_reader/contract.algo.ts:111
+    // smart_contracts/abel_reader/contract.algo.ts:114
     // const account = accounts[idx];
     frame_dig -1
     extract 2 0
@@ -1688,31 +1716,31 @@ logBalanceInfos_while_top@1:
     extract3 // on error: index access is out of bounds
     dup
     frame_bury 0
-    // smart_contracts/abel_reader/contract.algo.ts:112
+    // smart_contracts/abel_reader/contract.algo.ts:115
     // const balance = op.balance(account);
     balance
     dup
     frame_bury 1
-    // smart_contracts/abel_reader/contract.algo.ts:113
+    // smart_contracts/abel_reader/contract.algo.ts:116
     // if (balance > 0) {
     bz logBalanceInfos_else_body@4
-    // smart_contracts/abel_reader/contract.algo.ts:114
+    // smart_contracts/abel_reader/contract.algo.ts:117
     // const minBalance = op.minBalance(account);
     frame_dig 0
     min_balance
-    // smart_contracts/abel_reader/contract.algo.ts:115
+    // smart_contracts/abel_reader/contract.algo.ts:118
     // const balanceInfo: BalanceInfo = { balance, minBalance };
     frame_dig 1
     itob
     swap
     itob
     concat
-    // smart_contracts/abel_reader/contract.algo.ts:116
+    // smart_contracts/abel_reader/contract.algo.ts:119
     // log(encodeArc4(balanceInfo));
     log
 
 logBalanceInfos_after_if_else@5:
-    // smart_contracts/abel_reader/contract.algo.ts:110
+    // smart_contracts/abel_reader/contract.algo.ts:113
     // for (let idx: uint64 = 0; idx < accounts.length; idx++) {
     frame_dig 2
     intc_1 // 1
@@ -1721,10 +1749,10 @@ logBalanceInfos_after_if_else@5:
     b logBalanceInfos_while_top@1
 
 logBalanceInfos_else_body@4:
-    // smart_contracts/abel_reader/contract.algo.ts:124
+    // smart_contracts/abel_reader/contract.algo.ts:127
     // return { balance: 0, minBalance: 0 };
     pushbytes 0x00000000000000000000000000000000
-    // smart_contracts/abel_reader/contract.algo.ts:118
+    // smart_contracts/abel_reader/contract.algo.ts:121
     // log(encodeArc4(this.getEmptyBalanceInfo()));
     log
     b logBalanceInfos_after_if_else@5
@@ -1737,18 +1765,18 @@ logBalanceInfos_after_while@6:
 
 // smart_contracts/abel_reader/contract.algo.ts::AbelReader.logAssetsTiny(assetIds: bytes, abelAppId: uint64) -> bytes:
 logAssetsTiny:
-    // smart_contracts/abel_reader/contract.algo.ts:143
+    // smart_contracts/abel_reader/contract.algo.ts:149
     // private logAssetsTiny(assetIds: Asset[], abelAppId: uint64): void {
     proto 2 1
     intc_0 // 0
     dupn 3
     bytec_0 // ""
-    // smart_contracts/abel_reader/contract.algo.ts:144
+    // smart_contracts/abel_reader/contract.algo.ts:150
     // for (let idx: uint64 = 0; idx < assetIds.length; idx++) {
     intc_0 // 0
 
 logAssetsTiny_while_top@1:
-    // smart_contracts/abel_reader/contract.algo.ts:144
+    // smart_contracts/abel_reader/contract.algo.ts:150
     // for (let idx: uint64 = 0; idx < assetIds.length; idx++) {
     frame_dig -2
     intc_0 // 0
@@ -1756,7 +1784,7 @@ logAssetsTiny_while_top@1:
     frame_dig 5
     >
     bz logAssetsTiny_after_while@13
-    // smart_contracts/abel_reader/contract.algo.ts:145
+    // smart_contracts/abel_reader/contract.algo.ts:151
     // const asset = assetIds[idx];
     frame_dig -2
     extract 2 0
@@ -1770,27 +1798,28 @@ logAssetsTiny_while_top@1:
     extract_uint64
     dup
     frame_bury 4
-    // smart_contracts/abel_reader/contract.algo.ts:146
+    // smart_contracts/abel_reader/contract.algo.ts:152
     // const [_, exists] = op.AssetParams.assetCreator(asset.id);
     asset_params_get AssetCreator
     bury 1
-    // smart_contracts/abel_reader/contract.algo.ts:147
+    // smart_contracts/abel_reader/contract.algo.ts:153
     // if (!exists) {
     bnz logAssetsTiny_else_body@4
-    // smart_contracts/abel_reader/contract.algo.ts:170-175
+    // smart_contracts/abel_reader/contract.algo.ts:177-183
     // return {
+    //   exists: false,
     //   name: "",
     //   unit_name: "",
     //   decimals: new Uint8(0),
     //   labels: [],
     // };
-    pushbytes 0x0007000900000b000000000000
-    // smart_contracts/abel_reader/contract.algo.ts:148
+    pushbytes 0x000008000a00000c000000000000
+    // smart_contracts/abel_reader/contract.algo.ts:154
     // log(encodeArc4(this.getEmptyAssetTinyLabels()));
     log
 
 logAssetsTiny_after_if_else@12:
-    // smart_contracts/abel_reader/contract.algo.ts:144
+    // smart_contracts/abel_reader/contract.algo.ts:150
     // for (let idx: uint64 = 0; idx < assetIds.length; idx++) {
     frame_dig 5
     intc_1 // 1
@@ -1799,7 +1828,7 @@ logAssetsTiny_after_if_else@12:
     b logAssetsTiny_while_top@1
 
 logAssetsTiny_else_body@4:
-    // smart_contracts/abel_reader/contract.algo.ts:151
+    // smart_contracts/abel_reader/contract.algo.ts:157
     // abelAppId !== 0 ? compileArc4(AbelStub).call.has_asset_label({ appId: abelAppId, args: [asset.id, "pv"] }).returnValue : 0;
     frame_dig -1
     bz logAssetsTiny_ternary_false@7
@@ -1835,7 +1864,7 @@ logAssetsTiny_else_body@4:
     btoi
 
 logAssetsTiny_ternary_merge@8:
-    // smart_contracts/abel_reader/contract.algo.ts:153
+    // smart_contracts/abel_reader/contract.algo.ts:160
     // name: asset.name.toString(),
     frame_dig 4
     dup
@@ -1843,14 +1872,14 @@ logAssetsTiny_ternary_merge@8:
     swap
     frame_bury 2
     assert // asset exists
-    // smart_contracts/abel_reader/contract.algo.ts:154
+    // smart_contracts/abel_reader/contract.algo.ts:161
     // unit_name: asset.unitName.toString(),
     dup
     asset_params_get AssetUnitName
     swap
     frame_bury 3
     assert // asset exists
-    // smart_contracts/abel_reader/contract.algo.ts:155
+    // smart_contracts/abel_reader/contract.algo.ts:162
     // decimals: new Uint8(asset.decimals),
     asset_params_get AssetDecimals
     assert // asset exists
@@ -1862,14 +1891,15 @@ logAssetsTiny_ternary_merge@8:
     assert // overflow
     extract 7 1
     frame_bury 1
-    // smart_contracts/abel_reader/contract.algo.ts:156
+    // smart_contracts/abel_reader/contract.algo.ts:163
     // labels: pv === 0 ? ([] as string[]) : ["pv"],
     bnz logAssetsTiny_ternary_false@10
     pushbytes 0x0000
 
 logAssetsTiny_ternary_merge@11:
-    // smart_contracts/abel_reader/contract.algo.ts:152-157
+    // smart_contracts/abel_reader/contract.algo.ts:158-164
     // const assetInfo: AssetTinyLabels = {
+    //   exists: true,
     //   name: asset.name.toString(),
     //   unit_name: asset.unitName.toString(),
     //   decimals: new Uint8(asset.decimals),
@@ -1884,7 +1914,7 @@ logAssetsTiny_ternary_merge@11:
     concat
     dup
     len
-    pushint 7 // 7
+    intc_3 // 8
     +
     frame_dig 3
     dup
@@ -1896,7 +1926,7 @@ logAssetsTiny_ternary_merge@11:
     dig 1
     itob
     extract 6 2
-    pushbytes 0x0007
+    pushbytes 0x800008
     swap
     concat
     dig 1
@@ -1916,19 +1946,19 @@ logAssetsTiny_ternary_merge@11:
     concat
     swap
     concat
-    // smart_contracts/abel_reader/contract.algo.ts:158
+    // smart_contracts/abel_reader/contract.algo.ts:165
     // log(encodeArc4(assetInfo));
     log
     b logAssetsTiny_after_if_else@12
 
 logAssetsTiny_ternary_false@10:
-    // smart_contracts/abel_reader/contract.algo.ts:156
+    // smart_contracts/abel_reader/contract.algo.ts:163
     // labels: pv === 0 ? ([] as string[]) : ["pv"],
     pushbytes 0x0001000200027076
     b logAssetsTiny_ternary_merge@11
 
 logAssetsTiny_ternary_false@7:
-    // smart_contracts/abel_reader/contract.algo.ts:151
+    // smart_contracts/abel_reader/contract.algo.ts:157
     // abelAppId !== 0 ? compileArc4(AbelStub).call.has_asset_label({ appId: abelAppId, args: [asset.id, "pv"] }).returnValue : 0;
     intc_0 // 0
     b logAssetsTiny_ternary_merge@8
@@ -1941,20 +1971,20 @@ logAssetsTiny_after_while@13:
 
 // smart_contracts/abel_reader/contract.algo.ts::AbelReader.getBlockTimesAndTc(firstRound: uint64, lastRound: uint64) -> bytes:
 smart_contracts/abel_reader/contract.algo.ts::AbelReader.getBlockTimesAndTc:
-    // smart_contracts/abel_reader/contract.algo.ts:178-179
+    // smart_contracts/abel_reader/contract.algo.ts:186-187
     // @abimethod({ readonly: true, onCreate: "allow" })
     // public getBlockTimesAndTc(firstRound: uint64, lastRound: uint64): BlockTimeAndTc {
     proto 2 1
     frame_dig -2
 
 smart_contracts/abel_reader/contract.algo.ts::AbelReader.getBlockTimesAndTc_while_top@1:
-    // smart_contracts/abel_reader/contract.algo.ts:180
+    // smart_contracts/abel_reader/contract.algo.ts:188
     // for (let round: uint64 = firstRound; round <= lastRound; round++) {
     frame_dig 0
     frame_dig -1
     <=
     bz smart_contracts/abel_reader/contract.algo.ts::AbelReader.getBlockTimesAndTc_after_while@3
-    // smart_contracts/abel_reader/contract.algo.ts:182
+    // smart_contracts/abel_reader/contract.algo.ts:190
     // ts: new Uint32(op.Block.blkTimestamp(round)),
     frame_dig 0
     dup
@@ -1966,21 +1996,21 @@ smart_contracts/abel_reader/contract.algo.ts::AbelReader.getBlockTimesAndTc_whil
     <=
     assert // overflow
     extract 4 4
-    // smart_contracts/abel_reader/contract.algo.ts:183
+    // smart_contracts/abel_reader/contract.algo.ts:191
     // tc: op.Block.blkTxnCounter(round),
     dig 1
     block BlkTxnCounter
-    // smart_contracts/abel_reader/contract.algo.ts:181-184
+    // smart_contracts/abel_reader/contract.algo.ts:189-192
     // const blkData: BlockTimeAndTc = {
     //   ts: new Uint32(op.Block.blkTimestamp(round)),
     //   tc: op.Block.blkTxnCounter(round),
     // };
     itob
     concat
-    // smart_contracts/abel_reader/contract.algo.ts:185
+    // smart_contracts/abel_reader/contract.algo.ts:193
     // log(encodeArc4(blkData));
     log
-    // smart_contracts/abel_reader/contract.algo.ts:180
+    // smart_contracts/abel_reader/contract.algo.ts:188
     // for (let round: uint64 = firstRound; round <= lastRound; round++) {
     intc_1 // 1
     +
@@ -1988,7 +2018,7 @@ smart_contracts/abel_reader/contract.algo.ts::AbelReader.getBlockTimesAndTc_whil
     b smart_contracts/abel_reader/contract.algo.ts::AbelReader.getBlockTimesAndTc_while_top@1
 
 smart_contracts/abel_reader/contract.algo.ts::AbelReader.getBlockTimesAndTc_after_while@3:
-    // smart_contracts/abel_reader/contract.algo.ts:187
+    // smart_contracts/abel_reader/contract.algo.ts:195
     // return { ts: new Uint32(0), tc: 0 };
     pushbytes 0x000000000000000000000000
     swap
