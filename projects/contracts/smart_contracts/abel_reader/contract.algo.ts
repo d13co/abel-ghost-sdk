@@ -22,7 +22,10 @@ export type BalanceInfo = {
   minBalance: uint64;
 };
 
+// `exists` is false when no asset has the id: destroyed, or not created yet. Its other fields are then empty, which
+// a live asset can also be, so they alone can't tell.
 export type AssetTinyLabels = {
+  exists: boolean;
   name: string;
   unit_name: string;
   decimals: Uint8;
@@ -125,18 +128,21 @@ export class AbelReader extends Contract {
   }
 
   /**
-   * Name, unit name and decimals of each asset, and whether the Abel registry labels it `pv`. Each existing asset makes
-   * one inner app call to the registry, and a group can make at most 256 inner transactions. 128 per app call and per
+   * Whether each asset exists, its name, unit name and decimals, and whether the Abel registry labels it `pv` (no labels
+   * where the registry doesn't exist, e.g. at a round before it was created). Each existing asset makes one inner app
+   * call to the registry, and a group can make at most 256 inner transactions. 128 per app call and per
    * group is among the fastest packings on MainNet (see the abel-assets demo). The assets can be spread over four
    * arrays, logged in argument order; empty ones are skipped.
    * Chunked by ghostkit: `@ghostkit-chunk assetIds refsPerItem=2 maxPerTxn=128 maxPerGroup=128`
    */
   @abimethod({ readonly: true, onCreate: "allow" })
   getAssetsTiny(assetIds: Asset[], abelAppId: uint64, assetIds2: Asset[], assetIds3: Asset[], assetIds4: Asset[]): AssetTinyLabels {
-    this.logAssetsTiny(assetIds, abelAppId);
-    this.logAssetsTiny(assetIds2, abelAppId);
-    this.logAssetsTiny(assetIds3, abelAppId);
-    this.logAssetsTiny(assetIds4, abelAppId);
+    // A read at a round before the registry was created would fail calling it: no labels then instead.
+    const registryAppId: uint64 = abelAppId !== 0 && op.AppParams.appCreator(abelAppId)[1] ? abelAppId : 0;
+    this.logAssetsTiny(assetIds, registryAppId);
+    this.logAssetsTiny(assetIds2, registryAppId);
+    this.logAssetsTiny(assetIds3, registryAppId);
+    this.logAssetsTiny(assetIds4, registryAppId);
     return this.getEmptyAssetTinyLabels();
   }
 
@@ -150,6 +156,7 @@ export class AbelReader extends Contract {
         const pv: uint64 =
           abelAppId !== 0 ? compileArc4(AbelStub).call.has_asset_label({ appId: abelAppId, args: [asset.id, "pv"] }).returnValue : 0;
         const assetInfo: AssetTinyLabels = {
+          exists: true,
           name: asset.name.toString(),
           unit_name: asset.unitName.toString(),
           decimals: new Uint8(asset.decimals),
@@ -168,6 +175,7 @@ export class AbelReader extends Contract {
 
   private getEmptyAssetTinyLabels(): AssetTinyLabels {
     return {
+      exists: false,
       name: "",
       unit_name: "",
       decimals: new Uint8(0),
