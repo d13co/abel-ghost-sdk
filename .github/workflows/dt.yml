@@ -94,8 +94,8 @@ jobs:
     concurrency:
       group: npm-publish
       cancel-in-progress: false
-    # The trusted publisher on npmjs.com names this environment. Add required reviewers to it on GitHub to approve
-    # each release by hand.
+    # The trusted publisher on npmjs.com names this environment. scripts/ci/apply-npm-environment.sh makes each
+    # release wait for a reviewer's approval and lets only v*-dt.* tags deploy to it.
     environment:
       name: npm
       url: https://www.npmjs.com/package/abel-ghost-sdk/v/${{ steps.version.outputs.version }}

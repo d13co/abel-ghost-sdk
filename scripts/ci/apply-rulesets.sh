@@ -4,6 +4,9 @@
 #                        force push; repository admins can bypass it
 #   dtalgorand deletion  dtalgorand can't be deleted
 #   release tags         v*-dt.* tags can't be moved or deleted
+#   main                 changes land on main through merged pull requests, never by force push; repository admins
+#                        can bypass it (main has no CI, so no check is required)
+#   main deletion        main can't be deleted
 # Needs gh, logged in as a repository admin.
 # Usage: scripts/ci/apply-rulesets.sh [owner/repo, default d13co/abel-ghost-sdk]
 set -eu
